@@ -8,8 +8,8 @@ var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 2
 let win
 
 var tags = [
-    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, step: 1, cupd: true, val: null },
-    { name: "tensionLBSP", addr: "D10000", type: "real", min: 50, max: 150, step: 0.1, cupd: true, val: null },
+    { name: "angleGV", descr: "Угол ГВ", eng: "°", addr: "D0", type: "int", min: 0, max: 359, step: 1, cupd: true, val: null },
+    { name: "tensionLBSP", descr: "Натяжение", eng: "%", addr: "D10000", type: "real", min: 50, max: 150, step: 0.1, cupd: true, val: null },
 ];
 let dl;
 function createWindow() {

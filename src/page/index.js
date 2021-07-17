@@ -45,14 +45,16 @@ export default class App extends React.Component {
                     <Col>
                         <Card bodyStyle={{ padding: "12px 36px" }}>
                             <Statistic
-                                title="Угол ГВ"
+                                title={this.state.angleGV === null ? "--" : this.state.angleGV.descr}
                                 value={this.state.angleGV === null ? "--" : this.state.angleGV.val}
-                                suffix={<span> °</span>}
+                                suffix={<span> {this.state.angleGV === null ? "--" : this.state.angleGV.eng}</span>}
                             />
                         </Card>
                     </Col>
                     <Col>
                         <InputNumber
+                            size="large"
+                            keyboard="true"
                             min={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.min}
                             max={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.max}
                             step={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.step}
