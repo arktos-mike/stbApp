@@ -8,8 +8,8 @@ var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 2
 let win
 
 var tags = [
-    { name: "angleGV", addr: "D0", type: "int", cupd: true },
-    { name: "tensionLBSP", addr: "D10000", type: "real", cupd: true },
+    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, step: 1, cupd: true, val: null },
+    { name: "tensionLBSP", addr: "D10000", type: "real", min: 50, max: 150, step: 0.1, cupd: true, val: null },
 ];
 let dl;
 function createWindow() {
@@ -46,9 +46,9 @@ function createWindow() {
         client.read(item.addr, dl, function (err, msg) {
             switch (item.type) {
                 case "int":
-                    win.webContents.send('plcReaded', msg.response.values[0], msg.tag.name);
+                    win.webContents.send('plcReaded', msg.response.values[0], item);
                     break;
-    
+
                 case "real":
                     var buf = new ArrayBuffer(4);
                     var bytes = new Uint8Array(buf);
@@ -57,9 +57,9 @@ function createWindow() {
                     bytes[1] = (msg.response.values[1] & 0x00ff);
                     bytes[0] = (msg.response.values[1] & 0xff00) >> 8;
                     var view = new DataView(buf);
-                    win.webContents.send('plcReaded', Number(view.getFloat32(0, false).toFixed(1)), msg.tag.name);
+                    win.webContents.send('plcReaded', Number(view.getFloat32(0, false).toFixed(1)), item);
                     break;
-    
+
             }
         })
     })
@@ -71,14 +71,14 @@ function createWindow() {
                 break;
 
             case "real":
-                var farr = new Float32Array(1); 
+                var farr = new Float32Array(1);
                 var bytes = new Uint8Array(farr.buffer);
                 var words = new Uint16Array(2);
                 farr[0] = value;
                 words[0] = (bytes[1] << 8) | bytes[0];
                 words[1] = (bytes[3] << 8) | bytes[2];
-                console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
-                client.write(item.addr, [words[0],words[1]]);
+                //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
+                client.write(item.addr, [words[0], words[1]]);
                 break;
 
         }
@@ -160,15 +160,15 @@ var cb = function (err, msg) {
                         modetext = "\x1b[31mАВАРИЯ";
                         break;
                 }
-                console.log(new Date().toISOString(), '\t', modetext, '\x1b[0m\t', msg.tag.name, '\t');
+                //console.log(new Date().toISOString(), '\t', modetext, '\x1b[0m\t', msg.tag.name, '\t');
                 break;
 
             case "bool":
-                console.log(new Date().toISOString(), '\t', msg.response.values[0] === 0 ? "\x1b[31mПОДНЯТА" : "\x1b[32mОПУЩЕНА", '\x1b[0m\t', msg.tag.name, '\t');
+                //console.log(new Date().toISOString(), '\t', msg.response.values[0] === 0 ? "\x1b[31mПОДНЯТА" : "\x1b[32mОПУЩЕНА", '\x1b[0m\t', msg.tag.name, '\t');
                 break;
 
             case "int":
-                win.webContents.send('plcReply', msg.response.values[0], msg.tag.name);
+                win.webContents.send('plcReply', msg.response.values[0], msg.tag);
                 //console.log(new Date().toISOString(), '\t', msg.response.values[0], '\t', msg.tag.name, '\t');
                 break;
 
@@ -180,8 +180,8 @@ var cb = function (err, msg) {
                 bytes[1] = (msg.response.values[1] & 0x00ff);
                 bytes[0] = (msg.response.values[1] & 0xff00) >> 8;
                 var view = new DataView(buf);
-                win.webContents.send('plcReply', Number(view.getFloat32(0, false).toFixed(1)), msg.tag.name);
-                console.log(new Date().toISOString(), '\t', Number(view.getFloat32(0, false).toFixed(1)), '\t', msg.tag.name, '\t');
+                win.webContents.send('plcReply', Number(view.getFloat32(0, false).toFixed(1)), msg.tag);
+                //console.log(new Date().toISOString(), '\t', Number(view.getFloat32(0, false).toFixed(1)), '\t', msg.tag.name, '\t');
                 break;
 
         }

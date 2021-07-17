@@ -13,20 +13,24 @@ export default class App extends React.Component {
             tensionLBSP: null,
         };
     }
+
     isElectron = () => {
         return window && window.process && window.process.type;
     }
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                if (tag === "angleGV") {
+                if (tag.name === "angleGV") {
+                    tag.val = val;
                     this.setState({
-                        angleGV: val
+                        angleGV: tag
                     });
+
                 }
-                if (tag === "tensionLBSP") {
+                if (tag.name === "tensionLBSP") {
+                    tag.val = val;
                     this.setState({
-                        tensionLBSP: val
+                        tensionLBSP: tag
                     });
                 }
 
@@ -42,27 +46,29 @@ export default class App extends React.Component {
                         <Card bodyStyle={{ padding: "12px 36px" }}>
                             <Statistic
                                 title="Угол ГВ"
-                                value={this.state.angleGV===null?"--":this.state.angleGV}
+                                value={this.state.angleGV === null ? "--" : this.state.angleGV.val}
                                 suffix={<span> °</span>}
                             />
                         </Card>
                     </Col>
                     <Col>
                         <InputNumber
-                            min={-900}
-                            max={900}
-                            step={0.1}
-                            value={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP}
+                            min={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.min}
+                            max={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.max}
+                            step={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.step}
+                            value={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.val}
                             onChange={(value) => {
-                                if (value !== this.state.tensionLBSP) {
+                                if (value !== this.state.tensionLBSP.val) {
                                     window.ipcRenderer.send("plcWrite", "tensionLBSP", value);
                                 }
-                                this.setState({
-                                    tensionLBSP: value
+                                this.setState((prevState, prevProps) => {
+                                    let obj = prevState.tensionLBSP;
+                                    obj.val = value;
+                                    return { tensionLBSP: obj };
                                 });
-                                
+
                             }}
-                            style={{width:"100%", textAlign:"right"}}
+                            style={{ width: "100%", textAlign: "right" }}
                         />
                     </Col>
                 </Row>
