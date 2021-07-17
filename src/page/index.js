@@ -9,20 +9,27 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            speedGV: 0,
+            angleGV: null,
+            tensionLBSP: null,
         };
     }
     isElectron = () => {
         return window && window.process && window.process.type;
-      }
+    }
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
                 if (tag === "angleGV") {
                     this.setState({
-                        speedGV: val
+                        angleGV: val
                     });
                 }
+                if (tag === "tensionLBSP") {
+                    this.setState({
+                        tensionLBSP: val
+                    });
+                }
+
             });
         }
     }
@@ -35,10 +42,28 @@ export default class App extends React.Component {
                         <Card bodyStyle={{ padding: "12px 36px" }}>
                             <Statistic
                                 title="Угол ГВ"
-                                value={this.state.speedGV}
+                                value={this.state.angleGV===null?"--":this.state.angleGV}
                                 suffix={<span> °</span>}
                             />
                         </Card>
+                    </Col>
+                    <Col>
+                        <InputNumber
+                            min={-900}
+                            max={900}
+                            step={0.1}
+                            value={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP}
+                            onChange={(value) => {
+                                if (value !== this.state.tensionLBSP) {
+                                    window.ipcRenderer.send("plcWrite", "tensionLBSP", value);
+                                }
+                                this.setState({
+                                    tensionLBSP: value
+                                });
+                                
+                            }}
+                            style={{width:"100%", textAlign:"right"}}
+                        />
                     </Col>
                 </Row>
             </div>
