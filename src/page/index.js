@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import { Button, Table, Switch, Typography, Row, Col, Tabs, Modal, InputNumber, Drawer, Descriptions, Divider, Popconfirm, Checkbox, Progress, Statistic, Card, Badge } from "antd";
+import { Button, Table, Switch, Typography, Row, Col, Tabs, Modal, Input, InputNumber, Drawer, Descriptions, Divider, Popconfirm, Checkbox, Progress, Statistic, Card, Badge } from "antd";
 import { LineChartOutlined, TableOutlined, CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
+import NumPad from 'react-numpad';
 
 import "./App.css";
 import Icon from '@ant-design/icons';
+import { MainRouter } from '../router';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -12,11 +14,32 @@ export default class App extends React.Component {
             angleGV: null,
             tensionLBSP: null,
         };
+        this.myTheme = {
+            header: {
+                primaryColor: '#263238',
+                secondaryColor: '#f9f9f9',
+                highlightColor: '#3c8ffe',
+                backgroundColor: '#001529',
+            },
+            body: {
+                primaryColor: '#263238',
+                secondaryColor: '#32a5f2',
+                highlightColor: '#FFC107',
+                backgroundColor: '#f9f9f9',
+            },
+            panel: {
+                backgroundColor: '#CFD8DC'
+            },
+            global: {
+                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji'
+            },
+        };
     }
 
     isElectron = () => {
         return window && window.process && window.process.type;
     }
+
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
@@ -37,6 +60,7 @@ export default class App extends React.Component {
             });
         }
     }
+
     render() {
         return (
             <div style={{ padding: 8 }}>
@@ -52,26 +76,30 @@ export default class App extends React.Component {
                         </Card>
                     </Col>
                     <Col>
-                        <InputNumber
-                            size="large"
-                            keyboard="true"
-                            min={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.min}
-                            max={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.max}
-                            step={this.state.tensionLBSP === null ? null : this.state.tensionLBSP.step}
-                            value={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.val}
+                        <NumPad.Number
+                            theme={this.myTheme}
                             onChange={(value) => {
                                 if (value !== this.state.tensionLBSP.val) {
                                     window.ipcRenderer.send("plcWrite", "tensionLBSP", value);
                                 }
-                                this.setState((prevState, prevProps) => {
+                                this.setState((prevState) => {
                                     let obj = prevState.tensionLBSP;
                                     obj.val = value;
                                     return { tensionLBSP: obj };
                                 });
-
                             }}
-                            style={{ width: "100%", textAlign: "right" }}
-                        />
+                            decimal={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.dec}
+                            negative={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.min < 0 ? true : false}
+                        >
+                            <div className="myInput">
+                                <Input size="large"
+                                    addonBefore={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.descr}
+                                    addonAfter={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.eng}
+                                    value={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.val}
+                                    style={{ width: "65%", textAlign: "right" }}
+                                />
+                            </div>
+                        </NumPad.Number>
                     </Col>
                 </Row>
             </div>

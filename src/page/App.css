@@ -35,7 +35,29 @@
   margin: 5;
   float: left;
 }
+.time {
+  padding-top: 5px;
+  text-align: center;
+  width: 90px;
+  color: #ffffff;
+  display: flex;
+  float: right;
+  line-height: 160%;
+  font-size: medium;
+}
+.ant-input {
+  font-size: 24px !important;
+}
+.sc-bxivhb {
+  font-size: 24px !important;
+  text-align: end !important;
+  padding-right: 10px !important;
+} 
 
+.MuiButton-label{
+  font-size: 24px !important;
+  color: #32a5f2 !important;
+}
 .App-logo {
  /*animation: App-logo-spin infinite 20s linear;*/
   height: 55px;

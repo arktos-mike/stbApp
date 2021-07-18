@@ -68,4 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## References for RPI4 build
+
 docker run --rm -ti -v E:\stbapp\stbApp\:/project -w /project electronuserland/builder
+https://www.raspberrypi.org/forums/viewtopic.php?t=245701
+https://www.raspberrypi.org/forums/viewtopic.php?t=14914
+https://desertbot.io/blog/raspberry-pi-4-touchscreen-kiosk-setup
+https://www.raspberrypi.org/forums/viewtopic.php?t=258795
+https://shop.sb-components.co.uk/blogs/posts/customising-splash-screen-on-your-raspberry-pi
