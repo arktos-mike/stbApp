@@ -71,6 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## References for RPI4 build
 
+https://github.com/electron-userland/electron-build-service/issues/9
 docker run --rm -ti -v E:\stbapp\stbApp\:/project -w /project electronuserland/builder
 https://www.raspberrypi.org/forums/viewtopic.php?t=245701
 https://www.raspberrypi.org/forums/viewtopic.php?t=14914
