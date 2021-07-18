@@ -3,13 +3,13 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require('url')
 var fins = require('omron-fins');
 
-var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
-//var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
+//var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
+var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
 let win
 
 var tags = [
     { name: "angleGV", descr: "Угол останова ГВ", eng: "°", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: true, val: null },
-    { name: "tensionLBSP", descr: "Задание натяжения левого навоя", eng: "%", addr: "D10000", type: "real", min: 50, max: 150, dec: 1, cupd: true, val: null },
+    { name: "weftDensity", descr: "Плотность ткани по утку", eng: "утч/см", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: true, val: null },
 ];
 let dl;
 function createWindow() {

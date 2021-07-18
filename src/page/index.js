@@ -12,7 +12,7 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             angleGV: null,
-            tensionLBSP: null,
+            weftDensity: null,
         };
         this.myTheme = {
             header: {
@@ -50,10 +50,10 @@ export default class App extends React.Component {
                     });
 
                 }
-                if (tag.name === "tensionLBSP") {
+                if (tag.name === "weftDensity") {
                     tag.val = val;
                     this.setState({
-                        tensionLBSP: tag
+                        weftDensity: tag
                     });
                 }
 
@@ -79,23 +79,23 @@ export default class App extends React.Component {
                         <NumPad.Number
                             theme={this.myTheme}
                             onChange={(value) => {
-                                if (value !== this.state.tensionLBSP.val) {
-                                    window.ipcRenderer.send("plcWrite", "tensionLBSP", value);
+                                if (value !== this.state.weftDensity.val) {
+                                    window.ipcRenderer.send("plcWrite", "weftDensity", value);
                                 }
                                 this.setState((prevState) => {
-                                    let obj = prevState.tensionLBSP;
+                                    let obj = prevState.weftDensity;
                                     obj.val = value;
-                                    return { tensionLBSP: obj };
+                                    return { weftDensity: obj };
                                 });
                             }}
-                            decimal={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.dec}
-                            negative={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.min < 0 ? true : false}
+                            decimal={this.state.weftDensity === null ? "--" : this.state.weftDensity.dec}
+                            negative={this.state.weftDensity === null ? "--" : this.state.weftDensity.min < 0 ? true : false}
                         >
                             <div className="myInput">
                                 <Input size="large"
-                                    addonBefore={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.descr}
-                                    addonAfter={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.eng}
-                                    value={this.state.tensionLBSP === null ? "--" : this.state.tensionLBSP.val}
+                                    addonBefore={this.state.weftDensity === null ? "--" : this.state.weftDensity.descr}
+                                    addonAfter={this.state.weftDensity === null ? "--" : this.state.weftDensity.eng}
+                                    value={this.state.weftDensity === null ? "--" : this.state.weftDensity.val}
                                     style={{ width: "65%", textAlign: "right" }}
                                 />
                             </div>
