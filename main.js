@@ -89,7 +89,7 @@ function createWindow() {
 
     win.loadURL(startUrl);
 
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     win.on('closed', () => {
         console.log("win.closed")
@@ -143,20 +143,24 @@ var cb = function (err, msg) {
                 var modetext;
                 switch (msg.response.values[0]) {
                     case 1:
-                        modetext = "\x1b[34mИНИЦИАЛИЗАЦИЯ";
+                        modetext = "ИНИЦИАЛИЗАЦИЯ";
                         break;
                     case 2:
-                        modetext = "\x1b[33mСТОП";
+                        modetext = "СТОП";
                         break;
                     case 3:
-                        modetext = "\x1b[35mПОДГОТОВКА";
+                        modetext = "ПОДГОТОВКА";
                         break;
                     case 4:
-                        modetext = "\x1b[32mРАБОТА";
+                        modetext = "РАБОТА";
                         break;
                     case 10:
-                        modetext = "\x1b[31mАВАРИЯ";
+                        modetext = "АВАРИЯ";
                         break;
+                    default:
+                        modetext = "НЕИЗВЕСТНО";
+                            break;
+
                 }
                 win.webContents.send('plcReply', modetext, msg.tag);
                 //console.log(new Date().toISOString(), '\t', modetext, '\x1b[0m\t', msg.tag.name, '\t');

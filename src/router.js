@@ -18,19 +18,15 @@ export class MainRouter extends React.Component {
         return window && window.process && window.process.type;
     }
 
-    updateValues = (val, tag) => {
-        if (tag.name === "mode") {
-            tag.val = val;
-            this.setState({
-                mode: tag
-            });
-        }
-    }
-
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                this.updateValues(val, tag);
+                if (tag.name === "mode") {
+                    tag.val = val;
+                    this.setState({
+                        mode: tag
+                    });
+                }
             });
         }
         setInterval(() => {
@@ -70,8 +66,8 @@ export class MainRouter extends React.Component {
                                 <Link to="/settings">НАСТРОЙКИ</Link>
                             </Menu.Item>
                         </Menu>
-                        <div className="time">
-                            {this.state.mode} 
+                        <div className="mode" style={{backgroundColor: this.state.mode===null?'#00000000':this.state.mode.val==='ИНИЦИАЛИЗАЦИЯ'?'#000000FF':this.state.mode.val==='СТОП'?'#FFB300FF':this.state.mode.val==='ПОДГОТОВКА'?'#3949ABFF':this.state.mode.val==='РАБОТА'?'#43A047FF':this.state.mode.val==='АВАРИЯ'?'#E53935FF':'#00000000'}}>
+                            {this.state.mode===null?"НЕИЗВЕСТНО":this.state.mode.val} 
                         </div>
                         <div className="time">
                             {this.state.curTime} {this.state.curDate}

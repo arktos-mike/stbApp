@@ -30,20 +30,30 @@
 }
 
 .logo {
- 
   height: 60px;
   margin: 5;
   float: left;
+  display: inline-flex;
+  padding-top: 5px;
 }
 .time {
   padding-top: 5px;
   text-align: center;
   width: 90px;
   color: #ffffff;
-  display: flex;
+  display: inline-flex;
   float: right;
   line-height: 160%;
   font-size: medium;
+}
+.mode {
+  color: #ffffff;
+  display: inline-flex;
+  font-size: x-large;
+  font-weight: bold;
+  width: calc(60% - 90px);
+  align-items: center;
+  justify-content: center;
 }
 .ant-input {
   font-size: 24px !important;
