@@ -40,24 +40,28 @@ export default class App extends React.Component {
         return window && window.process && window.process.type;
     }
 
+    updateValues = (val, tag) => {
+        if (tag.name === "angleGV") {
+            tag.val = val;
+            this.setState({
+                angleGV: tag
+            });
+        }
+        if (tag.name === "weftDensity") {
+            tag.val = val;
+            this.setState({
+                weftDensity: tag
+            });
+        }
+    }
+
     componentDidMount() {
         if (this.isElectron()) {
+            window.ipcRenderer.send("tagsUpdSelect", ["angleGV"]);
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                if (tag.name === "angleGV") {
-                    tag.val = val;
-                    this.setState({
-                        angleGV: tag
-                    });
-
-                }
-                if (tag.name === "weftDensity") {
-                    tag.val = val;
-                    this.setState({
-                        weftDensity: tag
-                    });
-                }
-
+                this.updateValues(val, tag);
             });
+            window.ipcRenderer.send("plcRead", ["weftDensity"]);
         }
     }
 
@@ -91,14 +95,12 @@ export default class App extends React.Component {
                             decimal={this.state.weftDensity === null ? "--" : this.state.weftDensity.dec}
                             negative={this.state.weftDensity === null ? "--" : this.state.weftDensity.min < 0 ? true : false}
                         >
-                            <div className="myInput">
-                                <Input size="large"
-                                    addonBefore={this.state.weftDensity === null ? "--" : this.state.weftDensity.descr}
-                                    addonAfter={this.state.weftDensity === null ? "--" : this.state.weftDensity.eng}
-                                    value={this.state.weftDensity === null ? "--" : this.state.weftDensity.val}
-                                    style={{ width: "65%", textAlign: "right" }}
-                                />
-                            </div>
+                            <Input size="large"
+                                addonBefore={this.state.weftDensity === null ? "--" : this.state.weftDensity.descr}
+                                addonAfter={this.state.weftDensity === null ? "--" : this.state.weftDensity.eng}
+                                value={this.state.weftDensity === null ? "--" : this.state.weftDensity.val}
+                                style={{ width: "65%", textAlign: "right" }}
+                            />
                         </NumPad.Number>
                     </Col>
                 </Row>

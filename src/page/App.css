@@ -53,11 +53,10 @@
   text-align: end !important;
   padding-right: 10px !important;
 } 
-
 .MuiButton-label{
   font-size: 24px !important;
-  color: #32a5f2 !important;
 }
+
 .App-logo {
  /*animation: App-logo-spin infinite 20s linear;*/
   height: 55px;

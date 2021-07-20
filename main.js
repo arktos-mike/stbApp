@@ -3,13 +3,14 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require('url')
 var fins = require('omron-fins');
 
-//var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
-var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
+var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
+//var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
 let win
 
 var tags = [
-    { name: "angleGV", descr: "Угол останова ГВ", eng: "°", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: true, val: null },
-    { name: "weftDensity", descr: "Плотность ткани по утку", eng: "утч/см", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: true, val: null },
+    { name: "angleGV", descr: "Угол останова ГВ", eng: "°", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, val: null },
+    { name: "weftDensity", descr: "Плотность ткани по утку", eng: "утч/см", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: false, val: null },
+    { name: "mode", descr: "Режим работы", eng: "--", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, val: null },
 ];
 let dl;
 function createWindow() {
@@ -30,38 +31,34 @@ function createWindow() {
         transparent: false,
         center: true,
     })
-
-    ipcMain.on("plcRead", (event, name) => {
-        let item = tags.find(e => e.name === name);
-        switch (item.type) {
-            case "real":
-            case "dword":
-                dl = 2;
-                break;
-            case "int":
-            case "bool":
-                dl = 1;
-                break;
-        }
-        client.read(item.addr, dl, function (err, msg) {
+    ipcMain.on("tagsUpdSelect", (event, arr) => {
+        arr.forEach(function (name) {
+            tags.forEach(function (e, i) {
+                if (e.name === name || e.name === "mode" )  {
+                    this[i].cupd = true;
+                }
+                else {
+                    this[i].cupd = false;
+                }
+            }, tags);
+        });
+    });
+    ipcMain.on("plcRead", (event, arr) => {
+        arr.forEach(function (name) {
+            let item = tags.find(e => e.name === name);
             switch (item.type) {
-                case "int":
-                    win.webContents.send('plcReaded', msg.response.values[0], item);
-                    break;
-
                 case "real":
-                    var buf = new ArrayBuffer(4);
-                    var bytes = new Uint8Array(buf);
-                    bytes[3] = (msg.response.values[0] & 0x00ff);
-                    bytes[2] = (msg.response.values[0] & 0xff00) >> 8;
-                    bytes[1] = (msg.response.values[1] & 0x00ff);
-                    bytes[0] = (msg.response.values[1] & 0xff00) >> 8;
-                    var view = new DataView(buf);
-                    win.webContents.send('plcReaded', Number(view.getFloat32(0, false).toFixed(msg.tag.dec)), item);
+                case "dword":
+                    dl = 2;
                     break;
-
+                case "int":
+                case "mode":
+                case "bool":
+                    dl = 1;
+                    break;
             }
-        })
+            client.read(item.addr, dl, cb, item);
+        });
     })
     ipcMain.on("plcWrite", (event, name, value) => {
         let item = tags.find(e => e.name === name);
@@ -92,7 +89,7 @@ function createWindow() {
 
     win.loadURL(startUrl);
 
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     win.on('closed', () => {
         console.log("win.closed")
@@ -127,6 +124,7 @@ let intervalTimer = setInterval(() => {
                         break;
                     case "int":
                     case "bool":
+                    case "mode":
                         dl = 1;
                         break;
                 }
@@ -160,6 +158,7 @@ var cb = function (err, msg) {
                         modetext = "\x1b[31mАВАРИЯ";
                         break;
                 }
+                win.webContents.send('plcReply', modetext, msg.tag);
                 //console.log(new Date().toISOString(), '\t', modetext, '\x1b[0m\t', msg.tag.name, '\t');
                 break;
 

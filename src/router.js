@@ -11,9 +11,28 @@ export class MainRouter extends React.Component {
         current: 'overview',
         curTime: null,
         curDate: null,
+        mode: null,
     };
+    
+    isElectron = () => {
+        return window && window.process && window.process.type;
+    }
+
+    updateValues = (val, tag) => {
+        if (tag.name === "mode") {
+            tag.val = val;
+            this.setState({
+                mode: tag
+            });
+        }
+    }
 
     componentDidMount() {
+        if (this.isElectron()) {
+            window.ipcRenderer.on('plcReply', (event, val, tag) => {
+                this.updateValues(val, tag);
+            });
+        }
         setInterval(() => {
             let d = moment().format("DD.MM.YYYY");
             let t = moment().format("HH:mm:ss")
@@ -51,6 +70,9 @@ export class MainRouter extends React.Component {
                                 <Link to="/settings">НАСТРОЙКИ</Link>
                             </Menu.Item>
                         </Menu>
+                        <div className="time">
+                            {this.state.mode} 
+                        </div>
                         <div className="time">
                             {this.state.curTime} {this.state.curDate}
                         </div>
