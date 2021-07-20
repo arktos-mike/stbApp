@@ -34,6 +34,13 @@ export default class App extends React.Component {
                 fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji'
             },
         };
+        if (this.isElectron()) {
+            window.ipcRenderer.send("tagsUpdSelect", ["angleGV"]);
+            window.ipcRenderer.on('plcReply', (event, val, tag) => {
+                this.updateValues(val, tag);
+            });
+            window.ipcRenderer.send("plcRead", ["weftDensity"]);
+        }
     }
 
     isElectron = () => {
@@ -56,13 +63,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        if (this.isElectron()) {
-            window.ipcRenderer.send("tagsUpdSelect", ["angleGV"]);
-            window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                this.updateValues(val, tag);
-            });
-            window.ipcRenderer.send("plcRead", ["weftDensity"]);
-        }
+        
     }
 
     render() {
