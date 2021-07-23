@@ -1,17 +1,12 @@
-import React, { Fragment } from 'react';
-import { Button, Table, Switch, Typography, Row, Col, Tabs, Modal, Input, InputNumber, Drawer, Descriptions, Divider, Popconfirm, Checkbox, Progress, Statistic, Card, Badge } from "antd";
-import { LineChartOutlined, TableOutlined, CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Row, Col, Input } from "antd";
 import NumPad from 'react-numpad';
-
 import "./App.css";
-import Icon from '@ant-design/icons';
-import { MainRouter } from '../router';
 
-export default class App extends React.Component {
+export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            angleGV: null,
             weftDensity: null,
         };
         this.myTheme = {
@@ -34,52 +29,43 @@ export default class App extends React.Component {
                 fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji'
             },
         };
-        if (this.isElectron()) {
-            window.ipcRenderer.send("tagsUpdSelect", ["angleGV"]);
-            window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                this.updateValues(val, tag);
-            });
-            window.ipcRenderer.send("plcRead", ["weftDensity"]);
-        }
     }
 
     isElectron = () => {
         return window && window.process && window.process.type;
     }
 
-    updateValues = (val, tag) => {
-        if (tag.name === "angleGV") {
-            tag.val = val;
-            this.setState({
-                angleGV: tag
-            });
-        }
+    plcReplyListenerSetting = (event, val, tag) => {
         if (tag.name === "weftDensity") {
             tag.val = val;
             this.setState({
                 weftDensity: tag
             });
         }
-    }
+    };
+
+    langChangedListenerSetting = (event, lang) => {
+        window.ipcRenderer.send("plcRead", ["weftDensity"]);
+    };
 
     componentDidMount() {
-        
+        if (this.isElectron()) {
+            window.ipcRenderer.send("tagsUpdSelect", []);
+            window.ipcRenderer.on('plcReply', this.plcReplyListenerSetting);
+            window.ipcRenderer.send("plcRead", ["weftDensity"]);
+            window.ipcRenderer.on('langChanged', this.langChangedListenerSetting);
+        }
     }
 
+    componentWillUnmount() {
+        window.ipcRenderer.removeListener('plcReply', this.plcReplyListenerSetting);
+        window.ipcRenderer.removeListener('langChanged', this.langChangedListenerSetting);
+    }
     render() {
         return (
             <div style={{ padding: 8 }}>
 
                 <Row align="top" gutter={[16, 0]}>
-                    <Col>
-                        <Card bodyStyle={{ padding: "12px 36px" }}>
-                            <Statistic
-                                title={this.state.angleGV === null ? "--" : this.state.angleGV.descr}
-                                value={this.state.angleGV === null ? "--" : this.state.angleGV.val}
-                                suffix={<span> {this.state.angleGV === null ? "--" : this.state.angleGV.eng}</span>}
-                            />
-                        </Card>
-                    </Col>
                     <Col>
                         <NumPad.Number
                             theme={this.myTheme}

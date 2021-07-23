@@ -1,18 +1,36 @@
 /* eslint-disable default-case */
 const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require('url')
+const fs = require('fs')
 var fins = require('omron-fins');
-
-//var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
-var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
+var i18next = require('i18next');
+var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
+//var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
 let win
 
 var tags = [
-    { name: "angleGV", descr: "Угол останова ГВ", eng: "°", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, val: null },
-    { name: "weftDensity", descr: "Плотность ткани по утку", eng: "утч/см", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: false, val: null },
-    { name: "mode", descr: "Режим работы", eng: "--", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, val: null },
+    { name: "angleGV", descr: "", eng: "", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, val: null },
+    { name: "weftDensity", descr: "", eng: "", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: false, val: null },
+    { name: "mode", descr: "", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, val: null },
+    { name: "modeInt", descr: "", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, val: null },
 ];
 let dl;
+function setLanguage(lang) {
+    i18next.changeLanguage(lang, () => { })
+    tags.forEach(function (e, i) {
+        this[i].descr = i18next.t(`tags.${e.name}.descr`);
+        if (e.eng !== null) {
+            this[i].eng = i18next.t(`tags.${e.name}.eng`);
+        }
+    }, tags);
+    const conf = {
+        lng: i18next.language,
+    }
+    const jsonString = JSON.stringify(conf)
+    fs.writeFile('./src/conf.json', jsonString, () => { });
+    win.webContents.send('langChanged', lang);
+}
+
 function createWindow() {
     win = new BrowserWindow({
         width: 1024,
@@ -31,10 +49,24 @@ function createWindow() {
         transparent: false,
         center: true,
     })
+    fs.readFile('./src/conf.json', 'utf8', (err, jsonString) => {
+        const lngconf = JSON.parse(jsonString);
+        i18next.init({
+            lng: lngconf.lng,
+            resources: require(`./src/lang.json`)
+        });
+        setLanguage(lngconf.lng);
+    });
+    ipcMain.on("appLoaded", (event) => {
+        win.webContents.send('langChanged', i18next.language);
+    });
+    ipcMain.on("langChange", (event, lang) => {
+        setLanguage(lang);
+    });
     ipcMain.on("tagsUpdSelect", (event, arr) => {
         arr.forEach(function (name) {
             tags.forEach(function (e, i) {
-                if (e.name === name || e.name === "mode" )  {
+                if (e.name === name || e.name === "mode") {
                     this[i].cupd = true;
                 }
                 else {
@@ -88,7 +120,6 @@ function createWindow() {
     });
 
     win.loadURL(startUrl);
-
     //win.webContents.openDevTools();
 
     win.on('closed', () => {
@@ -132,34 +163,35 @@ let intervalTimer = setInterval(() => {
             }
         });
     }
-}, 500)
+}, 100)
 
 var cb = function (err, msg) {
-    if (err)
-        console.error(err);
+    if (err) {
+        //console.error(err);
+    }
     else
         switch (msg.tag.type) {
             case "mode":
                 var modetext;
                 switch (msg.response.values[0]) {
                     case 1:
-                        modetext = "ИНИЦИАЛИЗАЦИЯ";
+                        modetext = i18next.t('tags.mode.init');
                         break;
                     case 2:
-                        modetext = "СТОП";
+                        modetext = i18next.t('tags.mode.stop');
                         break;
                     case 3:
-                        modetext = "ПОДГОТОВКА";
+                        modetext = i18next.t('tags.mode.ready');
                         break;
                     case 4:
-                        modetext = "РАБОТА";
+                        modetext = i18next.t('tags.mode.run');
                         break;
                     case 10:
-                        modetext = "АВАРИЯ";
+                        modetext = i18next.t('tags.mode.alarm');
                         break;
                     default:
-                        modetext = "НЕИЗВЕСТНО";
-                            break;
+                        modetext = i18next.t('tags.mode.unknown');
+                        break;
 
                 }
                 win.webContents.send('plcReply', modetext, msg.tag);

@@ -1,0 +1,60 @@
+{
+    "ru": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Угол останова ГВ",
+                    "eng": "°"
+                },
+                "weftDensity": {
+                    "descr": "Плотность ткани по утку",
+                    "eng": "утч/см"
+                },
+                "mode": {
+                    "descr": "Режим работы",
+                    "init": "ИНИЦИАЛИЗАЦИЯ",
+                    "stop": "СТОП",
+                    "ready": "ПОДГОТОВКА",
+                    "run": "РАБОТА",
+                    "alarm": "АВАРИЯ",
+                    "unknown": "НЕИЗВЕСТНО"
+                }
+            },
+            "menu": {
+                "overview": "ОБЗОР",
+                "control": "УПРАВЛЕНИЕ",
+                "settings": "НАСТРОЙКИ"
+            },
+            "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
+        }
+    },
+    "en": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Stop angle",
+                    "eng": "°"
+                },
+                "weftDensity": {
+                    "descr": "Weft density",
+                    "eng": "thr/cm"
+                },
+                "mode": {
+                    "descr": "Mode",
+                    "init": "INIT",
+                    "stop": "STOP",
+                    "ready": "READY",
+                    "run": "RUN",
+                    "alarm": "ALARM",
+                    "unknown": "UNKNOWN"
+                }
+            },
+            "menu": {
+                "overview": "OVERVIEW",
+                "control": "CONTROL",
+                "settings": "SETTINGS"
+            },
+            "footer": "© TEHMASHHOLDING Cheboksary, Russia"
+        }
+    }
+}
