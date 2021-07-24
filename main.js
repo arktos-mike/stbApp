@@ -4,6 +4,7 @@ const url = require('url')
 const fs = require('fs')
 var fins = require('omron-fins');
 var i18next = require('i18next');
+var pass = null;
 var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
 //var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
 let win
@@ -15,6 +16,7 @@ var tags = [
     { name: "modeInt", descr: "", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, val: null },
 ];
 let dl;
+
 function setLanguage(lang) {
     i18next.changeLanguage(lang, () => { })
     tags.forEach(function (e, i) {
@@ -56,6 +58,19 @@ function createWindow() {
             resources: require(`./src/lang.json`)
         });
         setLanguage(lngconf.lng);
+    });
+    fs.readFile('./src/secret.json', 'utf8', (err, jsonString) => {
+        pass = JSON.parse(jsonString);
+    });
+    ipcMain.on("changeSecret", (event, user, oldPassword, newPassword) => {
+        if (pass[user] === oldPassword) { 
+        const jsonString = JSON.stringify(pass)
+        fs.writeFile('./src/secret.json', jsonString, () => { });
+        pass[user] = newPassword;
+        }
+    });
+    ipcMain.on("checkSecret", (event, user, password) => {
+        win.webContents.send('userChecked', user, pass[user] === password);
     });
     ipcMain.on("appLoaded", (event) => {
         win.webContents.send('langChanged', i18next.language);

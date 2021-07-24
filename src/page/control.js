@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Input, Modal, Space } from "antd";
+import { Row, Col, Input, Modal } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import NumPad from 'react-numpad';
 import "./App.css";
@@ -72,8 +72,8 @@ export default class Control extends React.Component {
             cancelText: i18next.t('confirm.cancel'),
             content: i18next.t('confirm.descr'),
             centered: true,
-            okButtonProps:{ size: 'large', danger:true },
-            cancelButtonProps:{ size: 'large' },
+            okButtonProps: { size: 'large', danger: true },
+            cancelButtonProps: { size: 'large' },
             onOk: () => this.writeValue(value, tag),
         });
     }

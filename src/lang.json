@@ -31,6 +31,22 @@
                 "ok": "ДА",
                 "cancel": "НЕТ"
             },
+            "user": {
+                "admin": "Инженер",
+                "engineer": "Наладчик",
+                "anon": "Оператор",
+                "user": "Пользователь",
+                "password": "Пароль",
+                "oldpassword": "Старый пароль",
+                "newpassword": "Новый пароль",
+                "fill": "Пожалуйста, заполните поле",
+                "login": "ВОЙТИ",
+                "logout": "ВЫЙТИ",
+                "signin": "Вход в систему",
+                "change": "Сменить пароль",
+                "remember": "Не выходить из системы",
+                "submit": "СМЕНИТЬ"
+            },
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
         }
     },
@@ -65,6 +81,22 @@
                 "descr": "Do you really want to make changes?",
                 "ok": "YES",
                 "cancel": "NO"
+            },
+            "user": {
+                "admin": "Engineer",
+                "engineer": "Maintenance",
+                "anon": "Operator",
+                "user": "Username",
+                "password": "Password",
+                "oldpassword": "Old password",
+                "newpassword": "New password",
+                "fill": "Please fill out this field",
+                "login": "LOG IN",
+                "logout": "LOG OUT",
+                "signin": "Sign In",
+                "change": "Change password",
+                "remember": "Remember me",
+                "submit": "SUBMIT"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }

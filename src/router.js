@@ -1,16 +1,18 @@
 import React from 'react';
 import { HashRouter, Route, Link, Switch } from 'react-router-dom';
-import { Layout, Menu, Select, Drawer } from 'antd';
+import { Layout, Menu, Select, Drawer, Button, Modal, Row, Col, Input, Form, Checkbox } from 'antd';
 import "./page/App.css";
 import logo from './icon.svg';
+import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import Overview from "./page/overview.js";
 import Settings from "./page/settings.js";
 import Control from "./page/control.js";
 import moment from "moment";
 import i18next from 'i18next';
 import BreadCrumb from "./components/BreadCrumb";
+import NumPad from 'react-numpad';
 import ruLocale from "moment/locale/ru";
-import { EyeOutlined, ToolOutlined, SettingOutlined } from '@ant-design/icons';
+
 
 
 const { Header, Content, Footer } = Layout;
@@ -24,7 +26,9 @@ export class MainRouter extends React.Component {
             curTime: null,
             curDate: null,
             mode: null,
-            visible: false
+            userVisible: false,
+            visible: false,
+            user: 'anon'
         };
 
         if (this.isElectron()) {
@@ -72,6 +76,14 @@ export class MainRouter extends React.Component {
                 i18next.changeLanguage(lang, () => { });
                 moment.updateLocale(lang, [ruLocale])
             });
+            window.ipcRenderer.on('userChecked', (event, user, res) => {
+                if (res) {
+                    this.setState({
+                        user: user,
+                        userVisible: false,
+                    });
+                }
+            });
         }
 
         setInterval(() => {
@@ -79,7 +91,7 @@ export class MainRouter extends React.Component {
             let t = moment().format("LTS");
             this.setState({
                 curTime: t,
-                curDate: d
+                curDate: d,
             })
         }, 1000);
 
@@ -120,6 +132,11 @@ export class MainRouter extends React.Component {
                                 <Link to="/settings"><SettingOutlined style={{ fontSize: '100%' }} /></Link>
                             </Menu.Item>
                         </Menu>
+                        <UserModal visible={this.state.userVisible} onClose={() => { this.setState({ userVisible: false }) }} />
+                        <Button type="primary" onClick={() => { this.setState({ userVisible: true }) }}>User</Button>
+                        <div style={{ color: "white" }}>
+                            {this.state.user}
+                        </div>
                         <div className="mode" style={{ backgroundColor: this.state.mode === null ? '#00000000' : this.state.mode.val === i18next.t('tags.mode.init') ? '#000000FF' : this.state.mode.val === i18next.t('tags.mode.stop') ? '#FFB300FF' : this.state.mode.val === i18next.t('tags.mode.ready') ? '#3949ABFF' : this.state.mode.val === i18next.t('tags.mode.run') ? '#43A047FF' : this.state.mode.val === i18next.t('tags.mode.alarm') ? '#E53935FF' : '#00000000' }}>
                             {this.state.mode === null ? i18next.t('tags.mode.unknown') : this.state.mode.val}
                         </div>
@@ -149,8 +166,8 @@ export class MainRouter extends React.Component {
                                     onClose={this.onClose}
                                     visible={this.state.visible}
                                     getContainer={false}
-                                    style={{ position: 'absolute',  }}
-                                    bodyStyle={{ margin: "0px", padding: "0px"}}
+                                    style={{ position: 'absolute', }}
+                                    bodyStyle={{ margin: "0px", padding: "0px" }}
 
                                 >
                                     <Menu style={{ fontSize: '150%' }} onClick={this.handleClick} selectedKeys={[current]} mode="inline">
@@ -172,5 +189,113 @@ export class MainRouter extends React.Component {
                 </Layout>
             </HashRouter >
         );
+    }
+}
+
+class UserModal extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: null,
+            password: null,
+        }
+        this.myTheme = {
+            header: {
+                primaryColor: '#263238',
+                secondaryColor: '#f9f9f9',
+                highlightColor: '#3c8ffe',
+                backgroundColor: '#001529',
+            },
+            body: {
+                primaryColor: '#263238',
+                secondaryColor: '#32a5f2',
+                highlightColor: '#FFC107',
+                backgroundColor: '#f9f9f9',
+            },
+            panel: {
+                backgroundColor: '#CFD8DC'
+            },
+            global: {
+                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji'
+            },
+        };
+    }
+    changeHandle = (name, value) => {
+        this.setState({
+            [name]: value
+        })
+    }
+    onFinish = (values) => {
+        window.ipcRenderer.send("checkSecret", values.user, values.password);
+        this.setState({
+            user: null,
+            password: null,
+        })
+    }
+
+    render() {
+        return (
+            <Modal
+                title={i18next.t('user.signin')}
+                onCancel={this.props.onClose}
+                cancelButtonProps={{ style: { display: "none" } }}
+                okButtonProps={{ style: { display: "none" }, size: 'large' }}
+                visible={this.props.visible}
+            >
+                <div className="sel">
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: false }}
+                        size='large'
+                        onFinish={this.onFinish}
+                    >
+                        <Form.Item
+                            label={i18next.t('user.user')}
+                            name="user"
+                            rules={[{ required: true, message: i18next.t('user.fill') }]}
+                        >
+
+                            <Select placeholder={i18next.t('user.user')} value={this.state.user} onChange={(value) => {
+                                this.changeHandle('user', value);
+                            }} size="large" suffixIcon={<UserOutlined className="site-form-item-icon" />}>
+                                <Option value="engineer">{i18next.t('user.engineer')}</Option>
+                                <Option value="admin">{i18next.t('user.admin')}</Option>
+                            </Select>
+
+                        </Form.Item>
+
+                        <Form.Item
+                            label={i18next.t('user.password')}
+                            name="password"
+                            rules={[{ required: true, message: i18next.t('user.fill') }]}
+                        >
+                            <NumPad.Number
+                                onChange={(value) => {
+                                    this.changeHandle('password', value);
+                                }}
+                                theme={this.myTheme}
+                                decimal={false}
+                                negative={false}
+                                displayRule={value => value.replace(/./g, '•')}
+                            >
+                                <Input.Password visibilityToggle={false} value={this.state.password} placeholder={i18next.t('user.password')} prefix={<LockOutlined className="site-form-item-icon" />} />
+                            </NumPad.Number>
+                        </Form.Item>
+
+                        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                            <Checkbox>{i18next.t('user.remember')}</Checkbox>
+                        </Form.Item>
+
+                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                            <Button size="large" type="primary" htmlType="submit" >
+                            {i18next.t('user.login')}
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            </Modal>
+        )
     }
 }
