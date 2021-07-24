@@ -1,9 +1,14 @@
 import React from 'react';
-import { Row, Col, Input } from "antd";
+import { Row, Col, Input, Modal, Space } from "antd";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import NumPad from 'react-numpad';
 import "./App.css";
+import i18next from 'i18next';
+
+const { confirm } = Modal;
 
 export default class Control extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -48,6 +53,31 @@ export default class Control extends React.Component {
         window.ipcRenderer.send("plcRead", ["modeInt"]);
     };
 
+    writeValue = (value, tag) => {
+        if (value !== tag.val) {
+            window.ipcRenderer.send("plcWrite", tag.name, value);
+            this.setState((prevState) => {
+                let obj = prevState[tag.name];
+                obj.val = value;
+                return { [tag.name]: obj };
+            });
+        }
+    };
+
+    showConfirm(value, tag) {
+        confirm({
+            title: i18next.t('confirm.title'),
+            icon: <ExclamationCircleOutlined style={{ fontSize: "300%" }} />,
+            okText: i18next.t('confirm.ok'),
+            cancelText: i18next.t('confirm.cancel'),
+            content: i18next.t('confirm.descr'),
+            centered: true,
+            okButtonProps:{ size: 'large', danger:true },
+            cancelButtonProps:{ size: 'large' },
+            onOk: () => this.writeValue(value, tag),
+        });
+    }
+
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.send("tagsUpdSelect", []);
@@ -71,14 +101,7 @@ export default class Control extends React.Component {
                         <NumPad.Number
                             theme={this.myTheme}
                             onChange={(value) => {
-                                if (value !== this.state.modeInt.val) {
-                                    window.ipcRenderer.send("plcWrite", "modeInt", value);
-                                }
-                                this.setState((prevState) => {
-                                    let obj = prevState.modeInt;
-                                    obj.val = value;
-                                    return { modeInt: obj };
-                                });
+                                this.showConfirm(value, this.state.modeInt);
                             }}
                             decimal={this.state.modeInt === null ? "--" : this.state.modeInt.dec}
                             negative={this.state.modeInt === null ? "--" : this.state.modeInt.min < 0 ? true : false}

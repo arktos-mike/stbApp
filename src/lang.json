@@ -25,6 +25,12 @@
                 "control": "УПРАВЛЕНИЕ",
                 "settings": "НАСТРОЙКИ"
             },
+            "confirm": {
+                "title": "Подтверждение действия",
+                "descr": "Вы действительно хотите внести изменения?",
+                "ok": "ДА",
+                "cancel": "НЕТ"
+            },
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
         }
     },
@@ -53,6 +59,12 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS"
+            },
+            "confirm": {
+                "title": "Confirm action",
+                "descr": "Do you really want to make changes?",
+                "ok": "YES",
+                "cancel": "NO"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }

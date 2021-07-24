@@ -96,7 +96,9 @@ function createWindow() {
         let item = tags.find(e => e.name === name);
         switch (item.type) {
             case "int":
-                client.write(item.addr, value);
+                client.write(item.addr, value, function (err, msg) {
+                    if (err) { }
+                });
                 break;
 
             case "real":
@@ -107,7 +109,9 @@ function createWindow() {
                 words[0] = (bytes[1] << 8) | bytes[0];
                 words[1] = (bytes[3] << 8) | bytes[2];
                 //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
-                client.write(item.addr, [words[0], words[1]]);
+                client.write(item.addr, [words[0], words[1]], function (err, msg) {
+                    if (err) { }
+                });
                 break;
 
         }
@@ -120,7 +124,7 @@ function createWindow() {
     });
 
     win.loadURL(startUrl);
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     win.on('closed', () => {
         console.log("win.closed")
