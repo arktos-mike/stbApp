@@ -121,28 +121,6 @@ export default class Settings extends React.Component {
                         <MyInput tag={this.state.weftDensity} theme={this.myTheme} disabled={this.props.user !== "anon" ? false : true} onChange={(value) => {
                             this.writeValue(value, this.state.weftDensity);
                         }} />
-                        <NumPad.Number
-                            theme={this.myTheme}
-                            onChange={(value) => {
-                                if (value !== this.state.weftDensity.val) {
-                                    window.ipcRenderer.send("plcWrite", "weftDensity", value);
-                                }
-                                this.setState((prevState) => {
-                                    let obj = prevState.weftDensity;
-                                    obj.val = value;
-                                    return { weftDensity: obj };
-                                });
-                            }}
-                            decimal={this.state.weftDensity === null ? "--" : this.state.weftDensity.dec}
-                            negative={this.state.weftDensity === null ? "--" : this.state.weftDensity.min < 0 ? true : false}
-                        >
-                            <Input size="large"
-                                addonBefore={i18next.t('tags.weftDensity.descr')}
-                                addonAfter={i18next.t('tags.weftDensity.eng')}
-                                value={this.state.weftDensity === null ? "--" : this.state.weftDensity.val}
-                                style={{ width: "65%", textAlign: "right" }}
-                            />
-                        </NumPad.Number>
                     </Col>
                 </Row>
             </div>
