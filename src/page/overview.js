@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Statistic, Card, } from "antd";
 import "./App.css";
+import i18next from 'i18next';
 
 export default class Overview extends React.Component {
     constructor(props) {
@@ -62,9 +63,9 @@ export default class Overview extends React.Component {
                     <Col>
                         <Card bodyStyle={{ padding: "12px 36px" }}>
                             <Statistic
-                                title={this.state.angleGV === null ? "--" : this.state.angleGV.descr}
+                                title={i18next.t('tags.angleGV.descr')}
                                 value={this.state.angleGV === null ? "--" : this.state.angleGV.val}
-                                suffix={<span> {this.state.angleGV === null ? "--" : this.state.angleGV.eng}</span>}
+                                suffix={<span> {i18next.t('tags.angleGV.eng')}</span>}
                             />
                         </Card>
                     </Col>

@@ -6,6 +6,34 @@ import "./App.css";
 import i18next from 'i18next';
 
 const { confirm } = Modal;
+function MyInput(props) {
+    if (props.disabled) {
+        return (<Input size="large"
+            addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.descr')}
+            addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.eng')}
+            value={props.tag === null ? "--" : props.tag.val}
+            style={{ width: "65%", textAlign: "right" }}
+            disabled
+        />);
+    }
+    return (
+        <NumPad.Number
+            theme={props.theme}
+            onChange={(value) => {
+                props.onChange(value)
+            }}
+            decimal={props.tag === null ? "--" : props.tag.dec}
+            negative={props.tag === null ? "--" : props.tag.min < 0 ? true : false}
+        >
+            <Input size="large"
+                addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.descr')}
+                addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.eng')}
+                value={props.tag === null ? "--" : props.tag.val}
+                style={{ width: "65%", textAlign: "right" }}
+            />
+        </NumPad.Number>
+    );
+}
 
 export default class Control extends React.Component {
 
@@ -98,21 +126,9 @@ export default class Control extends React.Component {
 
                 <Row align="top" gutter={[16, 0]}>
                     <Col>
-                        <NumPad.Number
-                            theme={this.myTheme}
-                            onChange={(value) => {
-                                this.showConfirm(value, this.state.modeInt);
-                            }}
-                            decimal={this.state.modeInt === null ? "--" : this.state.modeInt.dec}
-                            negative={this.state.modeInt === null ? "--" : this.state.modeInt.min < 0 ? true : false}
-                        >
-                            <Input size="large"
-                                addonBefore={this.state.modeInt === null ? "--" : this.state.modeInt.descr}
-                                addonAfter={this.state.modeInt === null ? "--" : this.state.modeInt.eng}
-                                value={this.state.modeInt === null ? "--" : this.state.modeInt.val}
-                                style={{ width: "65%", textAlign: "right" }}
-                            />
-                        </NumPad.Number>
+                        <MyInput noEng noDescr tag={this.state.modeInt} theme={this.myTheme} disabled={this.props.user !== "anon" ? false : true} onChange={(value) => {
+                            this.showConfirm(value, this.state.modeInt);
+                        }} />
                     </Col>
                 </Row>
             </div>

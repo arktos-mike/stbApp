@@ -57,9 +57,19 @@
   justify-content: center;
   flex-grow:2;
 }
+.user {
+  padding-left: 10px;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.user .text{
+  padding: 5px;
+}
 .lang {
   font-size: large !important;
-  width: 65px;
+  width: 55px;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -68,12 +78,20 @@
 .lang .ant-select-arrow{
   color: #ffffff !important;
 }
-
+.sel{
+  align-items: center;
+  justify-content: center;
+}
 .sel .ant-select-arrow{
   color: #000000 !important;
 }
 .sel .ant-select-selection-item, .ant-select-selection-placeholder{
   font-size: 24px !important;
+}
+.sel .text{
+  font-size: 24px;
+  padding-left: 10px;
+  color: #52c41a; 
 }
 .ant-checkbox {
   transform: scale(2);

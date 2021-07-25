@@ -23,7 +23,9 @@
             "menu": {
                 "overview": "ОБЗОР",
                 "control": "УПРАВЛЕНИЕ",
-                "settings": "НАСТРОЙКИ"
+                "settings": "НАСТРОЙКИ",
+                "close": "ЗАКРЫТЬ"
+
             },
             "confirm": {
                 "title": "Подтверждение действия",
@@ -36,16 +38,24 @@
                 "engineer": "Наладчик",
                 "anon": "Оператор",
                 "user": "Пользователь",
+                "curuser": "Текущий пользователь",
                 "password": "Пароль",
                 "oldpassword": "Старый пароль",
                 "newpassword": "Новый пароль",
                 "fill": "Пожалуйста, заполните поле",
-                "login": "ВОЙТИ",
-                "logout": "ВЫЙТИ",
+                "login": "ВОЙТИ В СИСТЕМУ",
+                "logout": "ВЫЙТИ ИЗ СИСТЕМЫ",
                 "signin": "Вход в систему",
                 "change": "Сменить пароль",
                 "remember": "Не выходить из системы",
-                "submit": "СМЕНИТЬ"
+                "submit": "СМЕНИТЬ ПАРОЛЬ"
+            },
+            "notifications": {
+                "userok": "Успешный вход",
+                "usererror": "Неверный пароль",
+                "passok": "Пароль успешно изменен",
+                "passerror": "Пароль не был изменен",
+                "idle": "Выход из системы из-за бездействия"
             },
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
         }
@@ -74,7 +84,8 @@
             "menu": {
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
-                "settings": "SETTINGS"
+                "settings": "SETTINGS",
+                "close": "CLOSE"
             },
             "confirm": {
                 "title": "Confirm action",
@@ -84,9 +95,10 @@
             },
             "user": {
                 "admin": "Engineer",
-                "engineer": "Maintenance",
+                "engineer": "Fixer",
                 "anon": "Operator",
                 "user": "Username",
+                "curuser": "Current user",
                 "password": "Password",
                 "oldpassword": "Old password",
                 "newpassword": "New password",
@@ -97,6 +109,135 @@
                 "change": "Change password",
                 "remember": "Remember me",
                 "submit": "SUBMIT"
+            },
+            "notifications": {
+                "userok": "Successful login",
+                "usererror": "Incorrect password",
+                "passok": "Password changed successfully",
+                "passerror": "Password not changed",
+                "idle": "Logout due to Inactivity"
+            },
+            "footer": "© TEHMASHHOLDING Cheboksary, Russia"
+        }
+    }
+    ,
+    "tr": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Stop angle",
+                    "eng": "°"
+                },
+                "weftDensity": {
+                    "descr": "Weft density",
+                    "eng": "thr/cm"
+                },
+                "mode": {
+                    "descr": "Mode",
+                    "init": "INIT",
+                    "stop": "STOP",
+                    "ready": "READY",
+                    "run": "RUN",
+                    "alarm": "ALARM",
+                    "unknown": "UNKNOWN"
+                }
+            },
+            "menu": {
+                "overview": "OVERVIEW",
+                "control": "CONTROL",
+                "settings": "SETTINGS",
+                "close": "CLOSE"
+            },
+            "confirm": {
+                "title": "Confirm action",
+                "descr": "Do you really want to make changes?",
+                "ok": "YES",
+                "cancel": "NO"
+            },
+            "user": {
+                "admin": "Engineer",
+                "engineer": "Fixer",
+                "anon": "Operator",
+                "user": "Username",
+                "curuser": "Current user",
+                "password": "Password",
+                "oldpassword": "Old password",
+                "newpassword": "New password",
+                "fill": "Please fill out this field",
+                "login": "LOG IN",
+                "logout": "LOG OUT",
+                "signin": "Sign In",
+                "change": "Change password",
+                "remember": "Remember me",
+                "submit": "SUBMIT"
+            },
+            "notifications": {
+                "userok": "Successful login",
+                "usererror": "Incorrect password",
+                "passok": "Password changed successfully",
+                "passerror": "Password not changed",
+                "idle": "Logout due to Inactivity"
+            },
+            "footer": "© TEHMASHHOLDING Cheboksary, Russia"
+        }
+    }
+    ,
+    "es": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Stop angle",
+                    "eng": "°"
+                },
+                "weftDensity": {
+                    "descr": "Weft density",
+                    "eng": "thr/cm"
+                },
+                "mode": {
+                    "descr": "Mode",
+                    "init": "INIT",
+                    "stop": "STOP",
+                    "ready": "READY",
+                    "run": "RUN",
+                    "alarm": "ALARM",
+                    "unknown": "UNKNOWN"
+                }
+            },
+            "menu": {
+                "overview": "OVERVIEW",
+                "control": "CONTROL",
+                "settings": "SETTINGS",
+                "close": "CLOSE"
+            },
+            "confirm": {
+                "title": "Confirm action",
+                "descr": "Do you really want to make changes?",
+                "ok": "YES",
+                "cancel": "NO"
+            },
+            "user": {
+                "admin": "Engineer",
+                "engineer": "Fixer",
+                "anon": "Operator",
+                "user": "Username",
+                "curuser": "Current user",
+                "password": "Password",
+                "oldpassword": "Old password",
+                "newpassword": "New password",
+                "fill": "Please fill out this field",
+                "login": "LOG IN",
+                "logout": "LOG OUT",
+                "signin": "Sign In",
+                "change": "Change password",
+                "remember": "Remember me",
+                "submit": "SUBMIT"
+            },
+            "notifications": {
+                "userok": "Successful login",
+                "usererror": "Incorrect password",
+                "passok": "Password changed successfully",
+                "passerror": "Password not changed",
+                "idle": "Logout due to Inactivity"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
