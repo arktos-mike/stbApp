@@ -25,7 +25,6 @@
                 "control": "УПРАВЛЕНИЕ",
                 "settings": "НАСТРОЙКИ",
                 "close": "ЗАКРЫТЬ"
-
             },
             "confirm": {
                 "title": "Подтверждение действия",
@@ -55,7 +54,15 @@
                 "usererror": "Неверный пароль",
                 "passok": "Пароль успешно изменен",
                 "passerror": "Пароль не был изменен",
+                "timeok": "Дата/время успешно изменены",
+                "timeerror": "Дата/время не были изменены",
                 "idle": "Выход из системы из-за бездействия"
+            },
+            "time": {
+                "title": "Настройка даты и времени",
+                "date": "Дата",
+                "time": "Время",
+                "submit": "ИЗМЕНИТЬ ДАТУ И ВРЕМЯ"
             },
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
         }
@@ -115,7 +122,15 @@
                 "usererror": "Incorrect password",
                 "passok": "Password changed successfully",
                 "passerror": "Password not changed",
+                "timeok": "Date/time changed successfully",
+                "timeerror": "Date/time not changed",
                 "idle": "Logout due to Inactivity"
+            },
+            "time": {
+                "title": "Date/time settings",
+                "date": "Date",
+                "time": "Time",
+                "submit": "CHANGE DATE AND TIME"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
@@ -176,7 +191,15 @@
                 "usererror": "Incorrect password",
                 "passok": "Password changed successfully",
                 "passerror": "Password not changed",
+                "timeok": "Date/time changed successfully",
+                "timeerror": "Date/time not changed",
                 "idle": "Logout due to Inactivity"
+            },
+            "time": {
+                "title": "Date/time settings",
+                "date": "Date",
+                "time": "Time",
+                "submit": "CHANGE DATE AND TIME"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
@@ -237,7 +260,15 @@
                 "usererror": "Incorrect password",
                 "passok": "Password changed successfully",
                 "passerror": "Password not changed",
+                "timeok": "Date/time changed successfully",
+                "timeerror": "Date/time not changed",
                 "idle": "Logout due to Inactivity"
+            },
+            "time": {
+                "title": "Date/time settings",
+                "date": "Date",
+                "time": "Time",
+                "submit": "CHANGE DATE AND TIME"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }

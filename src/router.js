@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter, Route, Link, Switch } from 'react-router-dom';
-import { Layout, Menu, Select, Drawer, Button, Modal, Input, Form, Checkbox, notification } from 'antd';
+import { Layout, Menu, Select, Drawer, Button, Modal, Input, Form, Checkbox, notification, DatePicker, TimePicker, ConfigProvider } from 'antd';
 import "./page/App.css";
 import logo from './icon.svg';
 import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -15,6 +15,11 @@ import IdleTimer from 'react-idle-timer'
 import ruLocale from "moment/locale/ru";
 import trLocale from "moment/locale/tr";
 import esLocale from "moment/locale/es";
+import rulocale from 'antd/lib/locale/ru_RU';
+import trlocale from 'antd/lib/locale/tr_TR';
+import eslocale from 'antd/lib/locale/es_ES';
+import enlocale from 'antd/lib/locale/en_US';
+
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
 
@@ -31,6 +36,7 @@ export class MainRouter extends React.Component {
             curDate: null,
             mode: null,
             userVisible: false,
+            timeVisible: false,
             visible: false,
             remember: true,
             user: 'anon'
@@ -100,6 +106,18 @@ export class MainRouter extends React.Component {
                     this.openNotificationWithIcon('error', i18next.t('notifications.usererror'), 2);
                 }
             });
+            window.ipcRenderer.on('datetimeChanged', (event, res) => {
+                if (res) {
+                    this.setState({
+                        timeVisible: false,
+                    });
+                    this.openNotificationWithIcon('success', i18next.t('notifications.timeok'), 2);
+                }
+                else {
+                    this.openNotificationWithIcon('error', i18next.t('notifications.timeerror'), 2);
+                }
+            });
+            
             window.ipcRenderer.on('userChanged', (event, user, remember) => {
                 this.setState({
                     user: user,
@@ -134,6 +152,8 @@ export class MainRouter extends React.Component {
         window.ipcRenderer.removeAllListeners('userChecked');
         window.ipcRenderer.removeAllListeners('userChanged');
         window.ipcRenderer.removeAllListeners('passChanged');
+        window.ipcRenderer.removeAllListeners('datetimeChanged');
+        
     }
 
     handleClick = e => {
@@ -180,7 +200,7 @@ export class MainRouter extends React.Component {
                                 {this.state.mode === null ? i18next.t('tags.mode.unknown') : this.state.mode.val}
                             </div>
                             <div className="user">
-                                <Button type="primary" size="large" shape="circle" icon={<UserOutlined style={{ fontSize: '100%' }} />} onClick={() => { this.setState({ userVisible: true }) }} /><span className="text">{i18next.t('user.'+this.state.user)}</span>
+                                <Button type="primary" size="large" shape="circle" icon={<UserOutlined style={{ fontSize: '100%' }} />} onClick={() => { this.setState({ userVisible: true }) }} /><span className="text">{i18next.t('user.' + this.state.user)}</span>
                             </div>
                             <div className="lang">
                                 <Select optionLabelProp="label" value={i18next.language} size="large" dropdownStyle={{ fontSize: '40px !important' }} dropdownAlign={{ offset: [-40, 4] }} dropdownMatchSelectWidth={false} style={{ color: "white" }} onChange={this.handleChange} bordered={false}>
@@ -190,7 +210,8 @@ export class MainRouter extends React.Component {
                                     <Option value="es" label="ES"><div>ES - Español</div></Option>
                                 </Select>
                             </div>
-                            <div className="time">
+                            <DateTimeModal visible={this.state.timeVisible} user={this.state.user} onClose={() => { this.setState({ timeVisible: false }) }} />
+                            <div className="time" onClick={() => { this.setState({ timeVisible: true }) }}>
                                 {this.state.curTime} {this.state.curDate}
                             </div>
                         </Header>
@@ -441,7 +462,6 @@ class ChangeModal extends React.Component {
                         name="change"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 16 }}
-                        initialValues={{ remember: false }}
                         size='large'
                         onFinish={this.onFinish}
                         ref={this.formRef}
@@ -504,6 +524,103 @@ class ChangeModal extends React.Component {
                         </Form.Item>
                     </Form>
                 </div>
+            </Modal>
+        )
+    }
+}
+
+class DateTimeModal extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            newtime: null,
+        }
+        this.myTheme = {
+            header: {
+                primaryColor: '#263238',
+                secondaryColor: '#f9f9f9',
+                highlightColor: '#3c8ffe',
+                backgroundColor: '#001529',
+            },
+            body: {
+                primaryColor: '#263238',
+                secondaryColor: '#32a5f2',
+                highlightColor: '#FFC107',
+                backgroundColor: '#f9f9f9',
+            },
+            panel: {
+                backgroundColor: '#CFD8DC'
+            },
+            global: {
+                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji'
+            },
+        };
+    }
+
+    formRef = React.createRef();
+
+    changeHandle = (name, value) => {
+        this.setState({
+            [name]: value
+        })
+    }
+
+    onFinish = (values) => {
+        let dt = moment(values.date);
+        dt.set({
+            hour:   values.time.get('hour'),
+            minute: values.time.get('minute'),
+            second: values.time.get('second')
+        });
+        window.ipcRenderer.send("datetimeSet", moment(dt).unix(), moment(dt).toISOString());
+        this.formRef.current.resetFields();
+    }
+
+    render() {
+        return (
+            <Modal
+                title={i18next.t('time.title')}
+                okText={i18next.t('menu.close')}
+                okButtonProps={{ size: 'large' }}
+                onCancel={this.props.onClose}
+                onOk={this.props.onClose}
+                cancelButtonProps={{ style: { display: "none" } }}
+                visible={this.props.visible}
+                destroyOnClose={true}
+                bodyStyle={{ flex: '', alignItems: 'center', justifyContent: 'center' }}
+            >
+                <Form
+                    name="time"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    size='large'
+                    ref={this.formRef}
+                    onFinish={this.onFinish}
+                    preserve={false}
+                >
+                    <ConfigProvider locale={i18next.language === 'en' ? enlocale : i18next.language === 'ru' ? rulocale : i18next.language === 'tr' ? trlocale : i18next.language === 'es' ? eslocale : enlocale}>
+                        <Form.Item
+                            name="date"
+                            label={i18next.t('time.date')}
+                            rules={[{ required: true, message: i18next.t('user.fill') }]}
+                        >
+                            <DatePicker popupStyle={{ transform: `scale(1.8)` }} style={{ width: "250px" }} size="large" format='L' />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="time"
+                            label={i18next.t('time.time')}
+                            rules={[{ required: true, message: i18next.t('user.fill') }]}
+                        >
+                            <TimePicker popupStyle={{ transform: `scale(1.8)` }} style={{ width: "250px" }} use12Hours={i18next.language === 'en' ? true : false} size="large" format={i18next.language === 'en' ? 'h:mm:ss A' : 'HH:mm:ss'} />
+                        </Form.Item>
+                    </ConfigProvider>
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button size="large" type="primary" htmlType="submit" >
+                            {i18next.t('time.submit')}
+                        </Button>
+                    </Form.Item>
+                </Form>
             </Modal>
         )
     }

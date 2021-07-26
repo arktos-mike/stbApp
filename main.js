@@ -1,7 +1,8 @@
 /* eslint-disable default-case */
-const { app, BrowserWindow, ipcMain } = require('electron')
-const url = require('url')
-const fs = require('fs')
+const { app, BrowserWindow, ipcMain } = require('electron');
+const url = require('url');
+const fs = require('fs');
+const { exec } = require("child_process");
 var fins = require('omron-fins');
 var i18next = require('i18next');
 var pass = null;
@@ -78,6 +79,16 @@ function createWindow() {
     });
     ipcMain.on("langChange", (event, lang) => {
         setLanguage(lang);
+    });
+
+    ipcMain.on("datetimeSet", (event, dtTicks, dtISO) => {
+        exec("powershell -command \"$T = [datetime]::Parse(\\\""+dtISO+"\\\"); Set-Date -Date $T\"", (error, data, getter) => {
+            win.webContents.send('datetimeChanged', !error);
+            console.log(error.message);
+        });
+        exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", (error, data, getter) => {
+            win.webContents.send('datetimeChanged', !error);
+        });
     });
 
     ipcMain.on("tagsUpdSelect", (event, arr) => {
