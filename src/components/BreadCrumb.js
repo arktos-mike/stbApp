@@ -13,19 +13,19 @@ const BreadCrumb = () => {
             <div>
                 <Breadcrumb separator=">" style={{ margin: '3px 0' }}>
                     {pathnames.length > 0 ? (
-                        <Breadcrumb.Item>
+                        <Breadcrumb.Item key="overview">
                             <Link to="/"><EyeOutlined /></Link>
                         </Breadcrumb.Item>
                     ) : (
-                        <Breadcrumb.Item><EyeOutlined /> {i18next.t('menu.overview')}</Breadcrumb.Item>
+                        <Breadcrumb.Item key="overview"><EyeOutlined /> {i18next.t('menu.overview')}</Breadcrumb.Item>
                     )}
                     {pathnames.map((name, index) => {
                         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
                         const isLast = index === pathnames.length - 1;
                         return isLast ? (
-                            <Breadcrumb.Item>{i18next.t('menu.'+ name)}</Breadcrumb.Item>
+                            <Breadcrumb.Item key={name}>{i18next.t('menu.'+ name)}</Breadcrumb.Item>
                         ) : (
-                            <Breadcrumb.Item>
+                            <Breadcrumb.Item key={name}>
                                 <Link to={`${routeTo}`}>{i18next.t('menu.'+ name)}</Link>
                             </Breadcrumb.Item>
                         );

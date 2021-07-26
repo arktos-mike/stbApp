@@ -2,8 +2,6 @@ import React from 'react';
 import { Row, Col } from "antd";
 import Display from "../components/Display";
 import "./App.css";
-import i18next from 'i18next';
-
 
 export default class Overview extends React.Component {
     constructor(props) {
