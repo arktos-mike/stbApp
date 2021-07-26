@@ -56,6 +56,7 @@
                 "passerror": "Пароль не был изменен",
                 "timeok": "Дата/время успешно изменены",
                 "timeerror": "Дата/время не были изменены",
+                "rightserror": "Недостаточно прав пользователя",
                 "idle": "Выход из системы из-за бездействия"
             },
             "time": {
@@ -124,6 +125,7 @@
                 "passerror": "Password not changed",
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
+                "rightserror": "Insufficient user rights",
                 "idle": "Logout due to Inactivity"
             },
             "time": {
@@ -193,6 +195,7 @@
                 "passerror": "Password not changed",
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
+                "rightserror": "Insufficient user rights",
                 "idle": "Logout due to Inactivity"
             },
             "time": {
@@ -262,6 +265,7 @@
                 "passerror": "Password not changed",
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
+                "rightserror": "Insufficient user rights",
                 "idle": "Logout due to Inactivity"
             },
             "time": {

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Row, Col, Modal } from "antd";
+import { Row, Col, Modal, notification } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import InPut from "../components/InPut";
 import "./App.css";
 import i18next from 'i18next';
 
 const { confirm } = Modal;
-
 
 export default class Settings extends React.Component {
     constructor(props) {
@@ -54,6 +53,15 @@ export default class Settings extends React.Component {
         });
     }
 
+    openNotificationWithIcon = (type, message, dur, descr) => {
+        notification[type]({
+            message: message,
+            description: descr,
+            placement: 'bottomRight',
+            duration: dur
+        });
+    };
+
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.send("tagsUpdSelect", []);
@@ -70,9 +78,7 @@ export default class Settings extends React.Component {
             <div style={{ padding: 8 }}>
                 <Row align="top" gutter={[16, 0]}>
                     <Col>
-                        <InPut tag={this.state.weftDensity} disabled={this.props.user !== "anon" ? false : true} onChange={(value) => {
-                            this.writeValue(value, this.state.weftDensity);
-                        }} />
+                        <InPut tag={this.state.weftDensity} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.writeValue(value, this.state.weftDensity); }} />
                     </Col>
                 </Row>
             </div>

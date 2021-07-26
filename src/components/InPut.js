@@ -26,13 +26,15 @@ const myTheme = {
 
 const InPut = (props) => {
     if (props.disabled) {
-        return (<Input size="large"
-            addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.descr')}
-            addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.eng')}
-            value={props.tag === null ? "--" : props.tag.val}
-            style={{ width: "65%", textAlign: "right" }}
-            disabled
-        />);
+        return (<div onClick={() => { props.onDisabled() }}>
+            <Input size="large"
+                addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.descr')}
+                addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.eng')}
+                value={props.tag === null ? "--" : props.tag.val}
+                style={{ width: "65%", textAlign: "right" }}
+                disabled
+            />
+        </div>);
     }
     return (
         <NumPad.Number
