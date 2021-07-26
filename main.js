@@ -2,11 +2,12 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const url = require('url');
 const fs = require('fs');
-const os = require('os');
-const { exec } = require("child_process");
+var sudo = require('sudo-prompt');
+var options = {
+    name: 'Electron',
+};
 var fins = require('omron-fins');
 var i18next = require('i18next');
-var platform = os.platform();
 var pass = null;
 var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
 //var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
@@ -85,14 +86,14 @@ function createWindow() {
 
     ipcMain.on("datetimeSet", (event, dtTicks, dtISO) => {
 
-        switch (platform) {
+        switch (process.platform) {
             case 'linux':
-                exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", (error, data, getter) => {
+                sudo.exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", options, (error, data, getter) => {
                     win.webContents.send('datetimeChanged', !error);
                 });
                 break;
             case 'win32':
-                exec("powershell -command \"$T = [datetime]::Parse(\\\"" + dtISO + "\\\"); Set-Date -Date $T\"", (error, data, getter) => {
+                sudo.exec("powershell -command \"$T = [datetime]::Parse(\\\"" + dtISO + "\\\"); Set-Date -Date $T\"", options, (error, data, getter) => {
                     win.webContents.send('datetimeChanged', !error);
                 });
                 break;
