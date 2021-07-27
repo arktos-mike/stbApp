@@ -16,7 +16,7 @@ let win
 
 var tags = [
     { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "weftDensity", addr: "D20000.2", type: "bool", min: 0, max: 30, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "weftDensity", addr: "W12.2", type: "bool", min: 0, max: 30, dec: 1, cupd: false, plc: '1', val: null },
     { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
     { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
 ];
