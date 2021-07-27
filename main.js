@@ -16,9 +16,9 @@ let win
 
 var tags = [
     { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "weftDensity", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
-    { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
+    { name: "weftDensity", addr: "D20000.2", type: "bool", min: 0, max: 30, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
+    { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
 ];
 let dl;
 
@@ -241,11 +241,15 @@ function createWindow() {
         arr.forEach(function (name) {
             let item = tags.find(e => e.name === name);
             switch (item.type) {
+                case "lreal":
+                    dl = 4;
+                    break;
                 case "real":
                 case "dword":
                     dl = 2;
                     break;
                 case "int":
+                case "bcd":
                 case "mode":
                 case "bool":
                     dl = 1;
@@ -257,8 +261,20 @@ function createWindow() {
     ipcMain.on("plcWrite", (event, name, value) => {
         let item = tags.find(e => e.name === name);
         switch (item.type) {
+            case "bool":
+                client['plc' + item.plc].write(item.addr, value ? 1 : 0, function (err, msg) {
+                    if (err) { }
+                });
+                break;
             case "int":
                 client['plc' + item.plc].write(item.addr, value, function (err, msg) {
+                    if (err) { }
+                });
+                break;
+
+            case "bcd":
+
+                client['plc' + item.plc].write(item.addr, parseInt(value.toString(10), 16), function (err, msg) {
                     if (err) { }
                 });
                 break;
@@ -276,6 +292,20 @@ function createWindow() {
                 });
                 break;
 
+            case "lreal":
+                var lfarr = new Float64Array(1);
+                var lbytes = new Uint8Array(lfarr.buffer);
+                var lwords = new Uint16Array(4);
+                lfarr[0] = value;
+                lwords[0] = (lbytes[1] << 8) | lbytes[0];
+                lwords[1] = (lbytes[3] << 8) | lbytes[2];
+                lwords[2] = (lbytes[5] << 8) | lbytes[4];
+                lwords[3] = (lbytes[7] << 8) | lbytes[6];
+                //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
+                client['plc' + item.plc].write(item.addr, [lwords[0], lwords[1], lwords[2], lwords[3]], function (err, msg) {
+                    if (err) { }
+                });
+                break;
         }
     })
 
@@ -319,12 +349,16 @@ let intervalTimer = setInterval(() => {
         tags.forEach(function (e) {
             if (e.cupd) {
                 switch (e.type) {
+                    case "lreal":
+                        dl = 4;
+                        break;
                     case "real":
                     case "dword":
                         dl = 2;
                         break;
                     case "int":
                     case "bool":
+                    case "bcd":
                     case "mode":
                         dl = 1;
                         break;
@@ -338,7 +372,7 @@ let intervalTimer = setInterval(() => {
 
 var cb = function (err, msg) {
     if (err) {
-    //    console.error(err);
+        //    console.error(err);
     }
     else
         switch (msg.tag.type) {
@@ -370,11 +404,17 @@ var cb = function (err, msg) {
                 break;
 
             case "bool":
+                win.webContents.send('plcReply', msg.response.values[0] === 0 ? false : true, msg.tag);
                 //console.log(new Date().toISOString(), '\t', msg.response.values[0] === 0 ? "\x1b[31mПОДНЯТА" : "\x1b[32mОПУЩЕНА", '\x1b[0m\t', msg.tag.name, '\t');
                 break;
 
             case "int":
                 win.webContents.send('plcReply', msg.response.values[0], msg.tag);
+                //console.log(new Date().toISOString(), '\t', msg.response.values[0], '\t', msg.tag.name, '\t');
+                break;
+
+            case "bcd":
+                win.webContents.send('plcReply', parseInt(msg.response.values[0].toString(16), 10), msg.tag);
                 //console.log(new Date().toISOString(), '\t', msg.response.values[0], '\t', msg.tag.name, '\t');
                 break;
 
@@ -387,6 +427,22 @@ var cb = function (err, msg) {
                 bytes[0] = (msg.response.values[1] & 0xff00) >> 8;
                 var view = new DataView(buf);
                 win.webContents.send('plcReply', Number(view.getFloat32(0, false).toFixed(msg.tag.dec)), msg.tag);
+                //console.log(new Date().toISOString(), '\t', Number(view.getFloat32(0, false).toFixed(1)), '\t', msg.tag.name, '\t');
+                break;
+
+            case "lreal":
+                var lbuf = new ArrayBuffer(8);
+                var lbytes = new Uint8Array(lbuf);
+                lbytes[7] = (msg.response.values[0] & 0x00ff);
+                lbytes[6] = (msg.response.values[0] & 0xff00) >> 8;
+                lbytes[5] = (msg.response.values[1] & 0x00ff);
+                lbytes[4] = (msg.response.values[1] & 0xff00) >> 8;
+                lbytes[3] = (msg.response.values[2] & 0x00ff);
+                lbytes[2] = (msg.response.values[2] & 0xff00) >> 8;
+                lbytes[1] = (msg.response.values[3] & 0x00ff);
+                lbytes[0] = (msg.response.values[3] & 0xff00) >> 8;
+                var lview = new DataView(buf);
+                win.webContents.send('plcReply', Number(lview.getFloat64(0, false).toFixed(msg.tag.dec)), msg.tag);
                 //console.log(new Date().toISOString(), '\t', Number(view.getFloat32(0, false).toFixed(1)), '\t', msg.tag.name, '\t');
                 break;
 
