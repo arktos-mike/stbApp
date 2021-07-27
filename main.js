@@ -11,14 +11,14 @@ var fins = require('omron-fins');
 var i18next = require('i18next');
 var pass = null;
 var ip = null;
-var client = null;
+var client = {};
 let win
 
 var tags = [
-    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: 0, val: null },
-    { name: "weftDensity", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: false, plc: 0, val: null },
-    { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: 0, val: null },
-    { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, plc: 1, val: null },
+    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "weftDensity", addr: "D4", type: "real", min: 10, max: 30, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
+    { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
 ];
 let dl;
 
@@ -146,9 +146,21 @@ function createWindow() {
 
     fs.readFile('./src/ip.json', 'utf8', (err, jsonString) => {
         ip = JSON.parse(jsonString);
-        updateIP()
-        client[0] = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 20000 });
-        client[1] = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 20000 });
+        updateIP();
+        client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
+        client.plc2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 2000 });
+        //client['plc1'].on('timeout', function (host) {
+        //    console.log("PLC1 Got timeout from: ", host);
+        //});
+        //client['plc2'].on('timeout', function (host) {
+        //    console.log("PLC2 Got timeout from: ", host);
+        //});
+        //client['plc1'].on('error', function (error) {
+        //    console.log("PLC1 Error: ", error)
+        //});
+        //client['plc2'].on('error', function (error) {
+        //    console.log("PLC2 Error: ", error)
+        //});
     });
     ipcMain.on("ipChange", (event, type, value) => {
 
@@ -169,14 +181,14 @@ function createWindow() {
                         ip.plcIP1 = value;
                         const jsonString1 = JSON.stringify(ip)
                         fs.writeFile('./src/ip.json', jsonString1, () => { });
-                        client[0] = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 20000 });
+                        client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
                     case 'plcIP2':
                         ip.plcIP2 = value;
                         const jsonString2 = JSON.stringify(ip)
                         fs.writeFile('./src/ip.json', jsonString2, () => { });
-                        client[1] = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 20000 });
+                        client.plc2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
                 }
@@ -198,14 +210,14 @@ function createWindow() {
                         ip.plcIP1 = value;
                         const jsonString1 = JSON.stringify(ip)
                         fs.writeFile('./src/ip.json', jsonString1, () => { });
-                        client[0] = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 20000 });
+                        client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
                     case 'plcIP2':
                         ip.plcIP2 = value;
                         const jsonString2 = JSON.stringify(ip)
                         fs.writeFile('./src/ip.json', jsonString2, () => { });
-                        client[1] = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 20000 });
+                        client.plc2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
                 }
@@ -239,14 +251,14 @@ function createWindow() {
                     dl = 1;
                     break;
             }
-            client[item.plc].read(item.addr, dl, cb, item);
+            client['plc' + item.plc].read(item.addr, dl, cb, item);
         });
     })
     ipcMain.on("plcWrite", (event, name, value) => {
         let item = tags.find(e => e.name === name);
         switch (item.type) {
             case "int":
-                client[item.plc].write(item.addr, value, function (err, msg) {
+                client['plc' + item.plc].write(item.addr, value, function (err, msg) {
                     if (err) { }
                 });
                 break;
@@ -259,7 +271,7 @@ function createWindow() {
                 words[0] = (bytes[1] << 8) | bytes[0];
                 words[1] = (bytes[3] << 8) | bytes[2];
                 //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
-                client[item.plc].write(item.addr, [words[0], words[1]], function (err, msg) {
+                client['plc' + item.plc].write(item.addr, [words[0], words[1]], function (err, msg) {
                     if (err) { }
                 });
                 break;
@@ -279,7 +291,7 @@ function createWindow() {
     win.on('closed', () => {
         console.log("win.closed")
         clearInterval(intervalTimer)
-        client = null
+        client = {}
         win = null
     })
 }
@@ -303,7 +315,7 @@ process.on('uncaughtException', function (error) {
 });
 
 let intervalTimer = setInterval(() => {
-    if (client) {
+    if (typeof client !== 'undefined') {
         tags.forEach(function (e) {
             if (e.cupd) {
                 switch (e.type) {
@@ -316,8 +328,9 @@ let intervalTimer = setInterval(() => {
                     case "mode":
                         dl = 1;
                         break;
+
                 }
-                client[e.plc].read(e.addr, dl, cb, e);;
+                client['plc' + e.plc].read(e.addr, dl, cb, e);
             }
         });
     }
@@ -325,7 +338,7 @@ let intervalTimer = setInterval(() => {
 
 var cb = function (err, msg) {
     if (err) {
-        //console.error(err);
+    //    console.error(err);
     }
     else
         switch (msg.tag.type) {

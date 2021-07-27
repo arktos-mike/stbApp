@@ -64,7 +64,7 @@ export default class Settings extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("tagsUpdSelect", []);
+            //window.ipcRenderer.send("tagsUpdSelect", []);
             window.ipcRenderer.on('plcReply', this.plcReplyListenerSetting);
             window.ipcRenderer.send("plcRead", ["weftDensity"]);
         }
