@@ -100,6 +100,22 @@ function createWindow() {
         }
     });
 
+    ipcMain.on("reboot", (event) => {
+
+        switch (process.platform) {
+            case 'linux':
+                sudo.exec("sudo reboot", options, (error, data, getter) => {
+                    win.webContents.send('rebootResponse', !error);
+                });
+                break;
+            case 'win32':
+                sudo.exec("powershell -command \"Restart-Computer\"", options, (error, data, getter) => {
+                    win.webContents.send('rebootResponse', !error);
+                });
+                break;
+        }
+    });
+
     ipcMain.on("tagsUpdSelect", (event, arr) => {
         arr.forEach(function (name) {
             tags.forEach(function (e, i) {

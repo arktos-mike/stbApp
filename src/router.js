@@ -3,10 +3,11 @@ import { HashRouter, Route, Link, Switch } from 'react-router-dom';
 import { Layout, Menu, Select, Drawer, Button, Modal, Input, Form, Checkbox, notification, DatePicker, TimePicker, ConfigProvider } from 'antd';
 import "./page/App.css";
 import logo from './icon.svg';
-import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
+import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined, ApartmentOutlined } from '@ant-design/icons';
 import Overview from "./page/overview.js";
 import Settings from "./page/settings.js";
 import Control from "./page/control.js";
+import System from "./page/system.js";
 import moment from "moment";
 import i18next from 'i18next';
 import BreadCrumb from "./components/BreadCrumb";
@@ -117,6 +118,14 @@ export class MainRouter extends React.Component {
                     this.openNotificationWithIcon('error', i18next.t('notifications.timeerror'), 2);
                 }
             });
+            window.ipcRenderer.on('rebootResponse', (event, res) => {
+                if (res) {
+                    this.openNotificationWithIcon('success', i18next.t('notifications.rebootok'), 2);
+                }
+                else {
+                    this.openNotificationWithIcon('error', i18next.t('notifications.rebooterror'), 2);
+                }
+            });
             
             window.ipcRenderer.on('userChanged', (event, user, remember) => {
                 this.setState({
@@ -153,7 +162,7 @@ export class MainRouter extends React.Component {
         window.ipcRenderer.removeAllListeners('userChanged');
         window.ipcRenderer.removeAllListeners('passChanged');
         window.ipcRenderer.removeAllListeners('datetimeChanged');
-        
+        window.ipcRenderer.removeAllListeners('rebootResponse');
     }
 
     handleClick = e => {
@@ -223,6 +232,7 @@ export class MainRouter extends React.Component {
                                         <Route exact path={'/'} render={(props) => <Overview user={this.state.user} {...props} />} />
                                         <Route exact path={'/control'} render={(props) => <Control user={this.state.user} {...props} />} />
                                         <Route exact path={'/settings'} render={(props) => <Settings user={this.state.user} {...props} />} />
+                                        <Route exact path={'/system'} render={(props) => <System user={this.state.user} {...props} />} />
                                     </Switch>
                                     <Drawer
                                         //title="Basic Drawer"
@@ -244,6 +254,9 @@ export class MainRouter extends React.Component {
                                             </Menu.Item>
                                             <Menu.Item key="settings" icon={<SettingOutlined style={{ fontSize: '100%' }} />}>
                                                 <Link to="/settings">{i18next.t('menu.settings')}</Link>
+                                            </Menu.Item>
+                                            <Menu.Item key="system" icon={<ApartmentOutlined style={{ fontSize: '100%' }} />}>
+                                                <Link to="/system">{i18next.t('menu.system')}</Link>
                                             </Menu.Item>
                                         </Menu>
                                     </Drawer>

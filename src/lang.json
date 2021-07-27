@@ -24,6 +24,7 @@
                 "overview": "ОБЗОР",
                 "control": "УПРАВЛЕНИЕ",
                 "settings": "НАСТРОЙКИ",
+                "system": "СЕТЬ",
                 "close": "ЗАКРЫТЬ"
             },
             "confirm": {
@@ -57,6 +58,10 @@
                 "timeok": "Дата/время успешно изменены",
                 "timeerror": "Дата/время не были изменены",
                 "rightserror": "Недостаточно прав пользователя",
+                "ipok": "IP-адрес успешно изменен",
+                "iperror": "IP-адрес не был изменен",
+                "rebootok": "Ожидается перезагрузка",
+                "rebooterror": "Перезагрузка не удалась",
                 "idle": "Выход из системы из-за бездействия"
             },
             "time": {
@@ -64,6 +69,11 @@
                 "date": "Дата",
                 "time": "Время",
                 "submit": "ИЗМЕНИТЬ ДАТУ И ВРЕМЯ"
+            },
+            "system": {
+                "reboot": "ПЕРЕЗАГРУЗКА ПАНЕЛИ",
+                "opIP": "IP-адрес панели оператора",
+                "plcIP": "IP-адрес контроллера"
             },
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
         }
@@ -93,6 +103,7 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS",
+                "system": "NETWORK",
                 "close": "CLOSE"
             },
             "confirm": {
@@ -126,6 +137,10 @@
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
                 "rightserror": "Insufficient user rights",
+                "ipok": "IP address changed successfully",
+                "iperror": "IP address not changed",
+                "rebootok": "Reboot pending",
+                "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
             },
             "time": {
@@ -133,6 +148,11 @@
                 "date": "Date",
                 "time": "Time",
                 "submit": "CHANGE DATE AND TIME"
+            },
+            "system": {
+                "reboot": "REBOOT DEVICE",
+                "opIP": "IP address - HMI",
+                "plcIP": "IP address - PLC"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
@@ -163,6 +183,7 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS",
+                "system": "NETWORK",
                 "close": "CLOSE"
             },
             "confirm": {
@@ -196,6 +217,10 @@
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
                 "rightserror": "Insufficient user rights",
+                "ipok": "IP address changed successfully",
+                "iperror": "IP address not changed",
+                "rebootok": "Reboot pending",
+                "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
             },
             "time": {
@@ -203,6 +228,11 @@
                 "date": "Date",
                 "time": "Time",
                 "submit": "CHANGE DATE AND TIME"
+            },
+            "system": {
+                "reboot": "REBOOT DEVICE",
+                "opIP": "IP address - HMI",
+                "plcIP": "IP address - PLC"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
@@ -233,6 +263,7 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS",
+                "system": "NETWORK",
                 "close": "CLOSE"
             },
             "confirm": {
@@ -266,6 +297,10 @@
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
                 "rightserror": "Insufficient user rights",
+                "ipok": "IP address changed successfully",
+                "iperror": "IP address not changed",
+                "rebootok": "Reboot pending",
+                "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
             },
             "time": {
@@ -273,6 +308,11 @@
                 "date": "Date",
                 "time": "Time",
                 "submit": "CHANGE DATE AND TIME"
+            },
+            "system": {
+                "reboot": "REBOOT DEVICE",
+                "opIP": "IP address - HMI",
+                "plcIP": "IP address - PLC"
             },
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
