@@ -58,8 +58,6 @@
                 "timeok": "Дата/время успешно изменены",
                 "timeerror": "Дата/время не были изменены",
                 "rightserror": "Недостаточно прав пользователя",
-                "ipok": "IP-адрес успешно изменен",
-                "iperror": "IP-адрес не был изменен",
                 "rebootok": "Ожидается перезагрузка",
                 "rebooterror": "Перезагрузка не удалась",
                 "idle": "Выход из системы из-за бездействия"
@@ -137,8 +135,6 @@
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
                 "rightserror": "Insufficient user rights",
-                "ipok": "IP address changed successfully",
-                "iperror": "IP address not changed",
                 "rebootok": "Reboot pending",
                 "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
@@ -217,8 +213,6 @@
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
                 "rightserror": "Insufficient user rights",
-                "ipok": "IP address changed successfully",
-                "iperror": "IP address not changed",
                 "rebootok": "Reboot pending",
                 "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
@@ -297,8 +291,6 @@
                 "timeok": "Date/time changed successfully",
                 "timeerror": "Date/time not changed",
                 "rightserror": "Insufficient user rights",
-                "ipok": "IP address changed successfully",
-                "iperror": "IP address not changed",
                 "rebootok": "Reboot pending",
                 "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"

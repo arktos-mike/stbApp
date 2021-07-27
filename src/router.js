@@ -40,6 +40,7 @@ export class MainRouter extends React.Component {
             timeVisible: false,
             visible: false,
             remember: true,
+            ip: null,
             user: 'anon'
         };
 
@@ -126,7 +127,11 @@ export class MainRouter extends React.Component {
                     this.openNotificationWithIcon('error', i18next.t('notifications.rebooterror'), 2);
                 }
             });
-            
+            window.ipcRenderer.on('ipChanged', (event, ip) => {
+                this.setState({
+                    ip: ip,
+                });
+            });
             window.ipcRenderer.on('userChanged', (event, user, remember) => {
                 this.setState({
                     user: user,
@@ -163,6 +168,7 @@ export class MainRouter extends React.Component {
         window.ipcRenderer.removeAllListeners('passChanged');
         window.ipcRenderer.removeAllListeners('datetimeChanged');
         window.ipcRenderer.removeAllListeners('rebootResponse');
+        window.ipcRenderer.removeAllListeners('ipChanged');
     }
 
     handleClick = e => {
@@ -232,7 +238,7 @@ export class MainRouter extends React.Component {
                                         <Route exact path={'/'} render={(props) => <Overview user={this.state.user} {...props} />} />
                                         <Route exact path={'/control'} render={(props) => <Control user={this.state.user} {...props} />} />
                                         <Route exact path={'/settings'} render={(props) => <Settings user={this.state.user} {...props} />} />
-                                        <Route exact path={'/system'} render={(props) => <System user={this.state.user} {...props} />} />
+                                        <Route exact path={'/system'} render={(props) => <System user={this.state.user} ip={this.state.ip} {...props} />} />
                                     </Switch>
                                     <Drawer
                                         //title="Basic Drawer"

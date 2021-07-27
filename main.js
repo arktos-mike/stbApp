@@ -6,10 +6,15 @@ var sudo = require('sudo-prompt');
 var options = {
     name: 'Electron',
 };
+
 var fins = require('omron-fins');
 var i18next = require('i18next');
 var pass = null;
-var client = fins.FinsClient(9600, '85.95.177.153', { SA1: 4, DA1: 0, timeout: 20000 });
+var ip = null;
+//var client1 = null;
+//var client2 = null;
+var client1 = fins.FinsClient(9600, '127.0.0.1', { SA1: 4, DA1: 0, timeout: 20000 });
+var client2 = fins.FinsClient(9600, '127.0.0.1', { SA1: 4, DA1: 0, timeout: 20000 });
 //var client = fins.FinsClient(9600, '192.168.250.1', { SA1: 4, DA1: 0, timeout: 20000 });
 let win
 
@@ -20,6 +25,31 @@ var tags = [
     { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, val: null },
 ];
 let dl;
+
+function updateIP() {
+    const { networkInterfaces } = require('os');
+    const nets = networkInterfaces();
+    const netResults = {};
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+            if (net.family === 'IPv4' && !net.internal) {
+                if (!netResults[name]) {
+                    netResults[name] = [];
+                }
+                netResults[name].push(net.address);
+            }
+        }
+    }
+    switch (process.platform) {
+        case 'linux':
+            ip.opIP = netResults['eth0'][0]
+            break;
+        case 'win32':
+            ip.opIP = netResults['Ethernet'][0]
+            break;
+    }
+}
 
 function setLanguage(lang) {
     i18next.changeLanguage(lang, () => { })
@@ -70,6 +100,8 @@ function createWindow() {
     });
     ipcMain.on("appLoaded", (event) => {
         win.webContents.send('langChanged', i18next.language);
+        updateIP()
+        win.webContents.send('ipChanged', ip);
     });
 
     fs.readFile('./src/conf.json', 'utf8', (err, jsonString) => {
@@ -116,6 +148,75 @@ function createWindow() {
         }
     });
 
+    fs.readFile('./src/ip.json', 'utf8', (err, jsonString) => {
+        ip = JSON.parse(jsonString);
+        updateIP()
+        client1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 20000 });
+        client2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 20000 });
+    });
+    ipcMain.on("ipChange", (event, type, value) => {
+
+        switch (process.platform) {
+            case 'linux':
+                switch (type) {
+                    case 'opIP':
+                        sudo.exec("sudo ifconfig eth0" + value, options, (error, data, getter) => {
+                            if (!error) {
+                                ip.opIP = value;
+                                const jsonString0 = JSON.stringify(ip)
+                                fs.writeFile('./src/ip.json', jsonString0, () => { });
+                                win.webContents.send('ipChanged', ip);
+                            }
+                        });
+                        break;
+                    case 'plcIP1':
+                        ip.plcIP1 = value;
+                        const jsonString1 = JSON.stringify(ip)
+                        fs.writeFile('./src/ip.json', jsonString1, () => { });
+                        client1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 20000 });
+                        win.webContents.send('ipChanged', ip);
+                        break;
+                    case 'plcIP2':
+                        ip.plcIP2 = value;
+                        const jsonString2 = JSON.stringify(ip)
+                        fs.writeFile('./src/ip.json', jsonString2, () => { });
+                        client2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 20000 });
+                        win.webContents.send('ipChanged', ip);
+                        break;
+                }
+                break;
+            case 'win32':
+                switch (type) {
+                    case 'opIP':
+                        sudo.exec("powershell -command \"Remove-NetIPAddress -InterfaceAlias Ethernet -Confirm:$false; Remove-NetRoute -InterfaceAlias Ethernet -Confirm:$false; New-NetIPAddress -InterfaceAlias Ethernet -AddressFamily IPv4 " + value + " -PrefixLength 24 -Type Unicast  -Confirm:$false\"", options, (error, data, getter) => {
+                            if (!error) {
+                                ip.opIP = value;
+                                const jsonString0 = JSON.stringify(ip)
+                                fs.writeFile('./src/ip.json', jsonString0, () => { });
+                                win.webContents.send('ipChanged', ip);
+                            }
+                            if (error) console.log(error.message)
+                        });
+                        break;
+                    case 'plcIP1':
+                        ip.plcIP1 = value;
+                        const jsonString1 = JSON.stringify(ip)
+                        fs.writeFile('./src/ip.json', jsonString1, () => { });
+                        client1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 20000 });
+                        win.webContents.send('ipChanged', ip);
+                        break;
+                    case 'plcIP2':
+                        ip.plcIP2 = value;
+                        const jsonString2 = JSON.stringify(ip)
+                        fs.writeFile('./src/ip.json', jsonString2, () => { });
+                        client2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 20000 });
+                        win.webContents.send('ipChanged', ip);
+                        break;
+                }
+                break;
+        }
+    });
+
     ipcMain.on("tagsUpdSelect", (event, arr) => {
         arr.forEach(function (name) {
             tags.forEach(function (e, i) {
@@ -142,14 +243,14 @@ function createWindow() {
                     dl = 1;
                     break;
             }
-            client.read(item.addr, dl, cb, item);
+            client1.read(item.addr, dl, cb, item);
         });
     })
     ipcMain.on("plcWrite", (event, name, value) => {
         let item = tags.find(e => e.name === name);
         switch (item.type) {
             case "int":
-                client.write(item.addr, value, function (err, msg) {
+                client1.write(item.addr, value, function (err, msg) {
                     if (err) { }
                 });
                 break;
@@ -162,7 +263,7 @@ function createWindow() {
                 words[0] = (bytes[1] << 8) | bytes[0];
                 words[1] = (bytes[3] << 8) | bytes[2];
                 //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
-                client.write(item.addr, [words[0], words[1]], function (err, msg) {
+                client1.write(item.addr, [words[0], words[1]], function (err, msg) {
                     if (err) { }
                 });
                 break;
@@ -182,7 +283,7 @@ function createWindow() {
     win.on('closed', () => {
         console.log("win.closed")
         clearInterval(intervalTimer)
-        client = null
+        client1 = null
         win = null
     })
 }
@@ -201,8 +302,12 @@ app.on('activate', () => {
     }
 })
 
+process.on('uncaughtException', function (error) {
+    // Handle the error
+});
+
 let intervalTimer = setInterval(() => {
-    if (client) {
+    if (client1) {
         tags.forEach(function (e) {
             if (e.cupd) {
                 switch (e.type) {
@@ -216,7 +321,7 @@ let intervalTimer = setInterval(() => {
                         dl = 1;
                         break;
                 }
-                client.read(e.addr, dl, cb, e);;
+                client1.read(e.addr, dl, cb, e);;
             }
         });
     }
