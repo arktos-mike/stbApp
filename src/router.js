@@ -215,7 +215,7 @@ export class MainRouter extends React.Component {
                                 {this.state.mode === null ? i18next.t('tags.mode.unknown') : this.state.mode.val}
                             </div>
                             <div className="user">
-                                <Button type="primary" size="large" shape="circle" icon={<UserOutlined style={{ fontSize: '100%' }} />} onClick={() => { this.setState({ userVisible: true }) }} /><span className="text">{i18next.t('user.' + this.state.user)}</span>
+                                <Button type="primary" size="large" shape="circle" icon={<UserOutlined style={{ fontSize: '120%' }} />} onClick={() => { this.setState({ userVisible: true }) }} /><span className="text">{i18next.t('user.' + this.state.user)}</span>
                             </div>
                             <div className="lang">
                                 <Select optionLabelProp="label" value={i18next.language} size="large" dropdownStyle={{ fontSize: '40px !important' }} dropdownAlign={{ offset: [-40, 4] }} dropdownMatchSelectWidth={false} style={{ color: "white" }} onChange={this.handleChange} bordered={false}>

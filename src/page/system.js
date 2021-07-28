@@ -65,6 +65,7 @@ export default class Control extends React.Component {
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.send("appLoaded");
+            window.ipcRenderer.send("tagsUpdSelect", []);
         }
     }
 
@@ -82,7 +83,7 @@ export default class Control extends React.Component {
                 <Divider orientation="left">{i18next.t('menu.control')}</Divider>
                 <Row justify="center">
                     <Space size="small" direction="vertical">
-                        <ButtOn text='system.reboot' disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.showConfirmReboot() }} icon={<SyncOutlined />}></ButtOn>
+                        <ButtOn text='system.reboot' disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.showConfirmReboot() }} icon={<SyncOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                     </Space>
                 </Row>
             </div>

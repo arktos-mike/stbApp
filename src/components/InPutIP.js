@@ -1,4 +1,3 @@
-import React from "react";
 import { Input } from "antd";
 import NumPad from 'react-numpad';
 import i18next from 'i18next';

@@ -11,7 +11,17 @@
 .ant-statistic-content-suffix {
     font-size: 18px;
 }
-
+.ant-statistic-content-prefix {
+  margin-right: 10px !important;
+}
+.ant-statistic-content {
+  display: inline-flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+.ant-card-body{
+  padding: 5px 15px !important;
+}
 .ant-table-small .ant-table-thead > tr > th {
     background-color: #E1F5FE;
     text-align: center;
@@ -58,7 +68,7 @@
   flex-grow:2;
 }
 .user {
-  padding-left: 10px;
+  padding-left: 7px;
   color: #ffffff;
   display: inline-flex;
   align-items: center;
@@ -96,9 +106,19 @@
 .ant-checkbox {
   transform: scale(2);
   margin: 7px;
-  
-}   
+}
 
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+  
+.ant-btn {
+  min-height: 52px !important;
+  min-width: 52px !important;
+  display: inline-flex ;
+  align-items: center !important;
+  justify-content: center !important;
+}
 .ant-menu-inline .ant-menu-item{
   height: 60px !important;
 }

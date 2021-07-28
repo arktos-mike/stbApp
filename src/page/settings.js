@@ -3,6 +3,7 @@ import { Row, Col, Modal, notification } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import InPut from "../components/InPut";
 import ButtOn from "../components/ButtOn";
+import { TensionIcon } from "../components/IcOn";
 import "./App.css";
 import i18next from 'i18next';
 
@@ -65,7 +66,7 @@ export default class Settings extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            //window.ipcRenderer.send("tagsUpdSelect", []);
+            window.ipcRenderer.send("tagsUpdSelect", []);
             window.ipcRenderer.on('plcReply', this.plcReplyListenerSetting);
             window.ipcRenderer.send("plcRead", ["weftDensity"]);
         }
@@ -80,7 +81,7 @@ export default class Settings extends React.Component {
                 <Row align="top" gutter={[16, 0]}>
                     <Col>
                         <InPut tag={this.state.weftDensity} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.writeValue(value, this.state.weftDensity); }} />
-                        <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.writeValue(!this.state.weftDensity.val, this.state.weftDensity) }} icon={<ExclamationCircleOutlined />}></ButtOn>
+                        <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.writeValue(!this.state.weftDensity.val, this.state.weftDensity) }} icon={<TensionIcon style={{ fontSize: '200%' }} />}></ButtOn>
                     </Col>
                 </Row>
             </div>

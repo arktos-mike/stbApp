@@ -68,7 +68,7 @@ export default class Control extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            //window.ipcRenderer.send("tagsUpdSelect", []);
+            window.ipcRenderer.send("tagsUpdSelect", []);
             window.ipcRenderer.on('plcReply', this.plcReplyListenerControl);
             window.ipcRenderer.send("plcRead", ["modeInt"]);
             window.ipcRenderer.on('langChanged', this.langChangedListenerControl);

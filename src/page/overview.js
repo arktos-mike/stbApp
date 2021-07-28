@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from "antd";
 import Display from "../components/Display";
+import { SpeedIcon } from "../components/IcOn";
 import "./App.css";
 
 export default class Overview extends React.Component {
@@ -61,7 +62,7 @@ export default class Overview extends React.Component {
 
                 <Row align="top" gutter={[16, 0]}>
                     <Col>
-                        <Display tag={this.state.angleGV}/>
+                        <Display icon={<SpeedIcon style={{fontSize: '150%', color:"#1890ff"}} />} tag={this.state.angleGV}/>
                     </Col>
                 </Row>
             </div>
