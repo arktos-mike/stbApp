@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Space, Modal, notification, Divider } from "antd";
+import { Row, Col, Card, Space, Modal, notification } from "antd";
 import { ExclamationCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import ButtOn from "../components/ButtOn";
 import InPutIP from "../components/InPutIP";
@@ -71,20 +71,24 @@ export default class Control extends React.Component {
 
     render() {
         return (
-            <div style={{ padding: 8 }}>
-                <Divider orientation="left">{i18next.t('menu.settings')}</Divider>
-                <Row justify="center">
-                    <Space size="small" direction="vertical">
-                        <InPutIP type='opIP' val={this.props.ip === null ? '--' : this.props.ip.opIP} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'opIP'); }} />
-                        <InPutIP type='plcIP' number='1' val={this.props.ip === null ? '--' : this.props.ip.plcIP1} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'plcIP1'); }} />
-                        <InPutIP type='plcIP' number='2' val={this.props.ip === null ? '--' : this.props.ip.plcIP2} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'plcIP2'); }} />
-                    </Space>
+            <div className='wrapper'>
+                <Row gutter={[8, 8]} style={{ marginBottom: 8}}>
+                    <Col span={24}>
+                        <Card title="ГЛАВНЫЙ ВАЛ" bordered={false} size='small' style={{ background: "whitesmoke", width: '100%', display:'flex', flexDirection:'column' }} headStyle={{ background: "#1890ff", color: "white" }} bodyStyle={{ flex:1, display: 'flex', alignItems:'center', justifyContent: 'center' }}>
+                            <Space size="small" direction="vertical">
+                                <InPutIP type='opIP' val={this.props.ip === null ? '--' : this.props.ip.opIP} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'opIP'); }} />
+                                <InPutIP type='plcIP' number='1' val={this.props.ip === null ? '--' : this.props.ip.plcIP1} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'plcIP1'); }} />
+                                <InPutIP type='plcIP' number='2' val={this.props.ip === null ? '--' : this.props.ip.plcIP2} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'plcIP2'); }} />
+                            </Space>
+                        </Card>
+                    </Col>
                 </Row>
-                <Divider orientation="left">{i18next.t('menu.control')}</Divider>
-                <Row justify="center">
-                    <Space size="small" direction="vertical">
-                        <ButtOn text='system.reboot' disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.showConfirmReboot() }} icon={<SyncOutlined style={{ fontSize: '200%' }} />}></ButtOn>
-                    </Space>
+                <Row gutter={[8, 8]} style={{ flex:1 }}>
+                    <Col span={24}>
+                        <Card title="ГЛАВНЫЙ ВАЛ" bordered={false} size='small' style={{ background: "whitesmoke", width: '100%', display:'flex', flexDirection:'column' }} headStyle={{ background: "#1890ff", color: "white" }} bodyStyle={{ flex:1, display: 'flex', alignItems:'center', justifyContent: 'center' }}>
+                            <ButtOn text='system.reboot' disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.showConfirmReboot() }} icon={<SyncOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                        </Card>
+                    </Col>
                 </Row>
             </div>
         )

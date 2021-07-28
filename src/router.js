@@ -231,7 +231,7 @@ export class MainRouter extends React.Component {
                             </div>
                         </Header>
                         <div className="site-drawer-render-in-current-wrapper">
-                            <Content style={{ padding: '0 28px', }}>
+                            <Content className='content'>
                                 <BreadCrumb />
                                 <div className="site-layout-content">
                                     <Switch>
@@ -268,7 +268,7 @@ export class MainRouter extends React.Component {
                                     </Drawer>
                                 </div>
                             </Content>
-                            <Footer style={{ textAlign: 'center', margin: '3px', padding: '0px', color: 'rgba(0, 0, 0, 0.45)' }}>{i18next.t('footer')}</Footer>
+                            <Footer style={{ textAlign: 'center', margin: '0px', padding: '3px', color: 'rgba(0, 0, 0, 0.45)' }}>{i18next.t('footer')}</Footer>
                         </div>
                     </Layout>
                 </HashRouter >

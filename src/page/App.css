@@ -13,14 +13,20 @@
 }
 .ant-statistic-content-prefix {
   margin-right: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 .ant-statistic-content {
   display: inline-flex !important;
-  align-items: flex-start !important;
+  align-items: center !important;
   justify-content: center !important;
 }
-.ant-card-body{
-  padding: 5px 15px !important;
+
+.ant-col{
+  display: inline-flex !important;
+  align-items: stretch !important;
+  align-self: stretch !important;
 }
 .ant-table-small .ant-table-thead > tr > th {
     background-color: #E1F5FE;
@@ -144,11 +150,31 @@
 .site-drawer-render-in-current-wrapper {
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   margin-top: 64px;
+  height: calc(100% - 64px) !important;
 }
+
+.content{
+  padding: 0 28px !important;
+} 
+
+.layout{
+  height: 100vh;
+  overflow: "auto"; 
+}
+
 .site-layout-content {
-  min-height: 480px;
+  padding:8px;
   background: #ffffffe0;
+  height: calc(100% - 28px);
+}
+
+.wrapper{
+  height:100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {

@@ -82,7 +82,7 @@ export default class Control extends React.Component {
 
     render() {
         return (
-            <div style={{ padding: 8 }}>
+            <div className='wrapper'>
                 <Row align="top" gutter={[16, 0]}>
                     <Col>
                         <InPut noEng noDescr tag={this.state.modeInt} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.modeInt); }} />
