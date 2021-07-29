@@ -2,6 +2,8 @@ import React from 'react';
 import { Row, Col, Modal, notification } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import InPut from "../components/InPut";
+import { TensionIcon } from "../components/IcOn";
+import ButtOn from "../components/ButtOn";
 import "./App.css";
 import i18next from 'i18next';
 
@@ -19,17 +21,13 @@ export default class Control extends React.Component {
         return window && window.process && window.process.type;
     }
 
-    plcReplyListenerControl = (event, val, tag) => {
-        if (tag.name === "modeInt") {
+    plcReplyListener = (event, val, tag) => {
+        if (this.state[tag.name] !== undefined) {
             tag.val = val;
             this.setState({
-                modeInt: tag
+                [tag.name]: tag
             });
         }
-    };
-
-    langChangedListenerControl = (event, lang) => {
-        window.ipcRenderer.send("plcRead", ["modeInt"]);
     };
 
     writeValue = (value, tag) => {
@@ -68,16 +66,14 @@ export default class Control extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("tagsUpdSelect", []);
-            window.ipcRenderer.on('plcReply', this.plcReplyListenerControl);
             window.ipcRenderer.send("plcRead", ["modeInt"]);
-            window.ipcRenderer.on('langChanged', this.langChangedListenerControl);
+            window.ipcRenderer.on('plcReply', this.plcReplyListener);
+            window.ipcRenderer.send("tagsUpdSelect", []);            
         }
     }
 
     componentWillUnmount() {
-        window.ipcRenderer.removeListener('plcReply', this.plcReplyListenerControl);
-        window.ipcRenderer.removeListener('langChanged', this.langChangedListenerControl);
+        window.ipcRenderer.removeListener('plcReply', this.plcReplyListener);
     }
 
     render() {
@@ -86,6 +82,7 @@ export default class Control extends React.Component {
                 <Row align="top" gutter={[16, 0]}>
                     <Col>
                         <InPut noEng noDescr tag={this.state.modeInt} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.modeInt); }} />
+                        <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => {}} icon={<TensionIcon style={{ fontSize: '200%' }} />}></ButtOn>
                     </Col>
                 </Row>
             </div>

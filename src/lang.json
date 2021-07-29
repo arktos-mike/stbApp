@@ -3,12 +3,32 @@
         "translation": {
             "tags": {
                 "angleGV": {
-                    "descr": "Угол останова ГВ",
+                    "descr": "Угол останова",
                     "eng": "°"
+                },
+                "speedGV": {
+                    "descr": "Скорость",
+                    "eng": "об/мин"
+                },
+                "clothGeneral": {
+                    "descr": "Общий",
+                    "eng": "м"
+                },
+                "clothShift": {
+                    "descr": "Сменный",
+                    "eng": "м"
                 },
                 "weftDensity": {
                     "descr": "Плотность ткани по утку",
                     "eng": "утч/см"
+                },
+                "warpTension": {
+                    "descr": "Текущее",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Задание",
+                    "eng": "%"
                 },
                 "mode": {
                     "descr": "Режим работы",
@@ -73,6 +93,32 @@
                 "opIP": "IP-адрес панели оператора",
                 "plcIP": "IP-адрес контроллера"
             },
+            "panel": {
+                "network": "СЕТЕВЫЕ НАСТРОЙКИ",
+                "actions": "ДЕЙСТВИЯ",
+                "main": "ГЛАВНЫЙ ВАЛ",
+                "general": "ОБЩИЕ",
+                "prod": "ТОВАР",
+                "tension": "НАТЯЖЕНИЕ ОСНОВЫ",
+                "config": "КОНФИГУРАЦИЯ",
+                "letoffdrive": "ПРИВОД ПОДАЧИ ОСНОВЫ",
+                "prodcounters": "ТОВАРНЫЕ СЧЁТЧИКИ",
+                "mantension": "РУЧНАЯ УСТАНОВКА НАТЯЖЕНИЯ ОСНОВЫ",
+                "left": "ЛЕВЫЙ НАВОЙ",
+                "right": "ПРАВЫЙ НАВОЙ",
+                "rotangle": "УГОЛ ПОВОРОТА",
+                "pickangle": "УГОЛ ПРИБОЯ",
+                "beatupangle": "УГОЛ БОЯ",
+                "calibration": "КАЛИБРОВКА",
+                "diagnostics": "ДИАГНОСТИЧЕСКАЯ ИНФОРМАЦИЯ",
+                "tensionsensor": "ДАТЧИК НАТЯЖЕНИЯ ОСНОВЫ",
+                "tensioncontrol": "РЕГУЛЯТОР ПОДАЧИ",
+                "block": "БЛОКИРОВКИ АВАРИЙ",
+                "projectilecontrol": "КОНТРОЛЬ ПОЛЁТА ПРОКЛАДЧИКА",
+                "cooling": "ОХЛАЖДЕНИЕ",
+                "tempsensor": "ДАТЧИК ТЕМПЕРАТУРЫ"
+            },
+            "decimalSeparator": ",",
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
         }
     },
@@ -83,9 +129,29 @@
                     "descr": "Stop angle",
                     "eng": "°"
                 },
+                "speedGV": {
+                    "descr": "Speed",
+                    "eng": "rpm"
+                },
+                "clothGeneral": {
+                    "descr": "Overall",
+                    "eng": "m"
+                },
+                "clothShift": {
+                    "descr": "Shift",
+                    "eng": "m"
+                },
                 "weftDensity": {
                     "descr": "Weft density",
                     "eng": "thr/cm"
+                },
+                "warpTension": {
+                    "descr": "Current",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Setpoint",
+                    "eng": "%"
                 },
                 "mode": {
                     "descr": "Mode",
@@ -150,10 +216,35 @@
                 "opIP": "IP address - HMI",
                 "plcIP": "IP address - PLC"
             },
+            "panel": {
+                "network": "NETWORK SETTINGS",
+                "actions": "ACTIONS",
+                "main": "MACHINE POSITION",
+                "general": "GENERAL",
+                "prod": "CLOTH",
+                "tension": "WARP TENSION",
+                "config": "CONFIGURATION",
+                "letoffdrive": "LETOFF DRIVE",
+                "prodcounters": "PRODUCTION",
+                "mantension": "MANUAL TENSION",
+                "left": "LEFT WARP BEAM",
+                "right": "RIGHT WARP BEAM",
+                "rotangle": "ROTATION ANGLE",
+                "pickangle": "PICK ANGLE",
+                "beatupangle": "BEATUP ANGLE",
+                "calibration": "CALIBRATION",
+                "diagnostics": "DIAGNOSTIC INFO",
+                "tensionsensor": "TENSION SENSOR",
+                "tensioncontrol": "LETOFF CONTROLLER",
+                "block": "ALARM BLOCK",
+                "projectilecontrol": "PROJECTILE CONTROL",
+                "cooling": "COOLING",
+                "tempsensor": "TEMPERATURE SENSOR"
+            },
+            "decimalSeparator": ".",
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
-    }
-    ,
+    },
     "tr": {
         "translation": {
             "tags": {
@@ -161,9 +252,29 @@
                     "descr": "Stop angle",
                     "eng": "°"
                 },
+                "speedGV": {
+                    "descr": "Speed",
+                    "eng": "rpm"
+                },
+                "clothGeneral": {
+                    "descr": "Overall",
+                    "eng": "m"
+                },
+                "clothShift": {
+                    "descr": "Shift",
+                    "eng": "m"
+                },
                 "weftDensity": {
                     "descr": "Weft density",
                     "eng": "thr/cm"
+                },
+                "warpTension": {
+                    "descr": "Current",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Setpoint",
+                    "eng": "%"
                 },
                 "mode": {
                     "descr": "Mode",
@@ -228,10 +339,35 @@
                 "opIP": "IP address - HMI",
                 "plcIP": "IP address - PLC"
             },
+            "panel": {
+                "network": "NETWORK SETTINGS",
+                "actions": "ACTIONS",
+                "main": "MACHINE POSITION",
+                "general": "GENERAL",
+                "prod": "CLOTH",
+                "tension": "WARP TENSION",
+                "config": "CONFIGURATION",
+                "letoffdrive": "LETOFF DRIVE",
+                "prodcounters": "PRODUCTION",
+                "mantension": "MANUAL TENSION",
+                "left": "LEFT WARP BEAM",
+                "right": "RIGHT WARP BEAM",
+                "rotangle": "ROTATION ANGLE",
+                "pickangle": "PICK ANGLE",
+                "beatupangle": "BEATUP ANGLE",
+                "calibration": "CALIBRATION",
+                "diagnostics": "DIAGNOSTIC INFO",
+                "tensionsensor": "TENSION SENSOR",
+                "tensioncontrol": "LETOFF CONTROLLER",
+                "block": "ALARM BLOCK",
+                "projectilecontrol": "PROJECTILE CONTROL",
+                "cooling": "COOLING",
+                "tempsensor": "TEMPERATURE SENSOR"
+            },
+            "decimalSeparator": ",",
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
-    }
-    ,
+    },
     "es": {
         "translation": {
             "tags": {
@@ -239,9 +375,29 @@
                     "descr": "Stop angle",
                     "eng": "°"
                 },
+                "speedGV": {
+                    "descr": "Speed",
+                    "eng": "rpm"
+                },
+                "clothGeneral": {
+                    "descr": "Overall",
+                    "eng": "m"
+                },
+                "clothShift": {
+                    "descr": "Shift",
+                    "eng": "m"
+                },
                 "weftDensity": {
                     "descr": "Weft density",
                     "eng": "thr/cm"
+                },
+                "warpTension": {
+                    "descr": "Current",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Setpoint",
+                    "eng": "%"
                 },
                 "mode": {
                     "descr": "Mode",
@@ -306,6 +462,32 @@
                 "opIP": "IP address - HMI",
                 "plcIP": "IP address - PLC"
             },
+            "panel": {
+                "network": "NETWORK SETTINGS",
+                "actions": "ACTIONS",
+                "main": "MACHINE POSITION",
+                "general": "GENERAL",
+                "prod": "CLOTH",
+                "tension": "WARP TENSION",
+                "config": "CONFIGURATION",
+                "letoffdrive": "LETOFF DRIVE",
+                "prodcounters": "PRODUCTION",
+                "mantension": "MANUAL TENSION",
+                "left": "LEFT WARP BEAM",
+                "right": "RIGHT WARP BEAM",
+                "rotangle": "ROTATION ANGLE",
+                "pickangle": "PICK ANGLE",
+                "beatupangle": "BEATUP ANGLE",
+                "calibration": "CALIBRATION",
+                "diagnostics": "DIAGNOSTIC INFO",
+                "tensionsensor": "TENSION SENSOR",
+                "tensioncontrol": "LETOFF CONTROLLER",
+                "block": "ALARM BLOCK",
+                "projectilecontrol": "PROJECTILE CONTROL",
+                "cooling": "COOLING",
+                "tempsensor": "TEMPERATURE SENSOR"
+            },
+            "decimalSeparator": ",",
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
         }
     }

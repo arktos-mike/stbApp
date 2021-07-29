@@ -27,8 +27,8 @@ const InPut = (props) => {
     if (props.disabled) {
         return (<div onClick={() => { props.onDisabled() }}>
             <Input size="large"
-                addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.descr')}
-                addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.eng')}
+                addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.descr')}
+                addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.eng')}
                 value={props.tag === null ? "--" : props.tag.val}
                 style={{ width: "65%", textAlign: "right" }}
                 disabled

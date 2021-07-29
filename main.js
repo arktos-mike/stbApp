@@ -15,10 +15,18 @@ var client = {};
 let win
 
 var tags = [
-    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "weftDensity", addr: "W12.2", type: "bool", min: 0, max: 30, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "config", addr: "W52", type: "int", min: 0, max: 3, dec: 0, cupd: false, plc: '1', val: null },
     { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
-    { name: "modeInt", addr: "W12", type: "int", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
+    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "speedGV", addr: "W22", type: "int", min: 0, max: 600, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "clothGeneral", addr: "D6", type: "real", min: 0, max: 9999999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "clothShift", addr: "D10", type: "real", min: 0, max: 9999999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "weftDensity", addr: "D4", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpTension1", addr: "W56", type: "bcd", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpTension2", addr: "W57", type: "bcd", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpTensionSP1", addr: "D50", type: "bcd", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpTensionSP2", addr: "D51", type: "bcd", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "modeInt", addr: "W52", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
 ];
 let dl;
 
@@ -226,17 +234,16 @@ function createWindow() {
     });
 
     ipcMain.on("tagsUpdSelect", (event, arr) => {
-        arr.forEach(function (name) {
-            tags.forEach(function (e, i) {
-                if (e.name === name || e.name === "mode") {
-                    this[i].cupd = true;
-                }
-                else {
-                    this[i].cupd = false;
-                }
-            }, tags);
-        });
+        tags.forEach(function (e, i) {
+            if (e.name === "mode" || arr.includes(e.name)) {
+                this[i].cupd = true;
+            }
+            else {
+                this[i].cupd = false;
+            }
+        }, tags);
     });
+
     ipcMain.on("plcRead", (event, arr) => {
         arr.forEach(function (name) {
             let item = tags.find(e => e.name === name);

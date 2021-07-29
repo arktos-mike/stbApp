@@ -11,6 +11,9 @@
 .ant-statistic-content-suffix {
     font-size: 18px;
 }
+.ant-statistic-title{
+  margin-bottom: 0px !important;
+}
 .ant-statistic-content-prefix {
   margin-right: 10px !important;
   display: inline-flex !important;
@@ -23,11 +26,6 @@
   justify-content: center !important;
 }
 
-.ant-col{
-  display: inline-flex !important;
-  align-items: stretch !important;
-  align-self: stretch !important;
-}
 .ant-table-small .ant-table-thead > tr > th {
     background-color: #E1F5FE;
     text-align: center;
@@ -118,7 +116,7 @@
   margin-bottom: 10px !important;
 }
   
-.ant-btn {
+.ant-btn-lg {
   min-height: 52px !important;
   min-width: 52px !important;
   display: inline-flex ;

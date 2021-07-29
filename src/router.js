@@ -36,6 +36,7 @@ export class MainRouter extends React.Component {
             curTime: null,
             curDate: null,
             mode: null,
+            config: null,
             userVisible: false,
             timeVisible: false,
             visible: false,
@@ -85,11 +86,12 @@ export class MainRouter extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
+            window.ipcRenderer.send("plcRead", ["config"]);
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                if (tag.name === "mode") {
+                if (this.state[tag.name] !== undefined) {
                     tag.val = val;
                     this.setState({
-                        mode: tag
+                        [tag.name]: tag
                     });
                 }
             });
@@ -235,9 +237,9 @@ export class MainRouter extends React.Component {
                                 <BreadCrumb />
                                 <div className="site-layout-content">
                                     <Switch>
-                                        <Route exact path={'/'} render={(props) => <Overview user={this.state.user} {...props} />} />
-                                        <Route exact path={'/control'} render={(props) => <Control user={this.state.user} {...props} />} />
-                                        <Route exact path={'/settings'} render={(props) => <Settings user={this.state.user} {...props} />} />
+                                        <Route exact path={'/'} render={(props) => <Overview user={this.state.user} config={this.state.config} {...props} />} />
+                                        <Route exact path={'/control'} render={(props) => <Control user={this.state.user} config={this.state.config} {...props} />} />
+                                        <Route exact path={'/settings'} render={(props) => <Settings user={this.state.user} config={this.state.config} onConfChange={(conf) => { this.setState({ config: conf }) }} {...props} />} />
                                         <Route exact path={'/system'} render={(props) => <System user={this.state.user} ip={this.state.ip} {...props} />} />
                                     </Switch>
                                     <Drawer
@@ -587,7 +589,7 @@ class DateTimeModal extends React.Component {
     onFinish = (values) => {
         let dt = moment(values.date);
         dt.set({
-            hour:   values.time.get('hour'),
+            hour: values.time.get('hour'),
             minute: values.time.get('minute'),
             second: values.time.get('second')
         });
