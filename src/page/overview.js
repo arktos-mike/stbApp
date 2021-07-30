@@ -19,6 +19,7 @@ export default class Overview extends React.Component {
             warpTensionSP1: null,
             warpTensionSP2: null,
         };
+        this.updateTags = ["angleGV", "speedGV", "clothGeneral", "clothShift", "weftDensity", "warpTension1", "warpTension2", "warpTensionSP1", "warpTensionSP2"];
         this.myTheme = {
             header: {
                 primaryColor: '#263238',
@@ -42,6 +43,9 @@ export default class Overview extends React.Component {
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
+        if (this.isElectron()) {
+            window.ipcRenderer.on('plcReply', this.plcReplyListener);
+        }
     }
 
     isElectron = () => {
@@ -62,8 +66,7 @@ export default class Overview extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.on('plcReply', this.plcReplyListener);
-            window.ipcRenderer.send("tagsUpdSelect", ["angleGV", "speedGV", "clothGeneral", "clothShift", "weftDensity", "warpTension1", "warpTension2", "warpTensionSP1", "warpTensionSP2"]);
+            window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
         }
     }
 

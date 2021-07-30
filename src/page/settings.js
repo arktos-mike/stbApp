@@ -12,6 +12,11 @@ export default class Settings extends React.Component {
         super(props);
         this.state = { 
         };
+        this.readTags = ["config"];
+        this.updateTags = [];
+        if (this.isElectron()) {
+            window.ipcRenderer.on('plcReply', this.plcReplyListener);
+        }
     }
 
     isElectron = () => {
@@ -81,9 +86,8 @@ export default class Settings extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("plcRead", ["config"]);
-            window.ipcRenderer.on('plcReply', this.plcReplyListener);
-            window.ipcRenderer.send("tagsUpdSelect", []);
+            window.ipcRenderer.send("plcRead", this.readTags);
+            window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
         }
     }
 

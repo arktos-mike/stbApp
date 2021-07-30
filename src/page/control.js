@@ -27,10 +27,15 @@ export default class Control extends React.Component {
             autoOffset1: null,
             autoOffset2: null,
         };
+        this.readTags = ["warpTensionSP1", "warpTensionSP2", "autoTension", "autoOffset1", "autoOffset2"];
+        this.updateTags = ["warpTension01", "warpTension02"];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
         this.colStyle = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "0px 8px" }
+        if (this.isElectron()) {
+            window.ipcRenderer.on('plcReply', this.plcReplyListener);
+        }
     }
 
     isElectron = () => {
@@ -82,9 +87,8 @@ export default class Control extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("plcRead", ["warpTensionSP1", "warpTensionSP2", "autoTension", "autoOffset1", "autoOffset2"]);
-            window.ipcRenderer.on('plcReply', this.plcReplyListener);
-            window.ipcRenderer.send("tagsUpdSelect", ["warpTension01", "warpTension02"]);
+            window.ipcRenderer.send("plcRead", this.readTags);
+            window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
         }
     }
 

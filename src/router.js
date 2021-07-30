@@ -50,43 +50,6 @@ export class MainRouter extends React.Component {
             i18next.init({
                 resources: require(`./lang.json`)
             });
-        }
-    }
-
-    isElectron = () => {
-        return window && window.process && window.process.type;
-    }
-
-    showDrawer = () => {
-        if (!this.state.visible) {
-            this.setState({
-                visible: true,
-            });
-        }
-        else {
-            this.setState({
-                visible: false,
-            });
-        }
-    };
-
-    onClose = () => {
-        this.setState({
-            visible: false,
-        });
-    };
-    openNotificationWithIcon = (type, message, dur, descr) => {
-        notification[type]({
-            message: message,
-            description: descr,
-            placement: 'bottomRight',
-            duration: dur
-        });
-    };
-
-    componentDidMount() {
-        if (this.isElectron()) {
-            window.ipcRenderer.send("plcRead", ["config"]);
             window.ipcRenderer.on('plcReply', (event, val, tag) => {
                 if (this.state[tag.name] !== undefined) {
                     tag.val = val;
@@ -150,7 +113,43 @@ export class MainRouter extends React.Component {
                 }
             });
         }
+    }
 
+    isElectron = () => {
+        return window && window.process && window.process.type;
+    }
+
+    showDrawer = () => {
+        if (!this.state.visible) {
+            this.setState({
+                visible: true,
+            });
+        }
+        else {
+            this.setState({
+                visible: false,
+            });
+        }
+    };
+
+    onClose = () => {
+        this.setState({
+            visible: false,
+        });
+    };
+    openNotificationWithIcon = (type, message, dur, descr) => {
+        notification[type]({
+            message: message,
+            description: descr,
+            placement: 'bottomRight',
+            duration: dur
+        });
+    };
+
+    componentDidMount() {
+        if (this.isElectron()) {
+            window.ipcRenderer.send("plcRead", ["config"]);
+        }
         setInterval(() => {
             let d = moment().format("L");
             let t = moment().format("LTS");

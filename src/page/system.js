@@ -13,6 +13,11 @@ export default class Control extends React.Component {
         super(props);
         this.state = {
         };
+        this.updateTags = [];
+        if (this.isElectron()) {
+            window.ipcRenderer.send("appLoaded");
+            window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
+        }
     }
 
     isElectron = () => {
@@ -63,18 +68,14 @@ export default class Control extends React.Component {
     };
 
     componentDidMount() {
-        if (this.isElectron()) {
-            window.ipcRenderer.send("appLoaded");
-            window.ipcRenderer.send("tagsUpdSelect", []);
-        }
     }
 
     render() {
         return (
             <div className='wrapper'>
-                <Row gutter={[8, 8]} style={{ flex:1, marginBottom: 8}}>
+                <Row gutter={[8, 8]} style={{ flex: 1, marginBottom: 8 }}>
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('panel.network')} bordered={false} size='small' style={{ background: "whitesmoke", width: '100%', display:'flex', flexDirection:'column' }} headStyle={{ background: "#1890ff", color: "white" }} bodyStyle={{ flex:1, display: 'flex', alignItems:'center', justifyContent: 'center' }}>
+                        <Card title={i18next.t('panel.network')} bordered={false} size='small' style={{ background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }} headStyle={{ background: "#1890ff", color: "white" }} bodyStyle={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Space size="small" direction="vertical">
                                 <InPutIP type='opIP' val={this.props.ip === null ? '--' : this.props.ip.opIP} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'opIP'); }} />
                                 <InPutIP type='plcIP' number='1' val={this.props.ip === null ? '--' : this.props.ip.plcIP1} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirmIP(value, 'plcIP1'); }} />
@@ -83,9 +84,9 @@ export default class Control extends React.Component {
                         </Card>
                     </Col>
                 </Row>
-                <Row gutter={[8, 8]} style={{ flex:1 }}>
+                <Row gutter={[8, 8]} style={{ flex: 1 }}>
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('panel.actions')} bordered={false} size='small' style={{ background: "whitesmoke", width: '100%', display:'flex', flexDirection:'column' }} headStyle={{ background: "#1890ff", color: "white" }} bodyStyle={{ flex:1, display: 'flex', alignItems:'center', justifyContent: 'center' }}>
+                        <Card title={i18next.t('panel.actions')} bordered={false} size='small' style={{ background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }} headStyle={{ background: "#1890ff", color: "white" }} bodyStyle={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <ButtOn text='system.reboot' disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.showConfirmReboot() }} icon={<SyncOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                         </Card>
                     </Col>
