@@ -3,7 +3,7 @@ import i18next from 'i18next';
 
 const Display = (props) => {
     return (
-        <Card style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} bodyStyle={{ padding: "0px 15px" }}>
+        <Card style={props.fullSize ? { height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' } : { flex: '1 1 100%' , alignSelf:'center', width:'100%', display: 'flex', alignItems: 'center', justifyContent: 'center'  }} bodyStyle={{ padding: "0px 15px" }}>
             <Statistic
                 groupSeparator=' '
                 decimalSeparator={i18next.t('decimalSeparator')}

@@ -25,18 +25,18 @@ const myTheme = {
 
 const InPut = (props) => {
     if (props.disabled) {
-        return (<div onClick={() => { props.onDisabled() }}>
+        return (<div style={{ flex: '1 1 100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => { props.onDisabled() }}>
             <Input size="large"
                 addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.descr')}
                 addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.eng')}
                 value={props.tag === null ? "--" : props.tag.val}
-                style={{ width: "65%", textAlign: "right" }}
+                style={{ width: "100%", textAlign: "right" }}
                 disabled
             />
         </div>);
     }
     return (
-        <NumPad.Number
+        <div style={{ flex: '1 1 100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><NumPad.Number
             theme={myTheme}
             onChange={(value) => {
                 props.onChange(value)
@@ -45,12 +45,12 @@ const InPut = (props) => {
             negative={props.tag === null ? "--" : props.tag.min < 0 ? true : false}
         >
             <Input size="large"
-                addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.descr')}
-                addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name + '.eng')}
+                addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.descr')}
+                addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.eng')}
                 value={props.tag === null ? "--" : props.tag.val}
-                style={{ width: "65%", textAlign: "right" }}
+                style={{ width: "100%", textAlign: "right" }}
             />
-        </NumPad.Number>
+        </NumPad.Number></div>
     );
 }
 export default InPut;

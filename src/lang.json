@@ -30,6 +30,22 @@
                     "descr": "Задание",
                     "eng": "%"
                 },
+                "warpForward": {
+                    "descr": "ВПЕРЕД"
+                },
+                "warpReverse": {
+                    "descr": "НАЗАД"
+                },
+                "warpSetTension": {
+                    "descr": "ЗАДАТЬ"
+                },
+                "autoTension": {
+                    "descr": "Автоподтяжка натяжения"
+                },
+                "autoOffset": {
+                    "descr": "Смещение",
+                    "eng": "%"
+                },
                 "mode": {
                     "descr": "Режим работы",
                     "init": "ИНИЦИАЛИЗАЦИЯ",
@@ -104,6 +120,7 @@
                 "letoffdrive": "ПРИВОД ПОДАЧИ ОСНОВЫ",
                 "prodcounters": "ТОВАРНЫЕ СЧЁТЧИКИ",
                 "mantension": "РУЧНАЯ УСТАНОВКА НАТЯЖЕНИЯ ОСНОВЫ",
+                "autotension": "АВТОПОДТЯЖКА НАТЯЖЕНИЯ ОСНОВЫ (РЕЖИМ СТОП)",
                 "left": "ЛЕВЫЙ НАВОЙ",
                 "right": "ПРАВЫЙ НАВОЙ",
                 "rotangle": "УГОЛ ПОВОРОТА",
@@ -153,6 +170,22 @@
                     "descr": "Setpoint",
                     "eng": "%"
                 },
+                "warpForward": {
+                    "descr": "FORWARD"
+                },
+                "warpReverse": {
+                    "descr": "REVERSE"
+                },
+                "warpSetTension": {
+                    "descr": "SET"
+                },
+                "autoTension": {
+                    "descr": "Auto-tightening"
+                },
+                "autoOffset": {
+                    "descr": "Offset",
+                    "eng": "%"
+                },
                 "mode": {
                     "descr": "Mode",
                     "init": "INIT",
@@ -227,6 +260,7 @@
                 "letoffdrive": "LETOFF DRIVE",
                 "prodcounters": "PRODUCTION",
                 "mantension": "MANUAL TENSION",
+                "autotension": "AUTO-TIGHTENING (STOP MODE)",
                 "left": "LEFT WARP BEAM",
                 "right": "RIGHT WARP BEAM",
                 "rotangle": "ROTATION ANGLE",
@@ -276,6 +310,22 @@
                     "descr": "Setpoint",
                     "eng": "%"
                 },
+                "warpForward": {
+                    "descr": "FORWARD"
+                },
+                "warpReverse": {
+                    "descr": "REVERSE"
+                },
+                "warpSetTension": {
+                    "descr": "SET"
+                },
+                "autoTension": {
+                    "descr": "Auto-tightening"
+                },
+                "autoOffset": {
+                    "descr": "Offset",
+                    "eng": "%"
+                },
                 "mode": {
                     "descr": "Mode",
                     "init": "INIT",
@@ -350,6 +400,7 @@
                 "letoffdrive": "LETOFF DRIVE",
                 "prodcounters": "PRODUCTION",
                 "mantension": "MANUAL TENSION",
+                "autotension": "AUTO-TIGHTENING (STOP MODE)",
                 "left": "LEFT WARP BEAM",
                 "right": "RIGHT WARP BEAM",
                 "rotangle": "ROTATION ANGLE",
@@ -399,6 +450,22 @@
                     "descr": "Setpoint",
                     "eng": "%"
                 },
+                "warpForward": {
+                    "descr": "FORWARD"
+                },
+                "warpReverse": {
+                    "descr": "REVERSE"
+                },
+                "warpSetTension": {
+                    "descr": "SET"
+                },
+                "autoTension": {
+                    "descr": "Auto-tightening"
+                },
+                "autoOffset": {
+                    "descr": "Offset",
+                    "eng": "%"
+                },
                 "mode": {
                     "descr": "Mode",
                     "init": "INIT",
@@ -473,6 +540,7 @@
                 "letoffdrive": "LETOFF DRIVE",
                 "prodcounters": "PRODUCTION",
                 "mantension": "MANUAL TENSION",
+                "autotension": "AUTO-TIGHTENING (STOP MODE)",
                 "left": "LEFT WARP BEAM",
                 "right": "RIGHT WARP BEAM",
                 "rotangle": "ROTATION ANGLE",
