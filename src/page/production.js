@@ -133,7 +133,7 @@ export default class Production extends React.Component {
                                 <Col span={24} style={this.colStyle}>
                                     <Display icon={<FabricPieceLengthIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.pieceLength} />
                                     <InPut tag={this.state.pieceLengthSP} prefix={<LengthIcon style={{ fontSize: '150%', color: "#1890ff" }} />} onChange={(value) => { this.writeValue(value, this.state.pieceLengthSP); }} />
-                                    <CheckBox checked={this.state.pieceLengthStop ? this.state.pieceLengthStop.val : null} text='tags.pieceLengthStop.descr' disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={() => { this.showConfirm(!this.state.pieceLengthStop.val, this.state.pieceLengthStop); }} />
+                                    <CheckBox checked={this.state.pieceLengthStop ? this.state.pieceLengthStop.val : null} text='tags.pieceLengthStop.descr' onChange={() => { this.showConfirm(!this.state.pieceLengthStop.val, this.state.pieceLengthStop); }} />
                                 </Col>
                             </Row>
                         </Card>
