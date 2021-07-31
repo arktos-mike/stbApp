@@ -543,7 +543,7 @@ var cb = function (err, msg) {
                 lbytes[2] = (msg.response.values[2] & 0xff00) >> 8;
                 lbytes[1] = (msg.response.values[3] & 0x00ff);
                 lbytes[0] = (msg.response.values[3] & 0xff00) >> 8;
-                var lview = new DataView(buf);
+                var lview = new DataView(lbuf);
                 win.webContents.send('plcReply', Number(lview.getFloat64(0, false).toFixed(msg.tag.dec)), msg.tag);
                 break;
 
@@ -625,7 +625,7 @@ var cbm = function (err, msg) {
                     lbytes[2] = (lraw[2] & 0xff00) >> 8;
                     lbytes[1] = (lraw[3] & 0x00ff);
                     lbytes[0] = (lraw[3] & 0xff00) >> 8;
-                    var lview = new DataView(buf);
+                    var lview = new DataView(lbuf);
                     e.val = Number(lview.getFloat64(0, false).toFixed(e.dec))
                     break;
             }
