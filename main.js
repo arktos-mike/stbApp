@@ -422,7 +422,7 @@ process.on('uncaughtException', function (error) {
 
 let syncTimer = setInterval(() => {
     syncTime();
-}, 5 * 60 * 1000)
+}, 60 * 60 * 1000)
 
 let intervalTimer = setInterval(() => {
     if (typeof client !== 'undefined') {
@@ -468,7 +468,7 @@ let intervalTimer = setInterval(() => {
             client[i].readMultiple(addrObj[i], cbm, tagsObj[i]);
         }
     }
-}, 100)
+}, 200)
 
 var cb = function (err, msg) {
     if (err) {
@@ -542,9 +542,10 @@ var cb = function (err, msg) {
 
         }
 };
+
 var cbm = function (err, msg) {
     if (err) {
-        console.error(err);
+        //console.error(err);
     }
     else {
         msg.tag.forEach(function (e) {

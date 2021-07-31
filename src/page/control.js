@@ -145,7 +145,7 @@ export default class Control extends React.Component {
                         </Card>
                     </Col>
                 </Row>
-                <Row style={{ flex: '1 1 20%' }}>
+                <Row style={{ flex: '1 1 20%', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none' }}>
                     <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 3 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
                         <Card bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <InPut tag={this.state.autoOffset2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.autoOffset2); }} />
