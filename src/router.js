@@ -592,7 +592,17 @@ class DateTimeModal extends React.Component {
             minute: values.time.get('minute'),
             second: values.time.get('second')
         });
-        window.ipcRenderer.send("datetimeSet", moment(dt).unix(), moment(dt).toISOString());
+        let  obj = moment(dt).toObject()
+        let omronTime = {};
+        omronTime.year = obj.years - 2000
+        omronTime.month = obj.months + 1;
+        omronTime.day = obj.date;
+        omronTime.hour = obj.hours;
+        omronTime.minute = obj.minutes;
+        omronTime.second = obj.seconds;
+        omronTime.day_of_week = moment(dt).isoWeekday();
+
+        window.ipcRenderer.send("datetimeSet", moment(dt).unix(), moment(dt).toISOString(), omronTime);
         this.formRef.current.resetFields();
     }
 

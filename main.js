@@ -2,6 +2,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const url = require('url');
 const fs = require('fs');
+var moment = require('moment');
+
 var sudo = require('sudo-prompt');
 var options = {
     name: 'Electron',
@@ -65,6 +67,33 @@ function updateIP() {
             break;
     }
 }
+function syncTime() {
+    let dtTicks;
+    let dtISO;
+    client.plc1.clockRead(function (err, msg) {
+        if (err) { }
+        else {
+            let dtOmron = msg.response.result;
+            console.log(msg.response.result)
+            dtTicks = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).unix();
+            dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
+            console.log(dtTicks)
+            console.log(dtISO)
+            switch (process.platform) {
+                case 'linux':
+                    sudo.exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", options, (error, data, getter) => {
+                       // win.webContents.send('datetimeChanged', !error);
+                    });
+                    break;
+                case 'win32':
+                    sudo.exec("powershell -command \"$T = [datetime]::Parse(\\\"" + dtISO + "\\\"); Set-Date -Date $T\"", options, (error, data, getter) => {
+                       // win.webContents.send('datetimeChanged', !error);
+                    });
+                    break;
+            }
+        }
+    });
+}
 
 function setLanguage(lang) {
     i18next.changeLanguage(lang, () => { })
@@ -117,6 +146,7 @@ function createWindow() {
         win.webContents.send('langChanged', i18next.language);
         updateIP()
         win.webContents.send('ipChanged', ip);
+        syncTime();
     });
 
     fs.readFile('./src/conf.json', 'utf8', (err, jsonString) => {
@@ -131,8 +161,10 @@ function createWindow() {
         setLanguage(lang);
     });
 
-    ipcMain.on("datetimeSet", (event, dtTicks, dtISO) => {
-
+    ipcMain.on("datetimeSet", (event, dtTicks, dtISO, dtOmron) => {
+        client.plc1.clockWrite(dtOmron, function (err, msg) {
+            if (err) { console.log(err); }
+        });
         switch (process.platform) {
             case 'linux':
                 sudo.exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", options, (error, data, getter) => {
@@ -339,6 +371,7 @@ function createWindow() {
     win.on('closed', () => {
         console.log("win.closed")
         clearInterval(intervalTimer)
+        clearInterval(syncTimer)
         client = {}
         win = null
     })
@@ -361,6 +394,10 @@ app.on('activate', () => {
 process.on('uncaughtException', function (error) {
     // Handle the error
 });
+
+let syncTimer = setInterval(() => {
+    syncTime();
+}, 5 * 60 * 1000)
 
 let intervalTimer = setInterval(() => {
     if (typeof client !== 'undefined') {
