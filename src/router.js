@@ -50,14 +50,7 @@ export class MainRouter extends React.Component {
             i18next.init({
                 resources: require(`./lang.json`)
             });
-            window.ipcRenderer.on('plcReply', (event, val, tag) => {
-                if (this.state[tag.name] !== undefined) {
-                    tag.val = val;
-                    this.setState({
-                        [tag.name]: tag
-                    });
-                }
-            });
+            window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
             window.ipcRenderer.on('langChanged', (event, lang) => {
                 i18next.changeLanguage(lang, () => { });
                 moment.updateLocale(lang, [ruLocale, trLocale, esLocale])
@@ -115,6 +108,16 @@ export class MainRouter extends React.Component {
         }
     }
 
+    plcReplyMultipleListener = (event, tags) => {
+        tags.forEach(e => {
+            if (this.state[e.name] !== undefined) {
+                this.setState({
+                    [e.name]: e
+                });
+            }
+        })
+    };
+
     isElectron = () => {
         return window && window.process && window.process.type;
     }
@@ -148,7 +151,7 @@ export class MainRouter extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("plcRead", ["config"]);
+            window.ipcRenderer.send("plcReadMultiple", ["config"]);
         }
         setInterval(() => {
             let d = moment().format("L");
@@ -162,7 +165,7 @@ export class MainRouter extends React.Component {
     }
 
     componentWillUnmount() {
-        window.ipcRenderer.removeAllListeners('plcReply');
+        window.ipcRenderer.removeAllListeners('plcReplyMultiple');
         window.ipcRenderer.removeAllListeners('langChanged');
         window.ipcRenderer.removeAllListeners('userChecked');
         window.ipcRenderer.removeAllListeners('userChanged');

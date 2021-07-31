@@ -15,7 +15,7 @@ export default class Settings extends React.Component {
         this.readTags = ["config"];
         this.updateTags = [];
         if (this.isElectron()) {
-            window.ipcRenderer.on('plcReply', this.plcReplyListener);
+            window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
         }
     }
 
@@ -23,13 +23,14 @@ export default class Settings extends React.Component {
         return window && window.process && window.process.type;
     }
 
-    plcReplyListener = (event, val, tag) => {
-        if (this.state[tag.name] !== undefined) {
-            tag.val = val;
-            this.setState({
-                [tag.name]: tag
-            });
-        }
+    plcReplyMultipleListener = (event, tags) => {
+        tags.forEach(e => {
+            if (this.state[e.name] !== undefined) {
+                this.setState({
+                    [e.name]: e
+                });
+            }
+        })
     };
 
     writeValue = (value, tag) => {
@@ -86,13 +87,13 @@ export default class Settings extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("plcRead", this.readTags);
+            window.ipcRenderer.send("plcReadMultiple", this.readTags);
             window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
         }
     }
 
     componentWillUnmount() {
-        window.ipcRenderer.removeListener('plcReply', this.plcReplyListener);
+        window.ipcRenderer.removeListener('plcReplyMultiple', this.plcReplyMultipleListener);
     }
     render() {
         return (

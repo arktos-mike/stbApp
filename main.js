@@ -195,18 +195,6 @@ function createWindow() {
         updateIP();
         client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
         client.plc2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 2000 });
-        //client['plc1'].on('timeout', function (host) {
-        //    console.log("PLC1 Got timeout from: ", host);
-        //});
-        //client['plc2'].on('timeout', function (host) {
-        //    console.log("PLC2 Got timeout from: ", host);
-        //});
-        //client['plc1'].on('error', function (error) {
-        //    console.log("PLC1 Error: ", error)
-        //});
-        //client['plc2'].on('error', function (error) {
-        //    console.log("PLC2 Error: ", error)
-        //});
     });
     ipcMain.on("ipChange", (event, type, value) => {
 
@@ -303,6 +291,48 @@ function createWindow() {
             client['plc' + item.plc].read(item.addr, dl, cb, item);
         });
     })
+
+    ipcMain.on("plcReadMultiple", (event, arr) => {
+        let addrObj = {};
+        let tagsObj = {};
+        arr.forEach(function (name) {
+            let item = tags.find(e => e.name === name);
+            if (!addrObj['plc' + item.plc]) {
+                addrObj['plc' + item.plc] = [];
+            }
+            if (!tagsObj['plc' + item.plc]) {
+                tagsObj['plc' + item.plc] = [];
+            }
+            switch (item.type) {
+                case "lreal":
+                    dl = 4;
+                    break;
+                case "real":
+                case "dword":
+                    dl = 2;
+                    break;
+                case "int":
+                case "bcd":
+                case "mode":
+                case "bool":
+                    dl = 1;
+                    break;
+            }
+            if (dl > 1) {
+                for (var index = 0; index < dl; ++index) {
+                    addrObj['plc' + item.plc].push(item.addr.replace(/\d+/g, '') + (parseInt(item.addr.replace(/[^0-9]/g, '')) + index));
+                }
+            }
+            else {
+                addrObj['plc' + item.plc].push(item.addr);
+            }
+            tagsObj['plc' + item.plc].push(item);
+        });
+        for (var i in addrObj) {
+            client[i].readMultiple(addrObj[i], cbm, tagsObj[i]);
+        }
+    })
+
     ipcMain.on("plcWrite", (event, name, value) => {
         let item = tags.find(e => e.name === name);
         switch (item.type) {
@@ -396,8 +426,17 @@ let syncTimer = setInterval(() => {
 
 let intervalTimer = setInterval(() => {
     if (typeof client !== 'undefined') {
+        let addrObj = {};
+        let tagsObj = {};
+
         tags.forEach(function (e) {
             if (e.cupd) {
+                if (!addrObj['plc' + e.plc]) {
+                    addrObj['plc' + e.plc] = [];
+                }
+                if (!tagsObj['plc' + e.plc]) {
+                    tagsObj['plc' + e.plc] = [];
+                }   
                 switch (e.type) {
                     case "lreal":
                         dl = 4;
@@ -407,22 +446,33 @@ let intervalTimer = setInterval(() => {
                         dl = 2;
                         break;
                     case "int":
-                    case "bool":
                     case "bcd":
                     case "mode":
+                    case "bool":
                         dl = 1;
                         break;
-
+                }  
+                if (dl > 1) {
+                    for (var index = 0; index < dl; ++index) {
+                        addrObj['plc' + e.plc].push(e.addr.replace(/\d+/g, '') + (parseInt(e.addr.replace(/[^0-9]/g, '')) + index));
+                    }
                 }
-                client['plc' + e.plc].read(e.addr, dl, cb, e);
+                else {
+                    addrObj['plc' + e.plc].push(e.addr);
+                }
+                tagsObj['plc' + e.plc].push(e);        
             }
+            
         });
+        for (var i in addrObj) {
+            client[i].readMultiple(addrObj[i], cbm, tagsObj[i]);
+        }
     }
 }, 100)
 
 var cb = function (err, msg) {
     if (err) {
-        //    console.error(err);
+        console.error(err);
     }
     else
         switch (msg.tag.type) {
@@ -450,22 +500,18 @@ var cb = function (err, msg) {
 
                 }
                 win.webContents.send('plcReply', modetext, msg.tag);
-                //console.log(new Date().toISOString(), '\t', modetext, '\x1b[0m\t', msg.tag.name, '\t');
                 break;
 
             case "bool":
                 win.webContents.send('plcReply', msg.response.values[0] === 0 ? false : true, msg.tag);
-                //console.log(new Date().toISOString(), '\t', msg.response.values[0] === 0 ? "\x1b[31mПОДНЯТА" : "\x1b[32mОПУЩЕНА", '\x1b[0m\t', msg.tag.name, '\t');
                 break;
 
             case "int":
                 win.webContents.send('plcReply', msg.response.values[0], msg.tag);
-                //console.log(new Date().toISOString(), '\t', msg.response.values[0], '\t', msg.tag.name, '\t');
                 break;
 
             case "bcd":
                 win.webContents.send('plcReply', parseInt(msg.response.values[0].toString(16), 10), msg.tag);
-                //console.log(new Date().toISOString(), '\t', msg.response.values[0], '\t', msg.tag.name, '\t');
                 break;
 
             case "real":
@@ -477,7 +523,6 @@ var cb = function (err, msg) {
                 bytes[0] = (msg.response.values[1] & 0xff00) >> 8;
                 var view = new DataView(buf);
                 win.webContents.send('plcReply', Number(view.getFloat32(0, false).toFixed(msg.tag.dec)), msg.tag);
-                //console.log(new Date().toISOString(), '\t', Number(view.getFloat32(0, false).toFixed(1)), '\t', msg.tag.name, '\t');
                 break;
 
             case "lreal":
@@ -493,8 +538,90 @@ var cb = function (err, msg) {
                 lbytes[0] = (msg.response.values[3] & 0xff00) >> 8;
                 var lview = new DataView(buf);
                 win.webContents.send('plcReply', Number(lview.getFloat64(0, false).toFixed(msg.tag.dec)), msg.tag);
-                //console.log(new Date().toISOString(), '\t', Number(view.getFloat32(0, false).toFixed(1)), '\t', msg.tag.name, '\t');
                 break;
 
         }
 };
+var cbm = function (err, msg) {
+    if (err) {
+        console.error(err);
+    }
+    else {
+        msg.tag.forEach(function (e) {
+            switch (e.type) {
+                case "mode":
+                    var modetext;
+                    switch (msg.response.values.shift()) {
+                        case 1:
+                            modetext = i18next.t('tags.mode.init');
+                            break;
+                        case 2:
+                            modetext = i18next.t('tags.mode.stop');
+                            break;
+                        case 3:
+                            modetext = i18next.t('tags.mode.ready');
+                            break;
+                        case 4:
+                            modetext = i18next.t('tags.mode.run');
+                            break;
+                        case 10:
+                            modetext = i18next.t('tags.mode.alarm');
+                            break;
+                        default:
+                            modetext = i18next.t('tags.mode.unknown');
+                            break;
+
+                    }
+                    e.val = modetext;
+                    break;
+
+                case "bool":
+                    e.val = msg.response.values.shift() === 0 ? false : true
+                    break;
+
+                case "int":
+                    e.val = msg.response.values.shift()
+                    break;
+
+                case "bcd":
+                    e.val = parseInt(msg.response.values.shift().toString(16), 10)
+                    break;
+
+                case "real":
+                    var buf = new ArrayBuffer(4);
+                    var bytes = new Uint8Array(buf);
+                    var raw = [];
+                    raw[0] = msg.response.values.shift();
+                    raw[1] = msg.response.values.shift();
+                    bytes[3] = (raw[0] & 0x00ff);
+                    bytes[2] = (raw[0] & 0xff00) >> 8;
+                    bytes[1] = (raw[1] & 0x00ff);
+                    bytes[0] = (raw[1] & 0xff00) >> 8;
+                    var view = new DataView(buf);
+                    e.val = Number(view.getFloat32(0, false).toFixed(e.dec))
+                    break;
+
+                case "lreal":
+                    var lbuf = new ArrayBuffer(8);
+                    var lbytes = new Uint8Array(lbuf);
+                    var lraw = [];
+                    lraw[0] = msg.response.values.shift();
+                    lraw[1] = msg.response.values.shift();
+                    lraw[2] = msg.response.values.shift();
+                    lraw[3] = msg.response.values.shift();
+                    lbytes[7] = (lraw[0] & 0x00ff);
+                    lbytes[6] = (lraw[0] & 0xff00) >> 8;
+                    lbytes[5] = (lraw[1] & 0x00ff);
+                    lbytes[4] = (lraw[1] & 0xff00) >> 8;
+                    lbytes[3] = (lraw[2] & 0x00ff);
+                    lbytes[2] = (lraw[2] & 0xff00) >> 8;
+                    lbytes[1] = (lraw[3] & 0x00ff);
+                    lbytes[0] = (lraw[3] & 0xff00) >> 8;
+                    var lview = new DataView(buf);
+                    e.val = Number(lview.getFloat64(0, false).toFixed(e.dec))
+                    break;
+            }
+        }, msg.tag);
+        win.webContents.send('plcReplyMultiple', msg.tag);
+    }
+}

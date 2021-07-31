@@ -34,7 +34,7 @@ export default class Control extends React.Component {
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
         this.colStyle = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "0px 8px" }
         if (this.isElectron()) {
-            window.ipcRenderer.on('plcReply', this.plcReplyListener);
+            window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
         }
     }
 
@@ -42,13 +42,14 @@ export default class Control extends React.Component {
         return window && window.process && window.process.type;
     }
 
-    plcReplyListener = (event, val, tag) => {
-        if (this.state[tag.name] !== undefined) {
-            tag.val = val;
-            this.setState({
-                [tag.name]: tag
-            });
-        }
+    plcReplyMultipleListener = (event, tags) => {
+        tags.forEach(e => {
+            if (this.state[e.name] !== undefined) {
+                this.setState({
+                    [e.name]: e
+                });
+            }
+        })
     };
 
     writeValue = (value, tag) => {
@@ -87,13 +88,13 @@ export default class Control extends React.Component {
 
     componentDidMount() {
         if (this.isElectron()) {
-            window.ipcRenderer.send("plcRead", this.readTags);
+            window.ipcRenderer.send("plcReadMultiple", this.readTags);
             window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
         }
     }
 
     componentWillUnmount() {
-        window.ipcRenderer.removeListener('plcReply', this.plcReplyListener);
+        window.ipcRenderer.removeListener('plcReplyMultiple', this.plcReplyMultipleListener);
     }
 
     render() {
@@ -112,7 +113,7 @@ export default class Control extends React.Component {
                                     <Display icon={<TensionIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpTension02} />
                                 </Col>
                                 <Col span={3} style={this.colStyle}>
-                                    <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTension2', true); window.ipcRenderer.send("plcRead", ["warpTensionSP2"]); }} icon={<RollbackOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                    <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTension2', true); window.ipcRenderer.send("plcReadMultiple", ["warpTensionSP2"]); }} icon={<RollbackOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                                 </Col>
                             </Row>
                         </Card>
@@ -129,7 +130,7 @@ export default class Control extends React.Component {
                                     <Display icon={<TensionIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpTension01} />
                                 </Col>
                                 <Col span={3} style={this.colStyle}>
-                                    <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTension1', true); window.ipcRenderer.send("plcRead", ["warpTensionSP1"]); }} icon={<RollbackOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                    <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTension1', true); window.ipcRenderer.send("plcReadMultiple", ["warpTensionSP1"]); }} icon={<RollbackOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                                 </Col>
                             </Row>
                         </Card>
