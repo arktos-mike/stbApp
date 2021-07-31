@@ -4,10 +4,12 @@ import { Layout, Menu, Select, Drawer, Button, Modal, Input, Form, Checkbox, not
 import "./page/App.css";
 import logo from './icon.svg';
 import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined, ApartmentOutlined } from '@ant-design/icons';
+import { FabricPieceIcon } from "./components/IcOn";
 import Overview from "./page/overview.js";
 import Settings from "./page/settings.js";
 import Control from "./page/control.js";
 import System from "./page/system.js";
+import Production from "./page/production.js";
 import moment from "moment";
 import i18next from 'i18next';
 import BreadCrumb from "./components/BreadCrumb";
@@ -243,6 +245,7 @@ export class MainRouter extends React.Component {
                                         <Route exact path={'/control'} render={(props) => <Control user={this.state.user} config={this.state.config} {...props} />} />
                                         <Route exact path={'/settings'} render={(props) => <Settings user={this.state.user} config={this.state.config} onConfChange={(conf) => { this.setState({ config: conf }) }} {...props} />} />
                                         <Route exact path={'/system'} render={(props) => <System user={this.state.user} ip={this.state.ip} {...props} />} />
+                                        <Route exact path={'/production'} render={(props) => <Production user={this.state.user} config={this.state.config} {...props} />} />
                                     </Switch>
                                     <Drawer
                                         //title="Basic Drawer"
@@ -261,6 +264,9 @@ export class MainRouter extends React.Component {
                                             </Menu.Item>
                                             <Menu.Item key="control" icon={<ToolOutlined style={{ fontSize: '100%' }} />}>
                                                 <Link to="/control">{i18next.t('menu.control')}</Link>
+                                            </Menu.Item>
+                                            <Menu.Item key="production" icon={<FabricPieceIcon style={{ fontSize: '100%' }} />}>
+                                                <Link to="/production">{i18next.t('menu.production')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="settings" icon={<SettingOutlined style={{ fontSize: '100%' }} />}>
                                                 <Link to="/settings">{i18next.t('menu.settings')}</Link>

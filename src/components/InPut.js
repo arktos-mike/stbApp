@@ -29,6 +29,7 @@ const InPut = (props) => {
             <Input size="large"
                 addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.descr')}
                 addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.eng')}
+                prefix={props.prefix ? props.prefix : null}
                 value={props.tag === null ? "--" : props.tag.val}
                 style={{ width: "100%", textAlign: "right" }}
                 disabled
@@ -47,6 +48,7 @@ const InPut = (props) => {
             <Input size="large"
                 addonBefore={props.noDescr ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.descr')}
                 addonAfter={props.noEng ? null : props.tag === null ? "--" : i18next.t('tags.' + props.tag.name.replace(/[0-9]/g, '') + '.eng')}
+                prefix={props.prefix ? props.prefix : null}
                 value={props.tag === null ? "--" : props.tag.val}
                 style={{ width: "100%", textAlign: "right" }}
             />

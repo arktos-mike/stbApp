@@ -46,6 +46,20 @@
                     "descr": "Смещение",
                     "eng": "%"
                 },
+                "picksGeneral": {
+                    "descr": "Прокидки"
+                },
+                "pieceLength": {
+                    "descr": "Длина куска",
+                    "eng": "м"
+                },
+                "pieceLengthSP": {
+                    "descr": "Задание куска",
+                    "eng": "м"
+                },
+                "pieceLengthStop": {
+                    "descr": "Останов по наработке куска"
+                },
                 "mode": {
                     "descr": "Режим работы",
                     "init": "ИНИЦИАЛИЗАЦИЯ",
@@ -60,6 +74,7 @@
                 "overview": "ОБЗОР",
                 "control": "УПРАВЛЕНИЕ",
                 "settings": "НАСТРОЙКИ",
+                "production": "ТОВАР",
                 "system": "СЕТЬ",
                 "close": "ЗАКРЫТЬ"
             },
@@ -119,6 +134,8 @@
                 "config": "КОНФИГУРАЦИЯ",
                 "letoffdrive": "ПРИВОД ПОДАЧИ ОСНОВЫ",
                 "prodcounters": "ТОВАРНЫЕ СЧЁТЧИКИ",
+                "clothpiece": "НАРАБОТКА КУСКА",
+                "densityset": "НАСТРОЙКА ПЛОТНОСТИ",
                 "mantension": "РУЧНАЯ УСТАНОВКА НАТЯЖЕНИЯ ОСНОВЫ",
                 "autotension": "АВТОПОДТЯЖКА НАТЯЖЕНИЯ ОСНОВЫ (РЕЖИМ СТОП)",
                 "left": "ЛЕВЫЙ НАВОЙ",
@@ -186,6 +203,20 @@
                     "descr": "Offset",
                     "eng": "%"
                 },
+                "picksGeneral": {
+                    "descr": "Picks"
+                },
+                "pieceLength": {
+                    "descr": "Piece length",
+                    "eng": "m"
+                },
+                "pieceLengthSP": {
+                    "descr": "Piece setpoint",
+                    "eng": "m"
+                },
+                "pieceLengthStop": {
+                    "descr": "Stop by piece production"
+                },
                 "mode": {
                     "descr": "Mode",
                     "init": "INIT",
@@ -200,6 +231,7 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS",
+                "production": "PRODUCTION",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -259,6 +291,8 @@
                 "config": "CONFIGURATION",
                 "letoffdrive": "LETOFF DRIVE",
                 "prodcounters": "PRODUCTION",
+                "clothpiece": "PIECE PRODUCTION",
+                "densityset": "DENSITY SETTING",
                 "mantension": "MANUAL TENSION",
                 "autotension": "AUTO-TIGHTENING (STOP MODE)",
                 "left": "LEFT WARP BEAM",
@@ -326,6 +360,20 @@
                     "descr": "Offset",
                     "eng": "%"
                 },
+                "picksGeneral": {
+                    "descr": "Picks"
+                },
+                "pieceLength": {
+                    "descr": "Piece length",
+                    "eng": "m"
+                },
+                "pieceLengthSP": {
+                    "descr": "Piece setpoint",
+                    "eng": "m"
+                },
+                "pieceLengthStop": {
+                    "descr": "Stop by piece production"
+                },
                 "mode": {
                     "descr": "Mode",
                     "init": "INIT",
@@ -340,6 +388,7 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS",
+                "production": "PRODUCTION",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -399,6 +448,8 @@
                 "config": "CONFIGURATION",
                 "letoffdrive": "LETOFF DRIVE",
                 "prodcounters": "PRODUCTION",
+                "clothpiece": "PIECE PRODUCTION",
+                "densityset": "DENSITY SETTING",
                 "mantension": "MANUAL TENSION",
                 "autotension": "AUTO-TIGHTENING (STOP MODE)",
                 "left": "LEFT WARP BEAM",
@@ -466,6 +517,20 @@
                     "descr": "Offset",
                     "eng": "%"
                 },
+                "picksGeneral": {
+                    "descr": "Picks"
+                },
+                "pieceLength": {
+                    "descr": "Piece length",
+                    "eng": "m"
+                },
+                "pieceLengthSP": {
+                    "descr": "Piece setpoint",
+                    "eng": "m"
+                },
+                "pieceLengthStop": {
+                    "descr": "Stop by piece production"
+                },
                 "mode": {
                     "descr": "Mode",
                     "init": "INIT",
@@ -480,6 +545,7 @@
                 "overview": "OVERVIEW",
                 "control": "CONTROL",
                 "settings": "SETTINGS",
+                "production": "PRODUCTION",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -539,6 +605,8 @@
                 "config": "CONFIGURATION",
                 "letoffdrive": "LETOFF DRIVE",
                 "prodcounters": "PRODUCTION",
+                "clothpiece": "PIECE PRODUCTION",
+                "densityset": "DENSITY SETTING",
                 "mantension": "MANUAL TENSION",
                 "autotension": "AUTO-TIGHTENING (STOP MODE)",
                 "left": "LEFT WARP BEAM",

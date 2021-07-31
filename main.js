@@ -39,6 +39,13 @@ var tags = [
     { name: "autoTension", addr: "D406.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "autoOffset1", addr: "D408", type: "real", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
     { name: "autoOffset2", addr: "D410", type: "real", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "picksGeneral", addr: "D12", type: "lreal", min: 0, max: 99999999999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "pieceLength", addr: "D353", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "pieceLengthSP", addr: "D351", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "pieceLengthStop", addr: "D403.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "clothGeneralReset", addr: "W100.01", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "clothShiftReset", addr: "W100.02", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "picksGeneralReset", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "modeInt", addr: "W52", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
 ];
 let dl;
