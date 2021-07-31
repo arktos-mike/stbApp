@@ -150,6 +150,5 @@ export default class Production extends React.Component {
                 </Row>
             </div>
         )
-
     }
 }
