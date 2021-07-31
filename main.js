@@ -74,20 +74,15 @@ function syncTime() {
         if (err) { }
         else {
             let dtOmron = msg.response.result;
-            console.log(msg.response.result)
             dtTicks = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).unix();
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
-            console.log(dtTicks)
-            console.log(dtISO)
             switch (process.platform) {
                 case 'linux':
                     sudo.exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", options, (error, data, getter) => {
-                       // win.webContents.send('datetimeChanged', !error);
                     });
                     break;
                 case 'win32':
                     sudo.exec("powershell -command \"$T = [datetime]::Parse(\\\"" + dtISO + "\\\"); Set-Date -Date $T\"", options, (error, data, getter) => {
-                       // win.webContents.send('datetimeChanged', !error);
                     });
                     break;
             }
