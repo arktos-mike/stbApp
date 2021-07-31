@@ -629,6 +629,7 @@ var cbm = function (err, msg) {
                     e.val = Number(lview.getFloat64(0, false).toFixed(e.dec))
                     break;
             }
+            //console.log(e.name + '\t' + e.val)
         }, msg.tag);
         win.webContents.send('plcReplyMultiple', msg.tag);
     }
