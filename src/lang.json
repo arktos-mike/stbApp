@@ -36,9 +36,6 @@
                 "warpReverse": {
                     "descr": "НАЗАД"
                 },
-                "warpSetTension": {
-                    "descr": "ЗАДАТЬ"
-                },
                 "autoTension": {
                     "descr": "Автоподтяжка натяжения"
                 },
@@ -192,9 +189,6 @@
                 },
                 "warpReverse": {
                     "descr": "REVERSE"
-                },
-                "warpSetTension": {
-                    "descr": "SET"
                 },
                 "autoTension": {
                     "descr": "Auto-tightening"
@@ -350,9 +344,6 @@
                 "warpReverse": {
                     "descr": "REVERSE"
                 },
-                "warpSetTension": {
-                    "descr": "SET"
-                },
                 "autoTension": {
                     "descr": "Auto-tightening"
                 },
@@ -506,9 +497,6 @@
                 },
                 "warpReverse": {
                     "descr": "REVERSE"
-                },
-                "warpSetTension": {
-                    "descr": "SET"
                 },
                 "autoTension": {
                     "descr": "Auto-tightening"
