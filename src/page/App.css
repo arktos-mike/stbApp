@@ -116,6 +116,25 @@
   margin-bottom: 10px !important;
 }
   
+.ant-radio-group-large .ant-radio-button-wrapper{
+  min-height: 52px !important;
+  line-height: 50px !important;
+}
+
+.ant-tabs{
+  line-height: 50px !important;
+}
+.ant-tabs-tab{
+  width: 100%; 
+  font-size: 16px !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 8px 8px 8px 0px !important;
+}
+.ant-tabs-tabpane{
+  padding-left: 8px !important
+}
+
 .ant-btn-lg {
   min-height: 52px !important;
   min-width: 52px !important;
