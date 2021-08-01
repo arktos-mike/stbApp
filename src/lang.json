@@ -77,6 +77,7 @@
             },
             "confirm": {
                 "title": "Подтверждение действия",
+                "warn": "Сброс только при смене навоя",
                 "descr": "Вы действительно хотите внести изменения?",
                 "ok": "ДА",
                 "cancel": "НЕТ"
@@ -232,6 +233,7 @@
             "confirm": {
                 "title": "Confirm action",
                 "descr": "Do you really want to make changes?",
+                "warn": "Reset only when changing warp beams",
                 "ok": "YES",
                 "cancel": "NO"
             },
@@ -386,6 +388,7 @@
             "confirm": {
                 "title": "Confirm action",
                 "descr": "Do you really want to make changes?",
+                "warn": "Reset only when changing warp beams",
                 "ok": "YES",
                 "cancel": "NO"
             },
@@ -540,6 +543,7 @@
             "confirm": {
                 "title": "Confirm action",
                 "descr": "Do you really want to make changes?",
+                "warn": "Reset only when changing warp beams",
                 "ok": "YES",
                 "cancel": "NO"
             },

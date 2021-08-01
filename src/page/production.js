@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Modal, notification, Card } from "antd";
+import { Row, Col, Modal, notification, Card, Alert, Space } from "antd";
 import { ExclamationCircleOutlined, RedoOutlined } from '@ant-design/icons';
 import Display from "../components/Display";
 import InPut from "../components/InPut";
@@ -73,6 +73,19 @@ export default class Production extends React.Component {
         });
     }
 
+    showConfirmButtonWarn(value, tag) {
+        confirm({
+            title: i18next.t('confirm.title'),
+            icon: <ExclamationCircleOutlined style={{ fontSize: "300%" }} />,
+            okText: i18next.t('confirm.ok'),
+            cancelText: i18next.t('confirm.cancel'),
+            content: <Space direction="vertical"><p>{i18next.t('confirm.descr')}</p><Alert message={i18next.t('confirm.warn')} type="warning" showIcon closable /></Space>,
+            centered: true,
+            okButtonProps: { size: 'large', danger: true },
+            cancelButtonProps: { size: 'large' },
+            onOk: () => window.ipcRenderer.send("plcWrite", tag, value),
+        });
+    }
     showConfirm(value, tag) {
         confirm({
             title: i18next.t('confirm.title'),
@@ -120,7 +133,7 @@ export default class Production extends React.Component {
                                     <Display noEng icon={<FabricIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.picksGeneral} />
                                 </Col>
                                 <Col span={4} style={this.colStyle}>
-                                    <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.showConfirmButton(true,'clothGeneralReset'); }} icon={<RedoOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                    <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.props.config ? this.props.config.val ? this.showConfirmButtonWarn(true, 'clothGeneralReset') : this.showConfirmButton(true, 'clothGeneralReset') : this.showConfirmButton(true, 'clothGeneralReset') }} icon={<RedoOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                                     <ButtOn onClick={() => { this.showConfirmButton(true, 'clothShiftReset'); }} icon={<RedoOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                                     <ButtOn onClick={() => { this.showConfirmButton(true, 'picksGeneralReset'); }} icon={<RedoOutlined style={{ fontSize: '200%' }} />}></ButtOn>
                                 </Col>
@@ -143,7 +156,7 @@ export default class Production extends React.Component {
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
                         <Card title={i18next.t('panel.densityset')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
                             <Row style={this.cardBodyStyle}>
-                            <InPut tag={this.state.weftDensity} prefix={<DensityIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.weftDensity); }} />
+                                <InPut tag={this.state.weftDensity} prefix={<DensityIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.weftDensity); }} />
                             </Row>
                         </Card>
                     </Col>
