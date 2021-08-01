@@ -79,13 +79,14 @@ export default class Production extends React.Component {
             icon: <ExclamationCircleOutlined style={{ fontSize: "300%" }} />,
             okText: i18next.t('confirm.ok'),
             cancelText: i18next.t('confirm.cancel'),
-            content: <Space direction="vertical"><p>{i18next.t('confirm.descr')}</p><Alert message={i18next.t('confirm.warn')} type="warning" showIcon closable /></Space>,
+            content: <Space direction="vertical"><p>{i18next.t('confirm.descr')}</p><Alert message={i18next.t('confirm.warn')} type="warning" showIcon /></Space>,
             centered: true,
             okButtonProps: { size: 'large', danger: true },
             cancelButtonProps: { size: 'large' },
             onOk: () => window.ipcRenderer.send("plcWrite", tag, value),
         });
     }
+
     showConfirm(value, tag) {
         confirm({
             title: i18next.t('confirm.title'),
