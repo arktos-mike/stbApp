@@ -1,10 +1,11 @@
 import React from 'react';
 import { Row, Col, Modal, notification, Tabs, Card } from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { WarpBeamIcon, WarpBeamsIcon, StatIcon, AngleIcon, SpeedIcon } from "../components/IcOn";
+import { ExclamationCircleOutlined, ArrowUpOutlined, ArrowDownOutlined, SmallDashOutlined } from '@ant-design/icons';
+import { WarpBeamIcon, WarpBeamsIcon, StatIcon, AngleIcon, SpeedIcon, TensionIcon, MeterIcon } from "../components/IcOn";
 import InPut from "../components/InPut";
 import OptiOn from "../components/OptiOn";
 import Display from "../components/Display";
+import ButtOn from "../components/ButtOn";
 import "./App.css";
 import i18next from 'i18next';
 
@@ -21,9 +22,21 @@ export default class Settings extends React.Component {
             angleRaw: null,
             angleGV: null,
             angleOffset: null,
+            warpTensionCurADC1: null,
+            warpTensionCurADC2: null,
+            warpTensionADC_LL1: null,
+            warpTensionADC_HL1: null,
+            warpTensionLL1: null,
+            warpTensionHL1: null,
+            warpTensionADC_LL2: null,
+            warpTensionADC_HL2: null,
+            warpTensionLL2: null,
+            warpTensionHL2: null,
+            warpTension01: null,
+            warpTension02: null,
         };
-        this.readTags = ['pickAngle', 'angleOffset', 'warpBeamMaxSpeed', 'warpBeamJogSpeed'];
-        this.updateTags = ['angleRaw', 'angleGV'];
+        this.readTags = ['pickAngle', 'angleOffset', 'warpBeamMaxSpeed', 'warpBeamJogSpeed', 'warpTensionADC_LL1', 'warpTensionADC_LL2', 'warpTensionADC_HL1', 'warpTensionADC_HL2', 'warpTensionLL1', 'warpTensionLL2', 'warpTensionHL1', 'warpTensionHL2'];
+        this.updateTags = ['angleRaw', 'angleGV', 'warpTensionCurADC1', 'warpTensionCurADC2', 'warpTension01', 'warpTension02'];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
@@ -166,7 +179,48 @@ export default class Settings extends React.Component {
                     </TabPane>
 
                     <TabPane tab={i18next.t('tags.mode.stop')} disabled={this.props.config ? !this.props.config.val : true} key="2">
-                        <InPut noEng noDescr tag={this.props.config} disabled={!this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
+                        <Row gutter={[8, 8]} style={{ flex: '1 1 70%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none' }}>
+                            <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 1 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                                <Card title={i18next.t('panel.calibration') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.right')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
+                                    <Row style={{ flex: 1, width: '100%' }}>
+                                        <Col span={12} style={this.colStyle}>
+                                            <InPut noEng tag={this.state.warpTensionADC_LL2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionADC_LL2); }} />
+                                            <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTensionLL2', true); window.ipcRenderer.send("plcReadMultiple", ["warpTensionADC_LL2"]); }} icon={<ArrowUpOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                            <Display noEng icon={<MeterIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpTensionCurADC2} />
+                                            <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTensionHL2', true); window.ipcRenderer.send("plcReadMultiple", ["warpTensionADC_HL2"]); }} icon={<ArrowDownOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                            <InPut noEng tag={this.state.warpTensionADC_HL2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionADC_HL2); }} />
+                                        </Col>
+                                        <Col span={12} style={this.colStyle}>
+                                            <InPut noDescr tag={this.state.warpTensionLL2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionLL2); }} />
+                                            <SmallDashOutlined rotate={90} style={{ fontSize: '52px', color: "#1890ff", display: 'flex', alignItems: 'center' }} />
+                                            <Display icon={<TensionIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpTension02} />
+                                            <SmallDashOutlined rotate={90} style={{ fontSize: '52px', color: "#1890ff", display: 'flex', alignItems: 'center' }} />
+                                            <InPut noDescr tag={this.state.warpTensionHL2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionHL2); }} />
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                            <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 3 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                                <Card title={i18next.t('panel.calibration') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.left')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                                    <Row style={{ flex: 1, width: '100%' }}>
+                                        <Col span={12} style={this.colStyle}>
+                                            <InPut noEng tag={this.state.warpTensionADC_LL1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionADC_LL1); }} />
+                                            <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTensionLL1', true); window.ipcRenderer.send("plcReadMultiple", ["warpTensionADC_LL1"]); }} icon={<ArrowUpOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                            <Display noEng icon={<MeterIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpTensionCurADC1} />
+                                            <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { window.ipcRenderer.send("plcWrite", 'warpSetTensionHL1', true); window.ipcRenderer.send("plcReadMultiple", ["warpTensionADC_HL1"]); }} icon={<ArrowDownOutlined style={{ fontSize: '200%' }} />}></ButtOn>
+                                            <InPut noEng tag={this.state.warpTensionADC_HL1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionADC_HL1); }} />
+                                        </Col>
+                                        <Col span={12} style={this.colStyle}>
+                                            <InPut noDescr tag={this.state.warpTensionLL1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionLL1); }} />
+                                            <SmallDashOutlined rotate={90} style={{ fontSize: '52px', color: "#1890ff", display: 'flex', alignItems: 'center' }} />
+                                            <Display icon={<TensionIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpTension01} />
+                                            <SmallDashOutlined rotate={90} style={{ fontSize: '52px', color: "#1890ff", display: 'flex', alignItems: 'center' }} />
+                                            <InPut noDescr tag={this.state.warpTensionHL1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionHL1); }} />
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                        </Row>
                     </TabPane>
 
                     <TabPane tab={i18next.t('tags.mode.ready')} disabled={this.props.config ? !this.props.config.val : true} key="3">
