@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Modal, notification, Tabs, Card } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { WarpBeamIcon, WarpBeamsIcon, StatIcon } from "../components/IcOn";
 import InPut from "../components/InPut";
 import OptiOn from "../components/OptiOn";
 import "./App.css";
@@ -106,22 +107,27 @@ export default class Settings extends React.Component {
         return (
             <div className='wrapper'>
                 <Tabs tabPosition='left' style={{ height: '100%' }}>
+
                     <TabPane tab={i18next.t('panel.general')} key="1">
                         <Card title={i18next.t('panel.config')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
                             <Row style={this.cardBodyStyle}>
-                                <OptiOn tag={this.props.config} options={[{key: 0 , text: 'БЕЗ'},{key: 1 , text: 'НИЖ'},{key: 3 , text: 'ВЕРХ'},{key: 2 , text: 'ДВА'} ]} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config)}} />
+                                <OptiOn tag={this.props.config} options={[{ key: 0, text: 'tags.config.none', icon: <StatIcon style={{ fontSize: '250%' }} /> }, { key: 1, text: 'tags.config.low', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 3, text: 'tags.config.high', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 2, text: 'tags.config.both', icon: <WarpBeamsIcon style={{ fontSize: '250%' }} /> }]} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config) }} />
                             </Row>
                         </Card>
                     </TabPane>
+
                     <TabPane tab={i18next.t('tags.mode.stop')} key="2">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
+
                     <TabPane tab={i18next.t('tags.mode.ready')} key="3">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
+
                     <TabPane tab={i18next.t('tags.mode.run')} key="4">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
+                    
                     <TabPane tab={i18next.t('tags.mode.alarm')} key="5">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
