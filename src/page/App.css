@@ -120,7 +120,12 @@
 .ant-form-item {
   margin-bottom: 10px !important;
 }
-  
+
+.ant-radio-group{
+  display: inline-flex !important;
+   align-items: center !important; 
+   justify-content: space-between !important;
+}
 .ant-radio-group-large .ant-radio-button-wrapper{
   min-height: 52px !important;
   line-height: 50px !important;
@@ -128,6 +133,7 @@
 
 .ant-tabs{
   line-height: 40px !important;
+  height: 100%;
 }
 .ant-tabs-nav-list{
   background: white !important;
@@ -143,9 +149,16 @@
   padding: 8px !important;
 }
 .ant-tabs-tabpane{
-  padding-left: 8px !important
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  padding-left: 8px !important;
 }
-
+.ant-tabs-content{
+  display: flex;
+  flex-direction: column;
+  height:100%;
+}
 .ant-btn-lg {
   min-height: 52px !important;
   min-width: 52px !important;
@@ -158,6 +171,7 @@
 }
 
 .ant-input, .ant-picker, .ant-picker input{
+  max-width: 190px !important;
   font-size: 24px !important;
 }
 

@@ -50,6 +50,11 @@ var tags = [
     { name: "clothGeneralReset", addr: "W100.01", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "clothShiftReset", addr: "W100.02", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "picksGeneralReset", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "pickAngle", addr: "D53", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamMaxSpeed", addr: "D48", type: "int", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "angleRaw", addr: "W6", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "angleOffset", addr: "D2", type: "int", min: -359, max: 359, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamJogSpeed", addr: "D46", type: "int", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
     { name: "modeInt", addr: "W52", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
 ];
 let dl;

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Row, Col, Modal, notification, Tabs, Card } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { WarpBeamIcon, WarpBeamsIcon, StatIcon } from "../components/IcOn";
+import { WarpBeamIcon, WarpBeamsIcon, StatIcon, AngleIcon, SpeedIcon } from "../components/IcOn";
 import InPut from "../components/InPut";
 import OptiOn from "../components/OptiOn";
+import Display from "../components/Display";
 import "./App.css";
 import i18next from 'i18next';
 
@@ -14,9 +15,15 @@ export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            pickAngle: null,
+            warpBeamMaxSpeed: null,
+            warpBeamJogSpeed: null,
+            angleRaw: null,
+            angleGV: null,
+            angleOffset: null,
         };
-        this.readTags = ["config"];
-        this.updateTags = [];
+        this.readTags = ['pickAngle', 'angleOffset', 'warpBeamMaxSpeed', 'warpBeamJogSpeed'];
+        this.updateTags = ['angleRaw', 'angleGV'];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
@@ -106,29 +113,71 @@ export default class Settings extends React.Component {
     render() {
         return (
             <div className='wrapper'>
-                <Tabs tabPosition='left' style={{ height: '100%' }}>
+                <Tabs tabPosition='left'>
 
-                    <TabPane tab={i18next.t('panel.general')} key="1">
-                        <Card title={i18next.t('panel.config')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
-                            <Row style={this.cardBodyStyle}>
-                                <OptiOn tag={this.props.config} options={[{ key: 0, text: 'tags.config.none', icon: <StatIcon style={{ fontSize: '250%' }} /> }, { key: 1, text: 'tags.config.low', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 3, text: 'tags.config.high', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 2, text: 'tags.config.both', icon: <WarpBeamsIcon style={{ fontSize: '250%' }} /> }]} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config) }} />
-                            </Row>
-                        </Card>
+                    <TabPane tab={i18next.t('panel.general')} key="1" >
+                        <Row gutter={[8, 8]} style={{ flex: '1 1 33%', alignSelf: 'stretch', alignItems: 'stretch', display: 'flex', marginBottom: 8 }}>
+                            <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                                <Card title={i18next.t('panel.config')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
+                                    <Row style={{ flex: 1, width: '100%' }}>
+                                        <Col span={24} style={this.colStyle}>
+                                            <OptiOn tag={this.props.config} options={[{ key: 0, text: 'tags.config.none', icon: <StatIcon style={{ fontSize: '250%' }} /> }, { key: 1, text: 'tags.config.low', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 3, text: 'tags.config.high', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 2, text: 'tags.config.both', icon: <WarpBeamsIcon style={{ fontSize: '250%' }} /> }]} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config) }} />
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row gutter={[8, 8]} style={{ flex: '1 1 33%', alignSelf: 'stretch', alignItems: 'stretch', display: 'flex', marginBottom: this.props.config ? this.props.config.val ? 8 : 0 : 0 }}>
+                            <Col span={16} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                                <Card title={i18next.t('panel.rotangle')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                                    <Row style={{ flex: 1, width: '100%' }}>
+                                        <Col span={6} style={this.colStyle}>
+                                            <Display tag={this.state.angleRaw} />
+                                        </Col>
+                                        <Col span={10} style={this.colStyle}>
+                                            <InPut tag={this.state.angleOffset} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.angleOffset); }} />
+                                        </Col>
+                                        <Col span={8} style={this.colStyle}>
+                                            <Display icon={<AngleIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.angleGV} />
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                            <Col span={8} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                                <Card title={i18next.t('panel.pickangle')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                                    <InPut tag={this.state.pickAngle} prefix={<AngleIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.pickAngle); }} />
+                                </Card>
+                            </Col>
+                        </Row>
+                        <Row gutter={[8, 8]} style={{ flex: '1 1 33%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val ? 'flex' : 'none' : 'none' }}>
+                            <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                                <Card title={i18next.t('panel.letoffdrive')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
+                                    <Row style={{ flex: 1, width: '100%' }}>
+                                        <Col span={12} style={this.colStyle}>
+                                            <InPut tag={this.state.warpBeamMaxSpeed} prefix={<SpeedIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamMaxSpeed); }} />
+                                        </Col>
+                                        <Col span={12} style={this.colStyle}>
+                                            <InPut tag={this.state.warpBeamJogSpeed} prefix={<SpeedIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamJogSpeed); }} />
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                        </Row>
                     </TabPane>
 
-                    <TabPane tab={i18next.t('tags.mode.stop')} key="2">
+                    <TabPane tab={i18next.t('tags.mode.stop')} disabled={this.props.config ? !this.props.config.val : true} key="2">
+                        <InPut noEng noDescr tag={this.props.config} disabled={!this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
+                    </TabPane>
+
+                    <TabPane tab={i18next.t('tags.mode.ready')} disabled={this.props.config ? !this.props.config.val : true} key="3">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
 
-                    <TabPane tab={i18next.t('tags.mode.ready')} key="3">
+                    <TabPane tab={i18next.t('tags.mode.run')} disabled={this.props.config ? !this.props.config.val : true} key="4">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
 
-                    <TabPane tab={i18next.t('tags.mode.run')} key="4">
-                        <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
-                    </TabPane>
-                    
-                    <TabPane tab={i18next.t('tags.mode.alarm')} key="5">
+                    <TabPane tab={i18next.t('tags.mode.alarm')} disabled={this.props.config ? !this.props.config.val : true} key="5">
                         <InPut noEng noDescr tag={this.props.config} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config); }} />
                     </TabPane>
                 </Tabs>

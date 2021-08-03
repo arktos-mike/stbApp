@@ -57,6 +57,26 @@
                 "pieceLengthStop": {
                     "descr": "Останов по наработке куска"
                 },
+                "pickAngle": {
+                    "descr": "Угол прибоя",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Номинальная скорость",
+                    "eng": "об/мин"
+                },
+                "angleRaw": {
+                    "descr": "Текущий",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Смещение",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Толчковая скорость",
+                    "eng": "об/мин"
+                },
                 "config": {
                     "none":"СЧЁТЧИК",
                     "low":"1 НАВОЙ (НИЖНИЙ)",
@@ -217,6 +237,26 @@
                 },
                 "pieceLengthStop": {
                     "descr": "Stop by piece production"
+                },
+                "pickAngle": {
+                    "descr": "Pick angle",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Rated speed",
+                    "eng": "rpm"
+                },
+                "angleRaw": {
+                    "descr": "Current",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Offset",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Jog speed",
+                    "eng": "rpm"
                 },
                 "config": {
                     "none":"COUNTER",
@@ -379,6 +419,26 @@
                 "pieceLengthStop": {
                     "descr": "Stop by piece production"
                 },
+                "pickAngle": {
+                    "descr": "Pick angle",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Rated speed",
+                    "eng": "rpm"
+                },
+                "angleRaw": {
+                    "descr": "Current",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Offset",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Jog speed",
+                    "eng": "rpm"
+                },
                 "config": {
                     "none":"COUNTER",
                     "low":"1 WARP BEAM (LOW)",
@@ -539,6 +599,26 @@
                 },
                 "pieceLengthStop": {
                     "descr": "Stop by piece production"
+                },
+                "pickAngle": {
+                    "descr": "Pick angle",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Rated speed",
+                    "eng": "rpm"
+                },
+                "angleRaw": {
+                    "descr": "Current",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Offset",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Jog speed",
+                    "eng": "rpm"
                 },
                 "config": {
                     "none":"COUNTER",
