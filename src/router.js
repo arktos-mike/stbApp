@@ -386,7 +386,7 @@ class UserModal extends React.Component {
                         >
 
                             <Select placeholder={i18next.t('user.user')} virtual={false} value={this.state.user}
-                                size="large" suffixIcon={<UserOutlined className="site-form-item-icon" />}>
+                                size="large" suffixIcon={<UserOutlined style={{ fontSize: '120%' }} />}>
                                 <Option value="engineer">{i18next.t('user.engineer')}</Option>
                                 <Option value="admin">{i18next.t('user.admin')}</Option>
                             </Select>
@@ -503,7 +503,7 @@ class ChangeModal extends React.Component {
                         >
 
                             <Select placeholder={i18next.t('user.user')} virtual={false} value={this.state.user}
-                                size="large" suffixIcon={<UserOutlined className="site-form-item-icon" />}>
+                                size="large" suffixIcon={<UserOutlined style={{ fontSize: '120%' }} />}>
                                 <Option value="engineer">{i18next.t('user.engineer')}</Option>
                                 <Option value="admin">{i18next.t('user.admin')}</Option>
                             </Select>
@@ -601,7 +601,7 @@ class DateTimeModal extends React.Component {
             minute: values.time.get('minute'),
             second: values.time.get('second')
         });
-        let  obj = moment(dt).toObject()
+        let obj = moment(dt).toObject()
         let omronTime = {};
         omronTime.year = obj.years - 2000
         omronTime.month = obj.months + 1;
