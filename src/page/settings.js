@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import { Row, Col, Modal, notification, Menu } from "antd";
+import { Modal, notification, Menu } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import SettingsGeneral from "./settingsGeneral.js";
 import SettingsStop from "./settingsStop.js";
@@ -99,6 +99,10 @@ export default class Settings extends React.Component {
         });
     };
 
+    handleClick = e => {
+        this.setState({ current: e.key });
+    };
+
     componentDidMount() {
         if (this.isElectron()) {
             window.ipcRenderer.send("plcReadMultiple", this.readTags);
@@ -110,44 +114,58 @@ export default class Settings extends React.Component {
         window.ipcRenderer.removeListener('plcReplyMultiple', this.plcReplyMultipleListener);
     }
     render() {
+        const { path } = this.props.match;
         return (
-            <div className='wrapper'>
-                <Row>
-                    <Col span={6}>
-                        <Menu style={{ fontSize: '100%' }} onClick={this.handleClick} selectedKeys={[this.state.current]} mode="inline">
-                            <Menu.Item key="general" >
-                                <Link to="/settings/general">{i18next.t('panel.general')}</Link>
-                            </Menu.Item>
-                            <Menu.Item key="stop" >
-                                <Link to="/settings/stop">{i18next.t('tags.mode.stop')}</Link>
-                            </Menu.Item>
-                            <Menu.Item key="ready" >
-                                <Link to="/settings/ready">{i18next.t('tags.mode.ready')}</Link>
-                            </Menu.Item>
+            <div className="innerWrapper">
+                <div className="innerMenu">
+                    <Menu style={{ fontSize: '100%' }} onClick={this.handleClick} selectedKeys={[this.state.current]} inlineIndent={8} mode="inline">
+                        <Menu.Item key="general" >
+                            <Link to={`${path}/general`}>{i18next.t('panel.general')}</Link>
+                        </Menu.Item>
+                        <Menu.Item key="stop" disabled={this.props.config ? this.props.config.val === 0 ? true : false : true} >
+                            <Link to={`${path}/stop`}>{i18next.t('tags.mode.stop')}</Link>
+                        </Menu.Item>
+                        <Menu.Item key="ready" disabled={this.props.config ? this.props.config.val === 0 ? true : false : true}>
+                            <Link to={`${path}/ready`}>{i18next.t('tags.mode.ready')}</Link>
+                        </Menu.Item>
+                        {this.props.config ? this.props.config.val === 2 ?
                             <SubMenu key="run" title={i18next.t('tags.mode.run')}>
                                 <Menu.Item key="run1">
-                                    <Link to="/settings/run/run1">{i18next.t('panel.left')}</Link>
+                                    <Link to={`${path}/run/run1`}>{i18next.t('panel.left')}</Link>
                                 </Menu.Item>
                                 <Menu.Item key="run2">
-                                    <Link to="/settings/run/run2">{i18next.t('panel.right')}</Link>
+                                    <Link to={`${path}/run/run2`}>{i18next.t('panel.right')}</Link>
                                 </Menu.Item>
                             </SubMenu>
-                            <Menu.Item key="alarm" >
-                                <Link to="/settings/alarm">{i18next.t('tags.mode.alarm')}</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Col>
-                    <Col span={18}>
-                        <Switch>
-                            <Route exact path={'/settings/general'} render={(props) => <SettingsGeneral user={this.props.user} config={this.props.config} onConfChange={(conf) => { this.props.onConfChange(conf) }} {...props} />} />
-                            <Route exact path={'/settings/stop'} render={(props) => <SettingsStop user={this.props.user} config={this.props.config} {...props} />} />
-                            <Route exact path={'/settings/ready'} render={(props) => <SettingsReady user={this.props.user} config={this.props.config} {...props} />} />
-                            <Route exact path={'/settings/run/run1'} render={(props) => <SettingsRun1 user={this.props.user} config={this.props.config} {...props} />} />
-                            <Route exact path={'/settings/run/run2'} render={(props) => <SettingsRun2 user={this.props.user} config={this.props.config} {...props} />} />
-                            <Route exact path={'/settings/alarm'} render={(props) => <SettingsAlarm user={this.props.user} config={this.props.config} {...props} />} />
-                        </Switch>
-                    </Col>
-                </Row>
+                            : this.props.config.val === 0 ?
+                                <Menu.Item key="run" disabled>
+                                    {i18next.t('tags.mode.run')}
+                                </Menu.Item>
+                                :
+                                <Menu.Item key="run">
+                                    <Link to={`${path}/run`}>{i18next.t('tags.mode.run')}</Link>
+                                </Menu.Item>
+                            :
+                            <Menu.Item key="run" disabled>
+                                {i18next.t('tags.mode.run')}
+                            </Menu.Item>}
+                        <Menu.Item key="alarm" disabled={this.props.config ? this.props.config.val === 0 ? true : false : true}>
+                            <Link to={`${path}/alarm`}>{i18next.t('tags.mode.alarm')}</Link>
+                        </Menu.Item>
+                    </Menu>
+                </div>
+                <div className="innerContainer">
+                    <Switch>
+                        <Route exact path={`${path}/`} render={(props) => <SettingsGeneral user={this.props.user} config={this.props.config} onConfChange={(conf) => { this.props.onConfChange(conf) }} {...props} />} />
+                        <Route exact path={`${path}/general`} render={(props) => <SettingsGeneral user={this.props.user} config={this.props.config} onConfChange={(conf) => { this.props.onConfChange(conf) }} {...props} />} />
+                        <Route exact path={`${path}/stop`} render={(props) => <SettingsStop user={this.props.user} config={this.props.config} {...props} />} />
+                        <Route exact path={`${path}/ready`} render={(props) => <SettingsReady user={this.props.user} config={this.props.config} {...props} />} />
+                        <Route exact path={`${path}/run`} render={(props) => this.props.config ? this.props.config.val === 1 ? <SettingsRun1 user={this.props.user} config={this.props.config} {...props} /> : this.props.config.val === 3 ? <SettingsRun2 user={this.props.user} config={this.props.config} {...props} /> : <SettingsRun1 user={this.props.user} config={this.props.config} {...props} /> : <SettingsRun1 user={this.props.user} config={this.props.config} {...props} />} />
+                        <Route exact path={`${path}/run/run1`} render={(props) => <SettingsRun1 user={this.props.user} config={this.props.config} {...props} />} />
+                        <Route exact path={`${path}/run/run2`} render={(props) => <SettingsRun2 user={this.props.user} config={this.props.config} {...props} />} />
+                        <Route exact path={`${path}/alarm`} render={(props) => <SettingsAlarm user={this.props.user} config={this.props.config} {...props} />} />
+                    </Switch>
+                </div>
             </div>
         )
 

@@ -243,7 +243,7 @@ export class MainRouter extends React.Component {
                                     <Switch>
                                         <Route exact path={'/'} render={(props) => <Overview user={this.state.user} config={this.state.config} {...props} />} />
                                         <Route exact path={'/control'} render={(props) => <Control user={this.state.user} config={this.state.config} {...props} />} />
-                                        <Route exact path={'/settings'} render={(props) => <Settings user={this.state.user} config={this.state.config} onConfChange={(conf) => { this.setState({ config: conf }) }} {...props} />} />
+                                        <Route path={'/settings'} render={(props) => <Settings user={this.state.user} config={this.state.config} onConfChange={(conf) => { this.setState({ config: conf }) }} {...props} />} />
                                         <Route exact path={'/system'} render={(props) => <System user={this.state.user} ip={this.state.ip} {...props} />} />
                                         <Route exact path={'/production'} render={(props) => <Production user={this.state.user} config={this.state.config} {...props} />} />
                                     </Switch>

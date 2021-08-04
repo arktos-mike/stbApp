@@ -27,8 +27,8 @@ export default class SettingsStop extends React.Component {
             warpTension01: null,
             warpTension02: null,
         };
-        this.readTags = ['warpTensionADC_LL1', 'warpTensionADC_LL2', 'warpTensionADC_HL1', 'warpTensionADC_HL2', 'warpTensionLL1', 'warpTensionLL2', 'warpTensionHL1', 'warpTensionHL2',];
-        this.updateTags = ['warpTensionCurADC1', 'warpTensionCurADC2', 'warpTension01', 'warpTension02',];
+        this.readTags = ['warpTensionADC_LL1', 'warpTensionADC_LL2', 'warpTensionADC_HL1', 'warpTensionADC_HL2', 'warpTensionLL1', 'warpTensionLL2', 'warpTensionHL1', 'warpTensionHL2'];
+        this.updateTags = ['warpTensionCurADC1', 'warpTensionCurADC2', 'warpTension01', 'warpTension02'];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }

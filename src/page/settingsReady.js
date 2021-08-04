@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Modal, notification, Card } from "antd";
-import { ExclamationCircleOutlined, ClockCircleOutlined} from '@ant-design/icons';
+import { ExclamationCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { WarpBeamIcon, SpeedIcon } from "../components/IcOn";
 import InPut from "../components/InPut";
 import Display from "../components/Display";
@@ -21,8 +21,8 @@ export default class SettingsReady extends React.Component {
             warpCalcDiam2: null,
             prepPeriod: null,
         };
-        this.readTags = [ 'prepPeriod', ];
-        this.updateTags = [ 'warpCalcSpeed1', 'warpCalcSpeed2', 'warpOffsetSpeed1', 'warpOffsetSpeed2', 'warpCalcDiam1', 'warpCalcDiam2', ];
+        this.readTags = ['prepPeriod'];
+        this.updateTags = ['warpCalcSpeed1', 'warpCalcSpeed2', 'warpOffsetSpeed1', 'warpOffsetSpeed2', 'warpCalcDiam1', 'warpCalcDiam2'];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
@@ -112,29 +112,29 @@ export default class SettingsReady extends React.Component {
     render() {
         return (
             <div className='wrapper'>
-                                          <Row gutter={[8, 8]} style={{ flex: '1 1 70%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none', marginBottom: 8 }}>
-                            <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 1 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                                <Card title={i18next.t('panel.diagnostics') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.right')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
-                                    <Display fullSize icon={<SpeedIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcSpeed2} />
-                                    <Display fullSize tag={this.state.warpOffsetSpeed2} />
-                                    <Display fullSize icon={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcDiam2} />
-                                </Card>
-                            </Col>
-                            <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 3 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                                <Card title={i18next.t('panel.diagnostics') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.left')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
-                                    <Display fullSize icon={<SpeedIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcSpeed1} />
-                                    <Display fullSize tag={this.state.warpOffsetSpeed1} />
-                                    <Display fullSize icon={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcDiam1} />
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row gutter={[8, 8]} style={{ flex: '1 1 30%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none' }}>
-                            <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                                <Card title={i18next.t('menu.settings') + ' - ' + i18next.t('tags.mode.ready')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
-                                    <InPut tag={this.state.prepPeriod} prefix={<ClockCircleOutlined style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.prepPeriod); }} />
-                                </Card>
-                            </Col>
-                        </Row>
+                <Row gutter={[8, 8]} style={{ flex: '1 1 70%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none', marginBottom: 8 }}>
+                    <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 1 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                        <Card title={i18next.t('panel.diagnostics') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.right')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
+                            <Display fullSize icon={<SpeedIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcSpeed2} />
+                            <Display fullSize tag={this.state.warpOffsetSpeed2} />
+                            <Display fullSize icon={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcDiam2} />
+                        </Card>
+                    </Col>
+                    <Col span={this.props.config ? this.props.config.val === 2 ? 12 : 24 : 0} style={{ display: this.props.config ? this.props.config.val === 3 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                        <Card title={i18next.t('panel.diagnostics') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.left')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                            <Display fullSize icon={<SpeedIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcSpeed1} />
+                            <Display fullSize tag={this.state.warpOffsetSpeed1} />
+                            <Display fullSize icon={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.warpCalcDiam1} />
+                        </Card>
+                    </Col>
+                </Row>
+                <Row gutter={[8, 8]} style={{ flex: '1 1 30%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none' }}>
+                    <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
+                        <Card title={i18next.t('menu.settings') + ' - ' + i18next.t('tags.mode.ready')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                            <InPut tag={this.state.prepPeriod} prefix={<ClockCircleOutlined style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.prepPeriod); }} />
+                        </Card>
+                    </Col>
+                </Row>
             </div>
         )
 

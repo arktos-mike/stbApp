@@ -26,7 +26,7 @@ export default class SettingsRun2 extends React.Component {
             warpTensionLimit2: null,
             warpRegKp2: null,
         };
-        this.readTags = ['warpTensionSP2', 'warpIn2', 'warpMaxDiam2', 'warpBeamH2', 'warpBeamMo2', 'warpBeamTo2', 'warpBeamGamma2', 'warpBeamY2', 'warpBeamPi2', 'warpTensionFilter2', 'warpTensionLimit2', 'warpRegKp2',];
+        this.readTags = ['warpTensionSP2', 'warpIn2', 'warpMaxDiam2', 'warpBeamH2', 'warpBeamMo2', 'warpBeamTo2', 'warpBeamGamma2', 'warpBeamY2', 'warpBeamPi2', 'warpTensionFilter2', 'warpTensionLimit2', 'warpRegKp2'];
         this.updateTags = ['warpTension2'];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
@@ -119,7 +119,7 @@ export default class SettingsRun2 extends React.Component {
             <div className='wrapper'>
                 <Row gutter={[8, 8]} style={{ flex: '1 1 15%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none', marginBottom: 8 }}>
                     <Col span={24} style={{ display: this.props.config ? this.props.config.val === 1 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('panel.tension') + (this.props.config ? this.props.config.val === 2 ? (" - " + i18next.t('panel.right')) : "" : "")} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
+                        <Card title={i18next.t('panel.tension')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
                             <Row style={{ flex: 1, width: '100%' }}>
                                 <Col span={12} style={this.colStyle}>
                                     <Display tag={this.state.warpTension2} />
@@ -133,7 +133,7 @@ export default class SettingsRun2 extends React.Component {
                 </Row>
                 <Row gutter={[8, 8]} style={{ flex: '1 1 60%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none', marginBottom: 8 }}>
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('menu.settings') + ' - ' + i18next.t('panel.right')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                        <Card title={i18next.t('menu.settings')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <Row style={{ flex: 1, width: '100%' }}>
                                 <Col span={8} style={this.colStyle}>
                                     <InPut tag={this.state.warpIn2} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpIn2); }} />
@@ -147,12 +147,10 @@ export default class SettingsRun2 extends React.Component {
 
                             </Row>
                             <Row style={{ flex: 1, width: '100%' }}>
-                                <Col span={11} style={this.colStyle}>
+                                <Col span={12} style={this.colStyle}>
                                     <InPut tag={this.state.warpBeamTo2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamTo2); }} />
                                 </Col>
-                                <Col span={2} style={this.colStyle}>
-                                </Col>
-                                <Col span={11} style={this.colStyle}>
+                                <Col span={12} style={this.colStyle}>
                                     <InPut tag={this.state.warpBeamGamma2} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamGamma2); }} />
                                 </Col>
 
@@ -173,7 +171,7 @@ export default class SettingsRun2 extends React.Component {
                 </Row>
                 <Row gutter={[8, 8]} style={{ flex: '1 1 25%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none' }}>
                     <Col span={15} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('panel.tensionsensor') + ' - ' + i18next.t('panel.right')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                        <Card title={i18next.t('panel.tensionsensor')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <Row style={{ flex: 1, width: '100%' }}>
                                 <Col span={12} style={this.colStyle}>
                                     <InPut tag={this.state.warpTensionFilter2} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionFilter2); }} />
@@ -185,7 +183,7 @@ export default class SettingsRun2 extends React.Component {
                         </Card>
                     </Col>
                     <Col span={9} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('panel.tensioncontrol') + ' - ' + i18next.t('panel.right')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                        <Card title={i18next.t('panel.tensioncontrol')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <InPut tag={this.state.warpRegKp2} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpRegKp2); }} />
                         </Card>
                     </Col>

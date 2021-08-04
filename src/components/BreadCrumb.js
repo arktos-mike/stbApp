@@ -4,6 +4,24 @@ import { Breadcrumb } from "antd";
 import i18next from 'i18next';
 import { EyeOutlined } from '@ant-design/icons';
 
+function i18name(name) {
+    switch (name) {
+        case 'general':
+            return 'panel.general';
+        case 'stop':
+        case 'ready':
+        case 'run':
+        case 'alarm':
+            return 'tags.mode.' + name;
+        case 'run1':
+            return 'panel.left';
+        case 'run2':
+            return 'panel.right';
+        default:
+            return 'menu.' + name;
+    }
+}
+
 const BreadCrumb = () => {
     const location = useLocation();
     const breadCrumbView = () => {
@@ -23,10 +41,10 @@ const BreadCrumb = () => {
                         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
                         const isLast = index === pathnames.length - 1;
                         return isLast ? (
-                            <Breadcrumb.Item key={name}>{i18next.t('menu.'+ name)}</Breadcrumb.Item>
+                            <Breadcrumb.Item key={name}>{i18next.t(i18name(name))}</Breadcrumb.Item>
                         ) : (
                             <Breadcrumb.Item key={name}>
-                                <Link to={`${routeTo}`}>{i18next.t('menu.'+ name)}</Link>
+                                <Link to={`${routeTo}`}>{i18next.t(i18name(name))}</Link>
                             </Breadcrumb.Item>
                         );
                     })}

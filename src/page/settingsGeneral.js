@@ -21,8 +21,8 @@ export default class SettingsGeneral extends React.Component {
             angleGV: null,
             angleOffset: null,
         };
-        this.readTags = ['pickAngle', 'angleOffset', 'warpBeamMaxSpeed', 'warpBeamJogSpeed',];
-        this.updateTags = ['angleRaw', 'angleGV',];
+        this.readTags = ['pickAngle', 'angleOffset', 'warpBeamMaxSpeed', 'warpBeamJogSpeed'];
+        this.updateTags = ['angleRaw', 'angleGV'];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
@@ -103,6 +103,7 @@ export default class SettingsGeneral extends React.Component {
         if (this.isElectron()) {
             window.ipcRenderer.send("plcReadMultiple", this.readTags);
             window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
+            console.log('upd'+this.updateTags)
         }
     }
 
@@ -116,7 +117,7 @@ export default class SettingsGeneral extends React.Component {
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
                         <Card title={i18next.t('panel.config')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle} >
                             <Row style={{ flex: 1, width: '100%' }}>
-                                <Col span={24} style={this.colStyle}>
+                                <Col span={24} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "0px 0px" }}>
                                     <OptiOn tag={this.props.config} options={[{ key: 0, text: 'tags.config.none', icon: <StatIcon style={{ fontSize: '250%' }} /> }, { key: 1, text: 'tags.config.low', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 3, text: 'tags.config.high', icon: <WarpBeamIcon style={{ fontSize: '250%' }} /> }, { key: 2, text: 'tags.config.both', icon: <WarpBeamsIcon style={{ fontSize: '250%' }} /> }]} disabled={this.props.user === "admin" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConf(value, this.props.config) }} />
                                 </Col>
                             </Row>
