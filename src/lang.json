@@ -92,11 +92,93 @@
                 "warpTensionHL": {
                     "eng": "%"
                 },
+                "warpCalcSpeed": {
+                    "descr": "Расчётная скорость",
+                    "eng": "об/мин"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Коррекция",
+                    "eng": "об/мин"
+                },
+                "warpCalcDiam": {
+                    "descr": "Расчётный диаметр",
+                    "eng": "см"
+                },
+                "prepPeriod": {
+                    "descr": "Период отслеживания",
+                    "eng": "мс"
+                },
+                "warpIn": {
+                    "descr": "К редукции"
+                },
+                "warpMaxDiam": {
+                    "descr": "Диаметр макс.",
+                    "eng": "см"
+                },
+                "warpBeamH": {
+                    "descr": "Длина навоя",
+                    "eng": "см"
+                },
+                "warpBeamMo": {
+                    "descr": "Кол-во нитей"
+                },
+                "warpBeamTo": {
+                    "descr": "Лин. плотность",
+                    "eng": "текс"
+                },
+                "warpBeamGamma": {
+                    "descr": "Уд. плотность",
+                    "eng": "г/см³"
+                },
+                "warpBeamY": {
+                    "descr": "Уработка",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Приклей",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "К фильтра"
+                },
+                "warpTensionLimit": {
+                    "descr": "Порог фильтра"
+                },
+                "warpRegKp": {
+                    "descr": "К пропорциональности"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Макс. отклонение натяжения",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "СБРОС АВАРИЙ"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Блокировка неисправности датчика натяжения"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Блокировка аварии привода"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Блокировка аварии отклонения натяжения"
+                },
+                "alarm": {
+                    "0": "Нет аварий",
+                    "1": "Авария привода",
+                    "2": "Авария привода",
+                    "3": "Неисправность датчика натяжения",
+                    "4": "Неисправность датчика натяжения",
+                    "5": "Авария отклонения натяжения",
+                    "6": "Авария отклонения натяжения",
+                    "7": "Неприлёт прокладчика",
+                    "8": "Поздний прилёт прокладчика"
+                },
                 "config": {
-                    "none":"СЧЁТЧИК",
-                    "low":"1 НАВОЙ (НИЖНИЙ)",
-                    "high":"1 НАВОЙ (ВЕРХНИЙ)",
-                    "both":"2 НАВОЯ"
+                    "none": "СЧЁТЧИК",
+                    "low": "1 НАВОЙ (НИЖНИЙ)",
+                    "high": "1 НАВОЙ (ВЕРХНИЙ)",
+                    "both": "2 НАВОЯ"
                 },
                 "mode": {
                     "descr": "Режим работы",
@@ -288,11 +370,93 @@
                 "warpTensionHL": {
                     "eng": "%"
                 },
+                "warpCalcSpeed": {
+                    "descr": "Calc speed",
+                    "eng": "rpm"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Correction",
+                    "eng": "rpm"
+                },
+                "warpCalcDiam": {
+                    "descr": "Calc diameter",
+                    "eng": "cm"
+                },
+                "prepPeriod": {
+                    "descr": "Tracking period",
+                    "eng": "ms"
+                },
+                "warpIn": {
+                    "descr": "Reduction ratio"
+                },
+                "warpMaxDiam": {
+                    "descr": "Diameter max",
+                    "eng": "cm"
+                },
+                "warpBeamH": {
+                    "descr": "Warp beam length",
+                    "eng": "cm"
+                },
+                "warpBeamMo": {
+                    "descr": "Warp yarns number"
+                },
+                "warpBeamTo": {
+                    "descr": "Linear density",
+                    "eng": "tex"
+                },
+                "warpBeamGamma": {
+                    "descr": "Specific density",
+                    "eng": "g/cm³"
+                },
+                "warpBeamY": {
+                    "descr": "Warp crimp",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Size regain",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "Filter gain"
+                },
+                "warpTensionLimit": {
+                    "descr": "Filter threshold"
+                },
+                "warpRegKp": {
+                    "descr": "Proportional factor"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Max tension deviation",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "RESET ALARMS"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Block tension sensor fault"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Block letoff drive alarm"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Block tension deviation alarm"
+                },
+                "alarm": {
+                    "0": "No alarms",
+                    "1": "Letoff drive alarm",
+                    "2": "Letoff drive alarm",
+                    "3": "Tension sensor fault",
+                    "4": "Tension sensor fault",
+                    "5": "Tension deviation alarm",
+                    "6": "Tension deviation alarm",
+                    "7": "Projectile non-arrival",
+                    "8": "Projectile late arrival"
+                },
                 "config": {
-                    "none":"COUNTER",
-                    "low":"1 WARP BEAM (LOW)",
-                    "high":"1 WARP BEAM (HIGH)",
-                    "both":"2 WARP BEAMS"
+                    "none": "COUNTER",
+                    "low": "1 WARP BEAM (LOW)",
+                    "high": "1 WARP BEAM (HIGH)",
+                    "both": "2 WARP BEAMS"
                 },
                 "mode": {
                     "descr": "Mode",
@@ -484,11 +648,93 @@
                 "warpTensionHL": {
                     "eng": "%"
                 },
+                "warpCalcSpeed": {
+                    "descr": "Calc speed",
+                    "eng": "rpm"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Correction",
+                    "eng": "rpm"
+                },
+                "warpCalcDiam": {
+                    "descr": "Calc diameter",
+                    "eng": "cm"
+                },
+                "prepPeriod": {
+                    "descr": "Tracking period",
+                    "eng": "ms"
+                },
+                "warpIn": {
+                    "descr": "Reduction ratio"
+                },
+                "warpMaxDiam": {
+                    "descr": "Diameter max",
+                    "eng": "cm"
+                },
+                "warpBeamH": {
+                    "descr": "Warp beam length",
+                    "eng": "cm"
+                },
+                "warpBeamMo": {
+                    "descr": "Warp yarns number"
+                },
+                "warpBeamTo": {
+                    "descr": "Linear density",
+                    "eng": "tex"
+                },
+                "warpBeamGamma": {
+                    "descr": "Specific density",
+                    "eng": "g/cm³"
+                },
+                "warpBeamY": {
+                    "descr": "Warp crimp",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Size regain",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "Filter gain"
+                },
+                "warpTensionLimit": {
+                    "descr": "Filter threshold"
+                },
+                "warpRegKp": {
+                    "descr": "Proportional factor"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Max tension deviation",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "RESET ALARMS"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Block tension sensor fault"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Block letoff drive alarm"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Block tension deviation alarm"
+                },
+                "alarm": {
+                    "0": "No alarms",
+                    "1": "Letoff drive alarm",
+                    "2": "Letoff drive alarm",
+                    "3": "Tension sensor fault",
+                    "4": "Tension sensor fault",
+                    "5": "Tension deviation alarm",
+                    "6": "Tension deviation alarm",
+                    "7": "Projectile non-arrival",
+                    "8": "Projectile late arrival"
+                },
                 "config": {
-                    "none":"COUNTER",
-                    "low":"1 WARP BEAM (LOW)",
-                    "high":"1 WARP BEAM (HIGH)",
-                    "both":"2 WARP BEAMS"
+                    "none": "COUNTER",
+                    "low": "1 WARP BEAM (LOW)",
+                    "high": "1 WARP BEAM (HIGH)",
+                    "both": "2 WARP BEAMS"
                 },
                 "mode": {
                     "descr": "Mode",
@@ -680,11 +926,93 @@
                 "warpTensionHL": {
                     "eng": "%"
                 },
+                "warpCalcSpeed": {
+                    "descr": "Calc speed",
+                    "eng": "rpm"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Correction",
+                    "eng": "rpm"
+                },
+                "warpCalcDiam": {
+                    "descr": "Calc diameter",
+                    "eng": "cm"
+                },
+                "prepPeriod": {
+                    "descr": "Tracking period",
+                    "eng": "ms"
+                },
+                "warpIn": {
+                    "descr": "Reduction ratio"
+                },
+                "warpMaxDiam": {
+                    "descr": "Diameter max",
+                    "eng": "cm"
+                },
+                "warpBeamH": {
+                    "descr": "Warp beam length",
+                    "eng": "cm"
+                },
+                "warpBeamMo": {
+                    "descr": "Warp yarns number"
+                },
+                "warpBeamTo": {
+                    "descr": "Linear density",
+                    "eng": "tex"
+                },
+                "warpBeamGamma": {
+                    "descr": "Specific density",
+                    "eng": "g/cm³"
+                },
+                "warpBeamY": {
+                    "descr": "Warp crimp",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Size regain",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "Filter gain"
+                },
+                "warpTensionLimit": {
+                    "descr": "Filter threshold"
+                },
+                "warpRegKp": {
+                    "descr": "Proportional factor"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Max tension deviation",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "RESET ALARMS"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Block tension sensor fault"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Block letoff drive alarm"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Block tension deviation alarm"
+                },
+                "alarm": {
+                    "0": "No alarms",
+                    "1": "Letoff drive alarm",
+                    "2": "Letoff drive alarm",
+                    "3": "Tension sensor fault",
+                    "4": "Tension sensor fault",
+                    "5": "Tension deviation alarm",
+                    "6": "Tension deviation alarm",
+                    "7": "Projectile non-arrival",
+                    "8": "Projectile late arrival"
+                },
                 "config": {
-                    "none":"COUNTER",
-                    "low":"1 WARP BEAM (LOW)",
-                    "high":"1 WARP BEAM (HIGH)",
-                    "both":"2 WARP BEAMS"
+                    "none": "COUNTER",
+                    "low": "1 WARP BEAM (LOW)",
+                    "high": "1 WARP BEAM (HIGH)",
+                    "both": "2 WARP BEAMS"
                 },
                 "mode": {
                     "descr": "Mode",

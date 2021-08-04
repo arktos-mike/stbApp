@@ -69,7 +69,46 @@ var tags = [
     { name: "warpSetTensionHL1", addr: "W100.05", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "warpSetTensionLL2", addr: "W100.06", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "warpSetTensionHL2", addr: "W100.07", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "modeInt", addr: "W52", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpCalcSpeed1", addr: "W500", type: "real", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpCalcSpeed2", addr: "W506", type: "real", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpOffsetSpeed1", addr: "W502", type: "real", min: -3000, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpOffsetSpeed2", addr: "W504", type: "real", min: -3000, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpCalcDiam1", addr: "W252", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpCalcDiam2", addr: "W254", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "prepPeriod", addr: "D330", type: "rint", min: 1.0, max: 99.9, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpIn1", addr: "D302", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },   
+    { name: "warpIn2", addr: "D502", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpMaxDiam1", addr: "D300", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },      
+    { name: "warpMaxDiam2", addr: "D500", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },  
+    { name: "warpBeamH1", addr: "D300", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpBeamH2", addr: "D506", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpBeamMo1", addr: "D312", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamMo2", addr: "D512", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamTo1", addr: "D310", type: "int", min: 0, max: 99, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamTo2", addr: "D510", type: "int", min: 0, max: 99, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamGamma1", addr: "D308", type: "real", min: 0, max: 99, dec: 2, cupd: false, plc: '1', val: null },
+    { name: "warpBeamGamma2", addr: "D508", type: "real", min: 0, max: 99, dec: 2, cupd: false, plc: '1', val: null },
+    { name: "warpBeamY1", addr: "D304", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamY2", addr: "D504", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamPi1", addr: "D314", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpBeamPi2", addr: "D514", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpTensionFilter1", addr: "D518", type: "real", min: 0, max: 1, dec: 3, cupd: false, plc: '1', val: null },
+    { name: "warpTensionFilter2", addr: "D520", type: "real", min: 0, max: 1, dec: 3, cupd: false, plc: '1', val: null },
+    { name: "warpTensionLimit1", addr: "D332", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpTensionLimit2", addr: "D334", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "warpRegKp1", addr: "D316", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpRegKp2", addr: "D516", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpTensionAlarmSP", addr: "D402", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "resetAlarms1", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "blockTensionSensorFault1", addr: "D42.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "blockTensionSensorFault2", addr: "D43.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "blockWarpDriveFault1", addr: "D44.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "blockWarpDriveFault2", addr: "D45.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "blockTensionAlarm1", addr: "D400.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "blockTensionAlarm2", addr: "D401.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "alarm1", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "resetAlarms2", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "alarm2", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
 ];
 let dl;
 
@@ -312,6 +351,7 @@ function createWindow() {
                     dl = 2;
                     break;
                 case "int":
+                case "rint":
                 case "bcd":
                 case "mode":
                 case "bool":
@@ -342,6 +382,7 @@ function createWindow() {
                     dl = 2;
                     break;
                 case "int":
+                case "rint":
                 case "bcd":
                 case "mode":
                 case "bool":
@@ -371,8 +412,15 @@ function createWindow() {
                     if (err) { }
                 });
                 break;
+
             case "int":
                 client['plc' + item.plc].write(item.addr, value, function (err, msg) {
+                    if (err) { }
+                });
+                break;
+
+            case "rint":
+                client['plc' + item.plc].write(item.addr, (value * 10).toFixed(), function (err, msg) {
                     if (err) { }
                 });
                 break;
@@ -466,7 +514,7 @@ let intervalTimer = setInterval(() => {
                 }
                 if (!tagsObj['plc' + e.plc]) {
                     tagsObj['plc' + e.plc] = [];
-                }   
+                }
                 switch (e.type) {
                     case "lreal":
                         dl = 4;
@@ -476,12 +524,13 @@ let intervalTimer = setInterval(() => {
                         dl = 2;
                         break;
                     case "int":
+                    case "rint":
                     case "bcd":
                     case "mode":
                     case "bool":
                         dl = 1;
                         break;
-                }  
+                }
                 if (dl > 1) {
                     for (var index = 0; index < dl; ++index) {
                         addrObj['plc' + e.plc].push(e.addr.replace(/\d+/g, '') + (parseInt(e.addr.replace(/[^0-9]/g, '')) + index));
@@ -490,9 +539,9 @@ let intervalTimer = setInterval(() => {
                 else {
                     addrObj['plc' + e.plc].push(e.addr);
                 }
-                tagsObj['plc' + e.plc].push(e);        
+                tagsObj['plc' + e.plc].push(e);
             }
-            
+
         });
         for (var i in addrObj) {
             client[i].readMultiple(addrObj[i], cbm, tagsObj[i]);
@@ -538,6 +587,10 @@ var cb = function (err, msg) {
 
             case "int":
                 win.webContents.send('plcReply', msg.response.values[0], msg.tag);
+                break;
+
+            case "rint":
+                win.webContents.send('plcReply', msg.response.values[0] / 10, msg.tag);
                 break;
 
             case "bcd":
@@ -612,6 +665,10 @@ var cbm = function (err, msg) {
 
                 case "int":
                     e.val = msg.response.values.shift()
+                    break;
+
+                case "rint":
+                    e.val = msg.response.values.shift()/10
                     break;
 
                 case "bcd":
