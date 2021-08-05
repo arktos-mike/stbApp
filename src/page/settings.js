@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import { Modal, notification, Menu } from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Menu } from "antd";
 import SettingsGeneral from "./settingsGeneral.js";
 import SettingsStop from "./settingsStop.js";
 import SettingsReady from "./settingsReady.js";
@@ -12,7 +11,6 @@ import SettingsAlarm from "./settingsAlarm.js";
 import "./App.css";
 import i18next from 'i18next';
 
-const { confirm } = Modal;
 const { SubMenu } = Menu;
 
 export default class Settings extends React.Component {
@@ -21,98 +19,26 @@ export default class Settings extends React.Component {
         this.state = {
             current: 'general',
         };
-        this.readTags = [];
-        this.updateTags = [];
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
         this.colStyle = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "0px 8px" }
-
-        if (this.isElectron()) {
-            window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
-        }
     }
 
     isElectron = () => {
         return window && window.process && window.process.type;
     }
 
-    plcReplyMultipleListener = (event, tags) => {
-        tags.forEach(e => {
-            if (this.state[e.name] !== undefined) {
-                this.setState({
-                    [e.name]: e
-                });
-            }
-        })
-    };
-
-    writeValue = (value, tag) => {
-        if (value !== tag.val) {
-            window.ipcRenderer.send("plcWrite", tag.name, value);
-            this.setState((prevState) => {
-                let obj = prevState[tag.name];
-                obj.val = value;
-                return { [tag.name]: obj };
-            });
-        }
-    };
-
-    showConfirm(value, tag) {
-        confirm({
-            title: i18next.t('confirm.title'),
-            icon: <ExclamationCircleOutlined style={{ fontSize: "300%" }} />,
-            okText: i18next.t('confirm.ok'),
-            cancelText: i18next.t('confirm.cancel'),
-            content: i18next.t('confirm.descr'),
-            centered: true,
-            okButtonProps: { size: 'large', danger: true },
-            cancelButtonProps: { size: 'large' },
-            onOk: () => this.writeValue(value, tag),
-        });
-    }
-
-    showConf(value, tag) {
-        confirm({
-            title: i18next.t('confirm.title'),
-            icon: <ExclamationCircleOutlined style={{ fontSize: "300%" }} />,
-            okText: i18next.t('confirm.ok'),
-            cancelText: i18next.t('confirm.cancel'),
-            content: i18next.t('confirm.descr'),
-            centered: true,
-            okButtonProps: { size: 'large', danger: true },
-            cancelButtonProps: { size: 'large' },
-            onOk: () => {
-                tag.val = value;
-                this.props.onConfChange(tag);
-                window.ipcRenderer.send("plcWrite", tag.name, value);
-            },
-        });
-    }
-
-    openNotificationWithIcon = (type, message, dur, descr) => {
-        notification[type]({
-            message: message,
-            description: descr,
-            placement: 'bottomRight',
-            duration: dur
-        });
-    };
-
     handleClick = e => {
         this.setState({ current: e.key });
     };
 
     componentDidMount() {
-        if (this.isElectron()) {
-            window.ipcRenderer.send("plcReadMultiple", this.readTags);
-            window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
-        }
     }
 
     componentWillUnmount() {
-        window.ipcRenderer.removeListener('plcReplyMultiple', this.plcReplyMultipleListener);
     }
+
     render() {
         const { path } = this.props.match;
         return (

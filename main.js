@@ -439,7 +439,6 @@ function createWindow() {
                 farr[0] = value;
                 words[0] = (bytes[1] << 8) | bytes[0];
                 words[1] = (bytes[3] << 8) | bytes[2];
-                //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
                 client['plc' + item.plc].write(item.addr, [words[0], words[1]], function (err, msg) {
                     if (err) { }
                 });
@@ -454,7 +453,6 @@ function createWindow() {
                 lwords[1] = (lbytes[3] << 8) | lbytes[2];
                 lwords[2] = (lbytes[5] << 8) | lbytes[4];
                 lwords[3] = (lbytes[7] << 8) | lbytes[6];
-                //console.log(value, '\t', item.name, '\t', item.addr, '\t', bytes, '\t', words);
                 client['plc' + item.plc].write(item.addr, [lwords[0], lwords[1], lwords[2], lwords[3]], function (err, msg) {
                     if (err) { }
                 });

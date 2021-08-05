@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Modal, notification, Card } from "antd";
-import { ExclamationCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, HistoryOutlined } from '@ant-design/icons';
 import { WarpBeamIcon, SpeedIcon } from "../components/IcOn";
 import InPut from "../components/InPut";
 import Display from "../components/Display";
@@ -131,7 +131,7 @@ export default class SettingsReady extends React.Component {
                 <Row gutter={[8, 8]} style={{ flex: '1 1 30%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none' }}>
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
                         <Card title={i18next.t('menu.settings') + ' - ' + i18next.t('tags.mode.ready')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
-                            <InPut tag={this.state.prepPeriod} prefix={<ClockCircleOutlined style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.prepPeriod); }} />
+                            <InPut tag={this.state.prepPeriod} prefix={<HistoryOutlined style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.prepPeriod); }} />
                         </Card>
                     </Col>
                 </Row>

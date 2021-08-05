@@ -394,7 +394,7 @@
                     "eng": "cm"
                 },
                 "warpBeamH": {
-                    "descr": "Warp beam length",
+                    "descr": "Beam length",
                     "eng": "cm"
                 },
                 "warpBeamMo": {
@@ -672,7 +672,7 @@
                     "eng": "cm"
                 },
                 "warpBeamH": {
-                    "descr": "Warp beam length",
+                    "descr": "Beam length",
                     "eng": "cm"
                 },
                 "warpBeamMo": {
@@ -950,7 +950,7 @@
                     "eng": "cm"
                 },
                 "warpBeamH": {
-                    "descr": "Warp beam length",
+                    "descr": "Beam length",
                     "eng": "cm"
                 },
                 "warpBeamMo": {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Modal, notification, Card } from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, SettingOutlined } from '@ant-design/icons';
+import { TensionIcon, WeftIcon, WarpBeamIcon, FabricIcon } from "../components/IcOn";
 import InPut from "../components/InPut";
 import Display from "../components/Display";
 import "./App.css";
@@ -31,7 +32,9 @@ export default class SettingsRun1 extends React.Component {
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
+        this.cardBody2Style = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5px' }
         this.colStyle = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "0px 8px" }
+        this.col2Style = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "1px 0.5px" }
 
         if (this.isElectron()) {
             window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
@@ -119,7 +122,7 @@ export default class SettingsRun1 extends React.Component {
             <div className='wrapper'>
                 <Row gutter={[8, 8]} style={{ flex: '1 1 15%', alignSelf: 'stretch', alignItems: 'stretch', display: this.props.config ? this.props.config.val !== 0 ? 'flex' : 'none' : 'none', marginBottom: 8 }}>
                     <Col span={24} style={{ display: this.props.config ? this.props.config.val === 3 ? 'none' : 'flex' : 'none', alignItems: 'stretch', alignSelf: 'stretch' }}>
-                        <Card title={i18next.t('panel.tension')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
+                        <Card title={i18next.t('panel.tension')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBody2Style}>
                             <Row style={{ flex: 1, width: '100%' }}>
                                 <Col span={12} style={this.colStyle}>
                                     <Display tag={this.state.warpTension1} />
@@ -135,33 +138,33 @@ export default class SettingsRun1 extends React.Component {
                     <Col span={24} style={{ display: 'flex', alignItems: 'stretch', alignSelf: 'stretch' }}>
                         <Card title={i18next.t('menu.settings')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <Row style={{ flex: 1, width: '100%' }}>
-                                <Col span={8} style={this.colStyle}>
-                                    <InPut tag={this.state.warpIn1} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpIn1); }} />
+                                <Col span={8} style={this.col2Style}>
+                                    <InPut tag={this.state.warpIn1} noEng prefix={<SettingOutlined style={{ fontSize: '100%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpIn1); }} />
                                 </Col>
-                                <Col span={8} style={this.colStyle}>
-                                    <InPut tag={this.state.warpMaxDiam1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpMaxDiam1); }} />
+                                <Col span={8} style={this.col2Style}>
+                                    <InPut tag={this.state.warpMaxDiam1} prefix={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpMaxDiam1); }} />
                                 </Col>
-                                <Col span={8} style={this.colStyle}>
-                                    <InPut tag={this.state.warpBeamH1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamH1); }} />
-                                </Col>
-                            </Row>
-                            <Row style={{ flex: 1, width: '100%' }}>
-                                <Col span={12} style={this.colStyle}>
-                                    <InPut tag={this.state.warpBeamTo1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamTo1); }} />
-                                </Col>
-                                <Col span={12} style={this.colStyle}>
-                                    <InPut tag={this.state.warpBeamGamma1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamGamma1); }} />
+                                <Col span={8} style={this.col2Style}>
+                                    <InPut tag={this.state.warpBeamH1} prefix={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamH1); }} />
                                 </Col>
                             </Row>
                             <Row style={{ flex: 1, width: '100%' }}>
-                                <Col span={8} style={this.colStyle}>
-                                    <InPut tag={this.state.warpBeamMo1} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamMo1); }} />
+                                <Col span={12} style={this.col2Style}>
+                                    <InPut tag={this.state.warpBeamTo1} prefix={<WeftIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamTo1); }} />
                                 </Col>
-                                <Col span={8} style={this.colStyle}>
-                                    <InPut tag={this.state.warpBeamY1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamY1); }} />
+                                <Col span={12} style={this.col2Style}>
+                                    <InPut tag={this.state.warpBeamGamma1} prefix={<WeftIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamGamma1); }} />
                                 </Col>
-                                <Col span={8} style={this.colStyle}>
-                                    <InPut tag={this.state.warpBeamPi1} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamPi1); }} />
+                            </Row>
+                            <Row style={{ flex: 1, width: '100%' }}>
+                                <Col span={8} style={this.col2Style}>
+                                    <InPut tag={this.state.warpBeamMo1} noEng prefix={<WarpBeamIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamMo1); }} />
+                                </Col>
+                                <Col span={8} style={this.col2Style}>
+                                    <InPut tag={this.state.warpBeamY1} prefix={<FabricIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamY1); }} />
+                                </Col>
+                                <Col span={8} style={this.col2Style}>
+                                    <InPut tag={this.state.warpBeamPi1} prefix={<WeftIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpBeamPi1); }} />
                                 </Col>
                             </Row>
                         </Card>
@@ -172,10 +175,10 @@ export default class SettingsRun1 extends React.Component {
                         <Card title={i18next.t('panel.tensionsensor')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <Row style={{ flex: 1, width: '100%' }}>
                                 <Col span={12} style={this.colStyle}>
-                                    <InPut tag={this.state.warpTensionFilter1} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionFilter1); }} />
+                                    <InPut tag={this.state.warpTensionFilter1} noEng prefix={<TensionIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionFilter1); }} />
                                 </Col>
                                 <Col span={12} style={this.colStyle}>
-                                    <InPut tag={this.state.warpTensionLimit1} noEng disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionLimit1); }} />
+                                    <InPut tag={this.state.warpTensionLimit1} noEng prefix={<TensionIcon style={{ fontSize: '150%', color: "#1890ff" }} />} disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onChange={(value) => { this.showConfirm(value, this.state.warpTensionLimit1); }} />
                                 </Col>
                             </Row>
                         </Card>
