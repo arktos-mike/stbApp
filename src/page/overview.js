@@ -20,26 +20,6 @@ export default class Overview extends React.Component {
             warpTensionSP2: null,
         };
         this.updateTags = ["angleGV", "speedGV", "clothGeneral", "clothShift", "weftDensity", "warpTension1", "warpTension2", "warpTensionSP1", "warpTensionSP2"];
-        this.myTheme = {
-            header: {
-                primaryColor: '#263238',
-                secondaryColor: '#f9f9f9',
-                highlightColor: '#3c8ffe',
-                backgroundColor: '#001529',
-            },
-            body: {
-                primaryColor: '#263238',
-                secondaryColor: '#32a5f2',
-                highlightColor: '#FFC107',
-                backgroundColor: '#f9f9f9',
-            },
-            panel: {
-                backgroundColor: '#CFD8DC'
-            },
-            global: {
-                fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji'
-            },
-        };
         this.cardStyle = { background: "whitesmoke", width: '100%', display: 'flex', flexDirection: 'column' }
         this.cardHeadStyle = { background: "#1890ff", color: "white" }
         this.cardBodyStyle = { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }

@@ -76,10 +76,10 @@ var tags = [
     { name: "warpCalcDiam1", addr: "W252", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
     { name: "warpCalcDiam2", addr: "W254", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
     { name: "prepPeriod", addr: "D330", type: "rint", min: 1.0, max: 99.9, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpIn1", addr: "D302", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },   
+    { name: "warpIn1", addr: "D302", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
     { name: "warpIn2", addr: "D502", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpMaxDiam1", addr: "D300", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },      
-    { name: "warpMaxDiam2", addr: "D500", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },  
+    { name: "warpMaxDiam1", addr: "D300", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
+    { name: "warpMaxDiam2", addr: "D500", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
     { name: "warpBeamH1", addr: "D300", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
     { name: "warpBeamH2", addr: "D506", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
     { name: "warpBeamMo1", addr: "D312", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
@@ -99,16 +99,36 @@ var tags = [
     { name: "warpRegKp1", addr: "D316", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
     { name: "warpRegKp2", addr: "D516", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
     { name: "warpTensionAlarmSP", addr: "D402", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "resetAlarms1", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "resetAlarms", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockTensionSensorFault1", addr: "D42.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockTensionSensorFault2", addr: "D43.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockWarpDriveFault1", addr: "D44.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockWarpDriveFault2", addr: "D45.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockTensionAlarm1", addr: "D400.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockTensionAlarm2", addr: "D401.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "alarm1", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "alarm", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
     { name: "resetAlarms2", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
     { name: "alarm2", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "picksGeneralReset2", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "picksGeneral2", addr: "D2003", type: "int", min: 0, max: 99999, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "speedGV2", addr: "D2012", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "timeGV2", addr: "D2013", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "sensor0Angle2", addr: "D2005", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "sensor0Count2", addr: "D2004", type: "int", min: 0, max: 9, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "sensor1Angle2", addr: "D2007", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "sensor1Count2", addr: "D2006", type: "int", min: 0, max: 9, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "sensor2Angle2", addr: "D2015", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "sensor2Count2", addr: "D2014", type: "int", min: 0, max: 9, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "anglesBrake2", addr: "D2008", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "speedFlight2", addr: "D2011", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "anglesFlight2", addr: "D2009", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "timeFlight2", addr: "D2010", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "beatUpAngleStart2", addr: "D322", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "beatUpAngleEnd2", addr: "D320", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "blockRun2", addr: "CIO100.05", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "oilTemperature2", addr: "W210", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "oilTemperatureLL2", addr: "D324", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "oilTemperatureHL2", addr: "D326", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
 ];
 let dl;
 
@@ -666,7 +686,7 @@ var cbm = function (err, msg) {
                     break;
 
                 case "rint":
-                    e.val = msg.response.values.shift()/10
+                    e.val = msg.response.values.shift() / 10
                     break;
 
                 case "bcd":

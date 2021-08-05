@@ -163,6 +163,56 @@
                 "blockTensionAlarm": {
                     "descr": "Блокировка аварии отклонения натяжения"
                 },
+                "timeGV": {
+                    "descr": "Время",
+                    "eng": "мс"
+                },
+                "sensorAngle": {
+                    "descr": "Угол",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Счётчик"
+                },
+                "anglesBrake": {
+                    "descr": "Торможение",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Скорость",
+                    "eng": "м/с"
+                },
+                "anglesFlight": {
+                    "descr": "Время",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Время",
+                    "eng": "мс"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Начало",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "Конец",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Блокировка пуска"
+                },
+                "oilTemperature": {
+                    "descr": "Температура масла",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Нижняя граница",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "Верхняя граница",
+                    "eng": "°C"
+                },
                 "alarm": {
                     "0": "Нет аварий",
                     "1": "Авария привода",
@@ -195,6 +245,7 @@
                 "control": "УПРАВЛЕНИЕ",
                 "settings": "НАСТРОЙКИ",
                 "production": "ТОВАР",
+                "projectile": "ПРОКЛАДЧИК",
                 "system": "СЕТЬ",
                 "close": "ЗАКРЫТЬ"
             },
@@ -239,6 +290,13 @@
                 "date": "Дата",
                 "time": "Время",
                 "submit": "ИЗМЕНИТЬ ДАТУ И ВРЕМЯ"
+            },
+            "projectile": {
+                "turn": "Оборот",
+                "sensor0": "Д0 датчик подлёта",
+                "sensor1": "Д1 датчик прилёта",
+                "sensor2": "Д2 датчик отскока",
+                "flight": "Полёт прокладчика"
             },
             "system": {
                 "reboot": "ПЕРЕЗАГРУЗКА ПАНЕЛИ",
@@ -441,6 +499,56 @@
                 "blockTensionAlarm": {
                     "descr": "Block tension deviation alarm"
                 },
+                "timeGV": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "sensorAngle": {
+                    "descr": "Angle",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Counter"
+                },
+                "anglesBrake": {
+                    "descr": "Braking",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Speed",
+                    "eng": "m/s"
+                },
+                "anglesFlight": {
+                    "descr": "Time",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Start",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "End",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Run block"
+                },
+                "oilTemperature": {
+                    "descr": "Oil temperature",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Low limit",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "High limit",
+                    "eng": "°C"
+                },
                 "alarm": {
                     "0": "No alarms",
                     "1": "Letoff drive alarm",
@@ -473,6 +581,7 @@
                 "control": "CONTROL",
                 "settings": "SETTINGS",
                 "production": "PRODUCTION",
+                "projectile": "PROJECTILE",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -517,6 +626,13 @@
                 "date": "Date",
                 "time": "Time",
                 "submit": "CHANGE DATE AND TIME"
+            },
+            "projectile": {
+                "turn": "Turn",
+                "sensor0": "S0 approach sensor",
+                "sensor1": "S1 arrival sensor",
+                "sensor2": "S2 rollback sensor",
+                "flight": "Projectile flight"
             },
             "system": {
                 "reboot": "REBOOT DEVICE",
@@ -719,6 +835,56 @@
                 "blockTensionAlarm": {
                     "descr": "Block tension deviation alarm"
                 },
+                "timeGV": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "sensorAngle": {
+                    "descr": "Angle",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Counter"
+                },
+                "anglesBrake": {
+                    "descr": "Braking",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Speed",
+                    "eng": "m/s"
+                },
+                "anglesFlight": {
+                    "descr": "Time",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Start",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "End",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Run block"
+                },
+                "oilTemperature": {
+                    "descr": "Oil temperature",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Low limit",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "High limit",
+                    "eng": "°C"
+                },
                 "alarm": {
                     "0": "No alarms",
                     "1": "Letoff drive alarm",
@@ -751,6 +917,7 @@
                 "control": "CONTROL",
                 "settings": "SETTINGS",
                 "production": "PRODUCTION",
+                "projectile": "PROJECTILE",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -795,6 +962,13 @@
                 "date": "Date",
                 "time": "Time",
                 "submit": "CHANGE DATE AND TIME"
+            },
+            "projectile": {
+                "turn": "Turn",
+                "sensor0": "S0 approach sensor",
+                "sensor1": "S1 arrival sensor",
+                "sensor2": "S2 rollback sensor",
+                "flight": "Projectile flight"
             },
             "system": {
                 "reboot": "REBOOT DEVICE",
@@ -997,6 +1171,56 @@
                 "blockTensionAlarm": {
                     "descr": "Block tension deviation alarm"
                 },
+                "timeGV": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "sensorAngle": {
+                    "descr": "Angle",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Counter"
+                },
+                "anglesBrake": {
+                    "descr": "Braking",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Speed",
+                    "eng": "m/s"
+                },
+                "anglesFlight": {
+                    "descr": "Time",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Start",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "End",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Run block"
+                },
+                "oilTemperature": {
+                    "descr": "Oil temperature",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Low limit",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "High limit",
+                    "eng": "°C"
+                },
                 "alarm": {
                     "0": "No alarms",
                     "1": "Letoff drive alarm",
@@ -1029,6 +1253,7 @@
                 "control": "CONTROL",
                 "settings": "SETTINGS",
                 "production": "PRODUCTION",
+                "projectile": "PROJECTILE",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -1073,6 +1298,13 @@
                 "date": "Date",
                 "time": "Time",
                 "submit": "CHANGE DATE AND TIME"
+            },
+            "projectile": {
+                "turn": "Turn",
+                "sensor0": "S0 approach sensor",
+                "sensor1": "S1 arrival sensor",
+                "sensor2": "S2 rollback sensor",
+                "flight": "Projectile flight"
             },
             "system": {
                 "reboot": "REBOOT DEVICE",
