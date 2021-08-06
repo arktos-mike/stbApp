@@ -103,7 +103,6 @@ export default class SettingsGeneral extends React.Component {
         if (this.isElectron()) {
             window.ipcRenderer.send("plcReadMultiple", this.readTags);
             window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
-            console.log('upd'+this.updateTags)
         }
     }
 

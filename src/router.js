@@ -3,7 +3,7 @@ import { HashRouter, Route, Link, Switch } from 'react-router-dom';
 import { Layout, Menu, Select, Drawer, Button, Modal, Input, Form, Checkbox, notification, DatePicker, TimePicker, ConfigProvider } from 'antd';
 import "./page/App.css";
 import logo from './icon.svg';
-import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined, ApartmentOutlined, SendOutlined } from '@ant-design/icons';
+import { EyeOutlined, ToolOutlined, SettingOutlined, UserOutlined, LockOutlined, ApartmentOutlined, SendOutlined, AlertOutlined } from '@ant-design/icons';
 import { FabricPieceIcon } from "./components/IcOn";
 import Overview from "./page/overview.js";
 import Settings from "./page/settings.js";
@@ -11,6 +11,7 @@ import Control from "./page/control.js";
 import System from "./page/system.js";
 import Production from "./page/production.js";
 import Projectile from "./page/projectile.js";
+import Alarms from "./page/alarms.js";
 import moment from "moment";
 import i18next from 'i18next';
 import BreadCrumb from "./components/BreadCrumb";
@@ -39,6 +40,7 @@ export class MainRouter extends React.Component {
             curTime: null,
             curDate: null,
             mode: null,
+            mode2: null,
             config: null,
             userVisible: false,
             timeVisible: false,
@@ -218,8 +220,8 @@ export class MainRouter extends React.Component {
                                 </Menu.Item>
                             </Menu>
                             <UserModal visible={this.state.userVisible} user={this.state.user} onClose={() => { this.setState({ userVisible: false }) }} onLogOut={() => { window.ipcRenderer.send("logOut"); }} />
-                            <div className="mode" style={{ backgroundColor: this.state.mode === null ? '#00000000' : this.state.mode.val === i18next.t('tags.mode.init') ? '#000000FF' : this.state.mode.val === i18next.t('tags.mode.stop') ? '#FFB300FF' : this.state.mode.val === i18next.t('tags.mode.ready') ? '#3949ABFF' : this.state.mode.val === i18next.t('tags.mode.run') ? '#43A047FF' : this.state.mode.val === i18next.t('tags.mode.alarm') ? '#E53935FF' : '#00000000' }}>
-                                {this.state.mode === null ? i18next.t('tags.mode.unknown') : this.state.mode.val}
+                            <div className="mode" style={{ backgroundColor: (this.state.mode2 && this.state.mode2.val === i18next.t('tags.mode.alarm')) ? '#E53935FF' : this.state.mode === null ? '#00000000' : this.state.mode.val === i18next.t('tags.mode.init') ? '#000000FF' : this.state.mode.val === i18next.t('tags.mode.stop') ? '#FFB300FF' : this.state.mode.val === i18next.t('tags.mode.ready') ? '#3949ABFF' : this.state.mode.val === i18next.t('tags.mode.run') ? '#43A047FF' : this.state.mode.val === i18next.t('tags.mode.alarm') ? '#E53935FF' : '#00000000' }}>
+                                {(this.state.mode && this.state.mode.val === i18next.t('tags.mode.alarm')) || (this.state.mode2 && this.state.mode2.val === i18next.t('tags.mode.alarm')) ? <Link to="/alarms" className="mode">{i18next.t('tags.mode.alarm')}</Link> : (this.state.mode2 && this.state.mode2.val === i18next.t('tags.mode.alarm')) ? this.state.mode2.val : this.state.mode === null ? i18next.t('tags.mode.unknown') : this.state.mode.val}
                             </div>
                             <div className="user">
                                 <Button type="primary" size="large" shape="circle" icon={<UserOutlined style={{ fontSize: '120%' }} />} onClick={() => { this.setState({ userVisible: true }) }} /><span className="text">{i18next.t('user.' + this.state.user)}</span>
@@ -248,6 +250,7 @@ export class MainRouter extends React.Component {
                                         <Route exact path={'/system'} render={(props) => <System user={this.state.user} ip={this.state.ip} {...props} />} />
                                         <Route exact path={'/production'} render={(props) => <Production user={this.state.user} config={this.state.config} {...props} />} />
                                         <Route exact path={'/projectile'} render={(props) => <Projectile user={this.state.user} config={this.state.config} {...props} />} />
+                                        <Route exact path={'/alarms'} render={(props) => <Alarms user={this.state.user} config={this.state.config} {...props} />} />
                                     </Switch>
                                     <Drawer
                                         //title="Basic Drawer"
@@ -275,6 +278,9 @@ export class MainRouter extends React.Component {
                                             </Menu.Item>
                                             <Menu.Item key="settings" icon={<SettingOutlined style={{ fontSize: '100%' }} />}>
                                                 <Link to="/settings">{i18next.t('menu.settings')}</Link>
+                                            </Menu.Item>
+                                            <Menu.Item key="alarms" icon={<AlertOutlined style={{ fontSize: '100%' }} />}>
+                                                <Link to="/alarms">{i18next.t('menu.alarms')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="system" icon={<ApartmentOutlined style={{ fontSize: '100%' }} />}>
                                                 <Link to="/system">{i18next.t('menu.system')}</Link>

@@ -63,7 +63,7 @@
   font-size: medium;
 }
 .mode {
-  color: #ffffff;
+  color: #ffffff !important;
   display: inline-flex;
   font-size: x-large;
   font-weight: bold;

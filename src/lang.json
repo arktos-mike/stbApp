@@ -214,15 +214,42 @@
                     "eng": "°C"
                 },
                 "alarm": {
-                    "0": "Нет аварий",
-                    "1": "Авария привода",
-                    "2": "Авария привода",
-                    "3": "Неисправность датчика натяжения",
-                    "4": "Неисправность датчика натяжения",
-                    "5": "Авария отклонения натяжения",
-                    "6": "Авария отклонения натяжения",
-                    "7": "Неприлёт прокладчика",
-                    "8": "Поздний прилёт прокладчика"
+                    "0": {
+                        "name": "Нет аварий",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Авария привода",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Авария привода",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Неисправность датчика натяжения",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Неисправность датчика натяжения",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Авария отклонения натяжения",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Авария отклонения натяжения",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Неприлёт прокладчика",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Поздний прилёт прокладчика",
+                        "place": "$t(menu.projectile)"
+                    }
                 },
                 "config": {
                     "none": "СЧЁТЧИК",
@@ -246,6 +273,7 @@
                 "settings": "НАСТРОЙКИ",
                 "production": "ТОВАР",
                 "projectile": "ПРОКЛАДЧИК",
+                "alarms": "АВАРИИ",
                 "system": "СЕТЬ",
                 "close": "ЗАКРЫТЬ"
             },
@@ -329,7 +357,7 @@
                 "block": "БЛОКИРОВКИ АВАРИЙ",
                 "projectilecontrol": "КОНТРОЛЬ ПОЛЁТА ПРОКЛАДЧИКА",
                 "cooling": "ОХЛАЖДЕНИЕ",
-                "tempsensor": "ДАТЧИК ТЕМПЕРАТУРЫ"
+                "alarmlog": "ЖУРНАЛ АВАРИЙ"
             },
             "decimalSeparator": ",",
             "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
@@ -550,15 +578,42 @@
                     "eng": "°C"
                 },
                 "alarm": {
-                    "0": "No alarms",
-                    "1": "Letoff drive alarm",
-                    "2": "Letoff drive alarm",
-                    "3": "Tension sensor fault",
-                    "4": "Tension sensor fault",
-                    "5": "Tension deviation alarm",
-                    "6": "Tension deviation alarm",
-                    "7": "Projectile non-arrival",
-                    "8": "Projectile late arrival"
+                    "0": {
+                        "name": "No alarms",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Projectile non-arrival",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Projectile late arrival",
+                        "place": "$t(menu.projectile)"
+                    }
                 },
                 "config": {
                     "none": "COUNTER",
@@ -582,6 +637,7 @@
                 "settings": "SETTINGS",
                 "production": "PRODUCTION",
                 "projectile": "PROJECTILE",
+                "alarms": "ALARMS",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -665,7 +721,7 @@
                 "block": "ALARM BLOCK",
                 "projectilecontrol": "PROJECTILE CONTROL",
                 "cooling": "COOLING",
-                "tempsensor": "TEMPERATURE SENSOR"
+                "alarmlog": "ALARM LOG"
             },
             "decimalSeparator": ".",
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
@@ -886,15 +942,42 @@
                     "eng": "°C"
                 },
                 "alarm": {
-                    "0": "No alarms",
-                    "1": "Letoff drive alarm",
-                    "2": "Letoff drive alarm",
-                    "3": "Tension sensor fault",
-                    "4": "Tension sensor fault",
-                    "5": "Tension deviation alarm",
-                    "6": "Tension deviation alarm",
-                    "7": "Projectile non-arrival",
-                    "8": "Projectile late arrival"
+                    "0": {
+                        "name": "No alarms",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Projectile non-arrival",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Projectile late arrival",
+                        "place": "$t(menu.projectile)"
+                    }
                 },
                 "config": {
                     "none": "COUNTER",
@@ -918,6 +1001,7 @@
                 "settings": "SETTINGS",
                 "production": "PRODUCTION",
                 "projectile": "PROJECTILE",
+                "alarms": "ALARMS",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -1001,7 +1085,7 @@
                 "block": "ALARM BLOCK",
                 "projectilecontrol": "PROJECTILE CONTROL",
                 "cooling": "COOLING",
-                "tempsensor": "TEMPERATURE SENSOR"
+                "alarmlog": "ALARM LOG"
             },
             "decimalSeparator": ",",
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"
@@ -1222,15 +1306,42 @@
                     "eng": "°C"
                 },
                 "alarm": {
-                    "0": "No alarms",
-                    "1": "Letoff drive alarm",
-                    "2": "Letoff drive alarm",
-                    "3": "Tension sensor fault",
-                    "4": "Tension sensor fault",
-                    "5": "Tension deviation alarm",
-                    "6": "Tension deviation alarm",
-                    "7": "Projectile non-arrival",
-                    "8": "Projectile late arrival"
+                    "0": {
+                        "name": "No alarms",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Projectile non-arrival",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Projectile late arrival",
+                        "place": "$t(menu.projectile)"
+                    }
                 },
                 "config": {
                     "none": "COUNTER",
@@ -1254,6 +1365,7 @@
                 "settings": "SETTINGS",
                 "production": "PRODUCTION",
                 "projectile": "PROJECTILE",
+                "alarms": "ALARMS",
                 "system": "NETWORK",
                 "close": "CLOSE"
             },
@@ -1337,7 +1449,7 @@
                 "block": "ALARM BLOCK",
                 "projectilecontrol": "PROJECTILE CONTROL",
                 "cooling": "COOLING",
-                "tempsensor": "TEMPERATURE SENSOR"
+                "alarmlog": "ALARM LOG"
             },
             "decimalSeparator": ",",
             "footer": "© TEHMASHHOLDING Cheboksary, Russia"

@@ -106,9 +106,9 @@ var tags = [
     { name: "blockWarpDriveFault2", addr: "D45.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockTensionAlarm1", addr: "D400.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "blockTensionAlarm2", addr: "D401.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "alarm", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
+    { name: "alarm", addr: "A400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
     { name: "resetAlarms2", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "alarm2", addr: "A400", type: "alarm", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "alarm2", addr: "W400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
     { name: "picksGeneralReset2", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
     { name: "picksGeneral2", addr: "D2003", type: "int", min: 0, max: 99999, dec: 0, cupd: false, plc: '2', val: null },
     { name: "speedGV2", addr: "D2012", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '2', val: null },
@@ -129,6 +129,7 @@ var tags = [
     { name: "oilTemperature2", addr: "W210", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
     { name: "oilTemperatureLL2", addr: "D324", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
     { name: "oilTemperatureHL2", addr: "D326", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "mode2", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
 ];
 let dl;
 
@@ -350,7 +351,7 @@ function createWindow() {
 
     ipcMain.on("tagsUpdSelect", (event, arr) => {
         tags.forEach(function (e, i) {
-            if (e.name === "mode" || arr.includes(e.name)) {
+            if (e.name === "mode" || e.name === "mode2" || arr.includes(e.name)) {
                 this[i].cupd = true;
             }
             else {
