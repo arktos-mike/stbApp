@@ -34,7 +34,8 @@
     "epack": "electron-packager ./ --platform=win32 --arch=x64",
     "ebuild": "mkdir build/electron && robocopy electron build/electron /S",
     "dist-rpi4": "electron-builder --linux --armv7l",
-    "dist": "electron-builder --config.target=portable --win portable --x64"
+    "dist": "electron-builder --config.target=portable --win portable --x64",
+    "dist-win": "electron-builder --config.target=nsis --win --x64"
   },
   "eslintConfig": {
     "extends": [
