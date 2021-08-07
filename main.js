@@ -105,7 +105,7 @@ var tags = [
     { name: "blockTensionAlarm2", addr: "D401.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
     { name: "alarm", addr: "A400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
     { name: "resetAlarms2", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "alarm2", addr: "W400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
+    { name: "alarm2", addr: "A400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
     { name: "picksGeneralReset2", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
     { name: "picksGeneral2", addr: "D2003", type: "int", min: 0, max: 99999, dec: 0, cupd: false, plc: '2', val: null },
     { name: "speedGV2", addr: "D2012", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '2', val: null },
@@ -588,6 +588,7 @@ var al = function (err, msg) {
             let record = {}
             record.dt = moment().valueOf();
             record.alarmCode = msg.response.values[0];
+            win.webContents.send('alarmUp', msg.response.values[0]);
             alarmLog.unshift(record);
             const jsonString = JSON.stringify(alarmLog)
             fs.writeFile('./src/alarmLog.json', jsonString, () => {
@@ -769,7 +770,7 @@ var cbm = function (err, msg) {
                 trig2 = true
             }
             if (trig2 && (e.name === "mode2") && e.val === i18next.t('tags.mode.alarm')) {
-                client['plc' + e.plc].read("W400", 1, al);
+                client['plc' + e.plc].read("A400", 1, al);
                 trig2 = false
             }
             //console.log(e.name + '\t' + e.val)

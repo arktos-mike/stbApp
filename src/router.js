@@ -102,6 +102,9 @@ export class MainRouter extends React.Component {
                     userVisible: false,
                 });
             });
+            window.ipcRenderer.on('alarmUp', (event, alarm) => {
+                this.openNotificationWithIcon('error', i18next.t('tags.alarm.' + alarm + '.place'), 0, i18next.t('tags.alarm.' + alarm + '.name'), { backgroundColor: '#fff2f0', border: '1px solid #ffccc7' });
+            });
             window.ipcRenderer.on('passChanged', (event, user, res) => {
                 if (res) {
                     this.openNotificationWithIcon('success', i18next.t('notifications.passok'), 2);
@@ -145,12 +148,13 @@ export class MainRouter extends React.Component {
             visible: false,
         });
     };
-    openNotificationWithIcon = (type, message, dur, descr) => {
+    openNotificationWithIcon = (type, message, dur, descr, style) => {
         notification[type]({
             message: message,
             description: descr,
             placement: 'bottomRight',
-            duration: dur
+            duration: dur,
+            style: style,
         });
     };
 
@@ -178,6 +182,7 @@ export class MainRouter extends React.Component {
         window.ipcRenderer.removeAllListeners('datetimeChanged');
         window.ipcRenderer.removeAllListeners('rebootResponse');
         window.ipcRenderer.removeAllListeners('ipChanged');
+        window.ipcRenderer.removeAllListeners('alarmUp');
     }
 
     handleClick = e => {
