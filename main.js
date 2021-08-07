@@ -1,7 +1,3 @@
-
-
-
-
 /* eslint-disable default-case */
 const { app, BrowserWindow, ipcMain } = require('electron');
 const url = require('url');
@@ -16,6 +12,7 @@ var options = {
 var fins = require('omron-fins');
 var i18next = require('i18next');
 var pass = null;
+var alarmLog = [];
 var ip = null;
 var client = {};
 let win
@@ -132,6 +129,7 @@ var tags = [
     { name: "mode2", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
 ];
 let dl;
+let trig1, trig2 = true;
 
 function updateIP() {
     const { networkInterfaces } = require('os');
@@ -212,6 +210,9 @@ function createWindow() {
     fs.readFile('./src/secret.json', 'utf8', (err, jsonString) => {
         pass = JSON.parse(jsonString);
     });
+    fs.readFile('./src/alarmLog.json', 'utf8', (err, jsonString) => {
+        alarmLog = JSON.parse(jsonString);
+    });
     ipcMain.on("changeSecret", (event, user, oldPassword, newPassword) => {
         win.webContents.send('passChanged', user, pass[user] === oldPassword);
         if (pass[user] === oldPassword) {
@@ -244,6 +245,16 @@ function createWindow() {
     });
     ipcMain.on("langChange", (event, lang) => {
         setLanguage(lang);
+    });
+
+    ipcMain.on("clearLog", (event) => {
+        alarmLog = [];
+        const jsonString = JSON.stringify(alarmLog)
+        fs.writeFile('./src/alarmLog.json', jsonString, () => { win.webContents.send('alarmLogUpdated', alarmLog); });
+    });
+
+    ipcMain.on("readLog", (event) => {
+        win.webContents.send('alarmLogUpdated', alarmLog);
     });
 
     ipcMain.on("datetimeSet", (event, dtTicks, dtISO, dtOmron) => {
@@ -568,6 +579,24 @@ let intervalTimer = setInterval(() => {
     }
 }, 200)
 
+var al = function (err, msg) {
+    if (err) {
+        console.error(err);
+    }
+    else {
+        if (msg.response.values[0] > 0) {
+            let record = {}
+            record.dt = moment().valueOf();
+            record.alarmCode = msg.response.values[0];
+            alarmLog.unshift(record);
+            const jsonString = JSON.stringify(alarmLog)
+            fs.writeFile('./src/alarmLog.json', jsonString, () => {
+                win.webContents.send('alarmLogUpdated', alarmLog);
+            });
+        }
+    }
+};
+
 var cb = function (err, msg) {
     if (err) {
         console.error(err);
@@ -669,6 +698,7 @@ var cbm = function (err, msg) {
                             break;
                         case 10:
                             modetext = i18next.t('tags.mode.alarm');
+
                             break;
                         default:
                             modetext = i18next.t('tags.mode.unknown');
@@ -727,6 +757,20 @@ var cbm = function (err, msg) {
                     var lview = new DataView(lbuf);
                     e.val = Number(lview.getFloat64(0, false).toFixed(e.dec))
                     break;
+            }
+            if ((e.name === "mode") && e.val !== i18next.t('tags.mode.alarm')) {
+                trig1 = true
+            }
+            if (trig1 && (e.name === "mode") && e.val === i18next.t('tags.mode.alarm')) {
+                client['plc' + e.plc].read("A400", 1, al);
+                trig1 = false
+            }
+            if ((e.name === "mode2") && e.val !== i18next.t('tags.mode.alarm')) {
+                trig2 = true
+            }
+            if (trig2 && (e.name === "mode2") && e.val === i18next.t('tags.mode.alarm')) {
+                client['plc' + e.plc].read("W400", 1, al);
+                trig2 = false
             }
             //console.log(e.name + '\t' + e.val)
         }, msg.tag);

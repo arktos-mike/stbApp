@@ -265,25 +265,25 @@ export class MainRouter extends React.Component {
                                     >
                                         <Menu style={{ fontSize: '150%' }} onClick={this.handleClick} selectedKeys={[current]} mode="inline">
                                             <Menu.Item key="overview" icon={<EyeOutlined style={{ fontSize: '100%' }} />}>
-                                                <Link to="/">{i18next.t('menu.overview')}</Link>
+                                                <Link onClick={this.onClose} to="/">{i18next.t('menu.overview')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="control" icon={<ToolOutlined style={{ fontSize: '100%' }} />} disabled={this.state.config ? this.state.config.val === 0 ? true : false : true}>
-                                                <Link to="/control">{i18next.t('menu.control')}</Link>
+                                                <Link onClick={this.onClose} to="/control">{i18next.t('menu.control')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="production" icon={<FabricPieceIcon style={{ fontSize: '100%' }} />}>
-                                                <Link to="/production">{i18next.t('menu.production')}</Link>
+                                                <Link onClick={this.onClose} to="/production">{i18next.t('menu.production')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="projectile" icon={<SendOutlined style={{ fontSize: '100%' }} />}>
-                                                <Link to="/projectile">{i18next.t('menu.projectile')}</Link>
+                                                <Link onClick={this.onClose} to="/projectile">{i18next.t('menu.projectile')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="settings" icon={<SettingOutlined style={{ fontSize: '100%' }} />}>
-                                                <Link to="/settings">{i18next.t('menu.settings')}</Link>
+                                                <Link onClick={this.onClose} to="/settings">{i18next.t('menu.settings')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="alarms" icon={<AlertOutlined style={{ fontSize: '100%' }} />}>
-                                                <Link to="/alarms">{i18next.t('menu.alarms')}</Link>
+                                                <Link onClick={this.onClose} to="/alarms">{i18next.t('menu.alarms')}</Link>
                                             </Menu.Item>
                                             <Menu.Item key="system" icon={<ApartmentOutlined style={{ fontSize: '100%' }} />}>
-                                                <Link to="/system">{i18next.t('menu.system')}</Link>
+                                                <Link onClick={this.onClose} to="/system">{i18next.t('menu.system')}</Link>
                                             </Menu.Item>
                                         </Menu>
                                     </Drawer>

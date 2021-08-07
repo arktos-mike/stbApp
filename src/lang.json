@@ -313,6 +313,11 @@
                 "rebooterror": "Перезагрузка не удалась",
                 "idle": "Выход из системы из-за бездействия"
             },
+            "alarmlog": {
+                "details": "Описание аварии",
+                "place": "Узел",
+                "clear": "Очистить"
+            },
             "time": {
                 "title": "Настройка даты и времени",
                 "date": "Дата",
@@ -676,6 +681,11 @@
                 "rebootok": "Reboot pending",
                 "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
+            },
+            "alarmlog": {
+                "details": "Alarm details",
+                "place": "Node",
+                "clear": "Clear"
             },
             "time": {
                 "title": "Date/time settings",
@@ -1041,6 +1051,11 @@
                 "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
             },
+            "alarmlog": {
+                "details": "Alarm details",
+                "place": "Node",
+                "clear": "Clear"
+            },
             "time": {
                 "title": "Date/time settings",
                 "date": "Date",
@@ -1404,6 +1419,11 @@
                 "rebootok": "Reboot pending",
                 "rebooterror": "Reboot failed",
                 "idle": "Logout due to Inactivity"
+            },
+            "alarmlog": {
+                "details": "Alarm details",
+                "place": "Node",
+                "clear": "Clear"
             },
             "time": {
                 "title": "Date/time settings",

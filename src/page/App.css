@@ -159,6 +159,9 @@
   flex-direction: column;
   height:100%;
 }
+.ant-dropdown-menu-item{
+  padding: 10px 10px !important;
+}
 .ant-btn-lg {
   min-height: 52px !important;
   min-width: 52px !important;
@@ -166,6 +169,18 @@
   align-items: center !important;
   justify-content: center !important;
 }
+.ant-btn-sm {
+  min-height: 52px !important;
+  min-width: 52px !important;
+  display: inline-flex ;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ant-card-extra{
+  padding: 0 !important;
+}
+
 .ant-menu-inline .ant-menu-item, .ant-menu-submenu-title{
   height: 60px !important;
 }
