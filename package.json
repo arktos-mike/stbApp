@@ -56,8 +56,15 @@
   },
   "main": "main.js",
   "homepage": "./",
-  "DEV": true,
+  "DEV": false,
   "build": {
+    "extraFiles": [
+      {
+          "from": "data",
+          "to": "data",
+          "filter": ["**/*"]
+      }
+    ],
     "extends": null,
     "win": {
       "icon": "icon.ico"
@@ -73,6 +80,7 @@
       "main.js",
       "preload.js",
       "build/**/*",
+      "src/lang.json",
       "package.json"
     ]
   }

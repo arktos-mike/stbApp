@@ -1,0 +1,1482 @@
+{
+    "ru": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Угол останова",
+                    "eng": "°"
+                },
+                "speedGV": {
+                    "descr": "Скорость",
+                    "eng": "об/мин"
+                },
+                "clothGeneral": {
+                    "descr": "Общий",
+                    "eng": "м"
+                },
+                "clothShift": {
+                    "descr": "Сменный",
+                    "eng": "м"
+                },
+                "weftDensity": {
+                    "descr": "Плотность ткани по утку",
+                    "eng": "утч/см"
+                },
+                "warpTension": {
+                    "descr": "Текущее",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Задание",
+                    "eng": "%"
+                },
+                "warpForward": {
+                    "descr": "ВПЕРЕД"
+                },
+                "warpReverse": {
+                    "descr": "НАЗАД"
+                },
+                "autoTension": {
+                    "descr": "Автоподтяжка натяжения"
+                },
+                "autoOffset": {
+                    "descr": "Смещение",
+                    "eng": "%"
+                },
+                "picksGeneral": {
+                    "descr": "Прокидки"
+                },
+                "pieceLength": {
+                    "descr": "Длина куска",
+                    "eng": "м"
+                },
+                "pieceLengthSP": {
+                    "descr": "Задание куска",
+                    "eng": "м"
+                },
+                "pieceLengthStop": {
+                    "descr": "Останов по наработке куска"
+                },
+                "pickAngle": {
+                    "descr": "Угол прибоя",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Номинальная скорость",
+                    "eng": "об/мин"
+                },
+                "angleRaw": {
+                    "descr": "Текущий",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Смещение",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Толчковая скорость",
+                    "eng": "об/мин"
+                },
+                "warpTensionCurADC": {
+                    "descr": "Код АЦП"
+                },
+                "warpTensionADC_LL": {
+                    "descr": "Точка A"
+                },
+                "warpTensionADC_HL": {
+                    "descr": "Точка B"
+                },
+                "warpTensionLL": {
+                    "eng": "%"
+                },
+                "warpTensionHL": {
+                    "eng": "%"
+                },
+                "warpCalcSpeed": {
+                    "descr": "Расчётная скорость",
+                    "eng": "об/мин"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Коррекция",
+                    "eng": "об/мин"
+                },
+                "warpCalcDiam": {
+                    "descr": "Расчётный диаметр",
+                    "eng": "см"
+                },
+                "prepPeriod": {
+                    "descr": "Период отслеживания",
+                    "eng": "мс"
+                },
+                "warpIn": {
+                    "descr": "К редукции"
+                },
+                "warpMaxDiam": {
+                    "descr": "Диаметр макс.",
+                    "eng": "см"
+                },
+                "warpBeamH": {
+                    "descr": "Длина навоя",
+                    "eng": "см"
+                },
+                "warpBeamMo": {
+                    "descr": "Кол-во нитей"
+                },
+                "warpBeamTo": {
+                    "descr": "Лин. плотность",
+                    "eng": "текс"
+                },
+                "warpBeamGamma": {
+                    "descr": "Уд. плотность",
+                    "eng": "г/см³"
+                },
+                "warpBeamY": {
+                    "descr": "Уработка",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Приклей",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "К фильтра"
+                },
+                "warpTensionLimit": {
+                    "descr": "Порог фильтра"
+                },
+                "warpRegKp": {
+                    "descr": "К пропорциональности"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Макс. отклонение натяжения",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "СБРОС АВАРИЙ"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Блокировка неисправности датчика натяжения"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Блокировка аварии привода"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Блокировка аварии отклонения натяжения"
+                },
+                "timeGV": {
+                    "descr": "Время",
+                    "eng": "мс"
+                },
+                "sensorAngle": {
+                    "descr": "Угол",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Счётчик"
+                },
+                "anglesBrake": {
+                    "descr": "Торможение",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Скорость",
+                    "eng": "м/с"
+                },
+                "anglesFlight": {
+                    "descr": "Время",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Время",
+                    "eng": "мс"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Начало",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "Конец",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Блокировка пуска"
+                },
+                "oilTemperature": {
+                    "descr": "Температура масла",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Нижняя граница",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "Верхняя граница",
+                    "eng": "°C"
+                },
+                "alarm": {
+                    "0": {
+                        "name": "Нет аварий",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Авария привода",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Авария привода",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Неисправность датчика натяжения",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Неисправность датчика натяжения",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Авария отклонения натяжения",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Авария отклонения натяжения",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Неприлёт прокладчика",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Поздний прилёт прокладчика",
+                        "place": "$t(menu.projectile)"
+                    }
+                },
+                "config": {
+                    "none": "СЧЁТЧИК",
+                    "low": "1 НАВОЙ (НИЖНИЙ)",
+                    "high": "1 НАВОЙ (ВЕРХНИЙ)",
+                    "both": "2 НАВОЯ"
+                },
+                "mode": {
+                    "descr": "Режим работы",
+                    "init": "ИНИЦИАЛИЗАЦИЯ",
+                    "stop": "СТОП",
+                    "ready": "ПОДГОТОВКА",
+                    "run": "РАБОТА",
+                    "alarm": "АВАРИЯ",
+                    "unknown": "НЕИЗВЕСТНО"
+                }
+            },
+            "menu": {
+                "overview": "ОБЗОР",
+                "control": "УПРАВЛЕНИЕ",
+                "settings": "НАСТРОЙКИ",
+                "production": "ТОВАР",
+                "projectile": "ПРОКЛАДЧИК",
+                "alarms": "АВАРИИ",
+                "system": "СЕТЬ",
+                "close": "ЗАКРЫТЬ"
+            },
+            "confirm": {
+                "title": "Подтверждение действия",
+                "warn": "Сброс только при смене навоя",
+                "descr": "Вы действительно хотите внести изменения?",
+                "ok": "ДА",
+                "cancel": "НЕТ"
+            },
+            "user": {
+                "admin": "Инженер",
+                "engineer": "Наладчик",
+                "anon": "Оператор",
+                "user": "Пользователь",
+                "curuser": "Текущий пользователь",
+                "password": "Пароль",
+                "oldpassword": "Старый пароль",
+                "newpassword": "Новый пароль",
+                "fill": "Пожалуйста, заполните поле",
+                "login": "ВОЙТИ В СИСТЕМУ",
+                "logout": "ВЫЙТИ ИЗ СИСТЕМЫ",
+                "signin": "Вход в систему",
+                "change": "Сменить пароль",
+                "remember": "Не выходить из системы",
+                "submit": "СМЕНИТЬ ПАРОЛЬ"
+            },
+            "notifications": {
+                "userok": "Успешный вход",
+                "usererror": "Неверный пароль",
+                "passok": "Пароль успешно изменен",
+                "passerror": "Пароль не был изменен",
+                "timeok": "Дата/время успешно изменены",
+                "timeerror": "Дата/время не были изменены",
+                "rightserror": "Недостаточно прав пользователя",
+                "rebootok": "Ожидается перезагрузка",
+                "rebooterror": "Перезагрузка не удалась",
+                "idle": "Выход из системы из-за бездействия"
+            },
+            "alarmlog": {
+                "details": "Описание аварии",
+                "place": "Узел",
+                "clear": "Очистить"
+            },
+            "time": {
+                "title": "Настройка даты и времени",
+                "date": "Дата",
+                "time": "Время",
+                "since": "начиная с",
+                "submit": "ИЗМЕНИТЬ ДАТУ И ВРЕМЯ"
+            },
+            "projectile": {
+                "turn": "Оборот",
+                "sensor0": "Д0 датчик подлёта",
+                "sensor1": "Д1 датчик прилёта",
+                "sensor2": "Д2 датчик отскока",
+                "flight": "Полёт прокладчика"
+            },
+            "system": {
+                "reboot": "ПЕРЕЗАГРУЗКА ПАНЕЛИ",
+                "opIP": "IP-адрес панели оператора",
+                "plcIP": "IP-адрес контроллера"
+            },
+            "panel": {
+                "network": "СЕТЕВЫЕ НАСТРОЙКИ",
+                "actions": "ДЕЙСТВИЯ",
+                "main": "ГЛАВНЫЙ ВАЛ",
+                "general": "ОБЩИЕ",
+                "prod": "ТОВАР",
+                "tension": "НАТЯЖЕНИЕ ОСНОВЫ",
+                "config": "КОНФИГУРАЦИЯ",
+                "letoffdrive": "ПРИВОД ПОДАЧИ ОСНОВЫ",
+                "prodcounters": "ТОВАРНЫЕ СЧЁТЧИКИ",
+                "clothpiece": "НАРАБОТКА КУСКА",
+                "densityset": "НАСТРОЙКА ПЛОТНОСТИ",
+                "mantension": "РУЧНАЯ УСТАНОВКА НАТЯЖЕНИЯ ОСНОВЫ",
+                "autotension": "АВТОПОДТЯЖКА НАТЯЖЕНИЯ ОСНОВЫ (РЕЖИМ СТОП)",
+                "left": "ЛЕВЫЙ НАВОЙ",
+                "right": "ПРАВЫЙ НАВОЙ",
+                "rotangle": "УГОЛ ПОВОРОТА",
+                "pickangle": "УГОЛ ПРИБОЯ",
+                "beatupangle": "УГОЛ БОЯ",
+                "calibration": "КАЛИБРОВКА НАТЯЖЕНИЯ ОСНОВЫ",
+                "diagnostics": "ДИАГНОСТИЧЕСКАЯ ИНФОРМАЦИЯ",
+                "tensionsensor": "ДАТЧИК НАТЯЖЕНИЯ ОСНОВЫ",
+                "tensioncontrol": "РЕГУЛЯТОР ПОДАЧИ",
+                "block": "БЛОКИРОВКИ АВАРИЙ",
+                "projectilecontrol": "КОНТРОЛЬ ПОЛЁТА ПРОКЛАДЧИКА",
+                "cooling": "ОХЛАЖДЕНИЕ",
+                "alarmlog": "ЖУРНАЛ АВАРИЙ"
+            },
+            "decimalSeparator": ",",
+            "footer": "© ТЕХМАШХОЛДИНГ г.Чебоксары"
+        }
+    },
+    "en": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Stop angle",
+                    "eng": "°"
+                },
+                "speedGV": {
+                    "descr": "Speed",
+                    "eng": "rpm"
+                },
+                "clothGeneral": {
+                    "descr": "Overall",
+                    "eng": "m"
+                },
+                "clothShift": {
+                    "descr": "Shift",
+                    "eng": "m"
+                },
+                "weftDensity": {
+                    "descr": "Weft density",
+                    "eng": "thr/cm"
+                },
+                "warpTension": {
+                    "descr": "Current",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Setpoint",
+                    "eng": "%"
+                },
+                "warpForward": {
+                    "descr": "FORWARD"
+                },
+                "warpReverse": {
+                    "descr": "REVERSE"
+                },
+                "autoTension": {
+                    "descr": "Auto-tightening"
+                },
+                "autoOffset": {
+                    "descr": "Offset",
+                    "eng": "%"
+                },
+                "picksGeneral": {
+                    "descr": "Picks"
+                },
+                "pieceLength": {
+                    "descr": "Piece length",
+                    "eng": "m"
+                },
+                "pieceLengthSP": {
+                    "descr": "Piece setpoint",
+                    "eng": "m"
+                },
+                "pieceLengthStop": {
+                    "descr": "Stop by piece production"
+                },
+                "pickAngle": {
+                    "descr": "Pick angle",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Rated speed",
+                    "eng": "rpm"
+                },
+                "angleRaw": {
+                    "descr": "Current",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Offset",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Jog speed",
+                    "eng": "rpm"
+                },
+                "warpTensionCurADC": {
+                    "descr": "ADC value"
+                },
+                "warpTensionADC_LL": {
+                    "descr": "Point A"
+                },
+                "warpTensionADC_HL": {
+                    "descr": "Point B"
+                },
+                "warpTensionLL": {
+                    "eng": "%"
+                },
+                "warpTensionHL": {
+                    "eng": "%"
+                },
+                "warpCalcSpeed": {
+                    "descr": "Calc speed",
+                    "eng": "rpm"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Correction",
+                    "eng": "rpm"
+                },
+                "warpCalcDiam": {
+                    "descr": "Calc diameter",
+                    "eng": "cm"
+                },
+                "prepPeriod": {
+                    "descr": "Tracking period",
+                    "eng": "ms"
+                },
+                "warpIn": {
+                    "descr": "Reduction ratio"
+                },
+                "warpMaxDiam": {
+                    "descr": "Diameter max",
+                    "eng": "cm"
+                },
+                "warpBeamH": {
+                    "descr": "Beam length",
+                    "eng": "cm"
+                },
+                "warpBeamMo": {
+                    "descr": "Warp yarns number"
+                },
+                "warpBeamTo": {
+                    "descr": "Linear density",
+                    "eng": "tex"
+                },
+                "warpBeamGamma": {
+                    "descr": "Specific density",
+                    "eng": "g/cm³"
+                },
+                "warpBeamY": {
+                    "descr": "Warp crimp",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Size regain",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "Filter gain"
+                },
+                "warpTensionLimit": {
+                    "descr": "Filter threshold"
+                },
+                "warpRegKp": {
+                    "descr": "Proportional factor"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Max tension deviation",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "RESET ALARMS"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Block tension sensor fault"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Block letoff drive alarm"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Block tension deviation alarm"
+                },
+                "timeGV": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "sensorAngle": {
+                    "descr": "Angle",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Counter"
+                },
+                "anglesBrake": {
+                    "descr": "Braking",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Speed",
+                    "eng": "m/s"
+                },
+                "anglesFlight": {
+                    "descr": "Time",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Start",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "End",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Run block"
+                },
+                "oilTemperature": {
+                    "descr": "Oil temperature",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Low limit",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "High limit",
+                    "eng": "°C"
+                },
+                "alarm": {
+                    "0": {
+                        "name": "No alarms",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Projectile non-arrival",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Projectile late arrival",
+                        "place": "$t(menu.projectile)"
+                    }
+                },
+                "config": {
+                    "none": "COUNTER",
+                    "low": "1 WARP BEAM (LOW)",
+                    "high": "1 WARP BEAM (HIGH)",
+                    "both": "2 WARP BEAMS"
+                },
+                "mode": {
+                    "descr": "Mode",
+                    "init": "INIT",
+                    "stop": "STOP",
+                    "ready": "READY",
+                    "run": "RUN",
+                    "alarm": "ALARM",
+                    "unknown": "UNKNOWN"
+                }
+            },
+            "menu": {
+                "overview": "OVERVIEW",
+                "control": "CONTROL",
+                "settings": "SETTINGS",
+                "production": "PRODUCTION",
+                "projectile": "PROJECTILE",
+                "alarms": "ALARMS",
+                "system": "NETWORK",
+                "close": "CLOSE"
+            },
+            "confirm": {
+                "title": "Confirm action",
+                "descr": "Do you really want to make changes?",
+                "warn": "Reset only when changing warp beams",
+                "ok": "YES",
+                "cancel": "NO"
+            },
+            "user": {
+                "admin": "Engineer",
+                "engineer": "Fixer",
+                "anon": "Operator",
+                "user": "Username",
+                "curuser": "Current user",
+                "password": "Password",
+                "oldpassword": "Old password",
+                "newpassword": "New password",
+                "fill": "Please fill out this field",
+                "login": "LOG IN",
+                "logout": "LOG OUT",
+                "signin": "Sign In",
+                "change": "Change password",
+                "remember": "Remember me",
+                "submit": "SUBMIT"
+            },
+            "notifications": {
+                "userok": "Successful login",
+                "usererror": "Incorrect password",
+                "passok": "Password changed successfully",
+                "passerror": "Password not changed",
+                "timeok": "Date/time changed successfully",
+                "timeerror": "Date/time not changed",
+                "rightserror": "Insufficient user rights",
+                "rebootok": "Reboot pending",
+                "rebooterror": "Reboot failed",
+                "idle": "Logout due to Inactivity"
+            },
+            "alarmlog": {
+                "details": "Alarm details",
+                "place": "Node",
+                "clear": "Clear"
+            },
+            "time": {
+                "title": "Date/time settings",
+                "date": "Date",
+                "time": "Time",
+                "since": "since",
+                "submit": "CHANGE DATE AND TIME"
+            },
+            "projectile": {
+                "turn": "Turn",
+                "sensor0": "S0 approach sensor",
+                "sensor1": "S1 arrival sensor",
+                "sensor2": "S2 rollback sensor",
+                "flight": "Projectile flight"
+            },
+            "system": {
+                "reboot": "REBOOT DEVICE",
+                "opIP": "IP address - HMI",
+                "plcIP": "IP address - PLC"
+            },
+            "panel": {
+                "network": "NETWORK SETTINGS",
+                "actions": "ACTIONS",
+                "main": "MACHINE POSITION",
+                "general": "GENERAL",
+                "prod": "CLOTH",
+                "tension": "WARP TENSION",
+                "config": "CONFIGURATION",
+                "letoffdrive": "LETOFF DRIVE",
+                "prodcounters": "PRODUCTION",
+                "clothpiece": "PIECE PRODUCTION",
+                "densityset": "DENSITY SETTING",
+                "mantension": "MANUAL TENSION",
+                "autotension": "AUTO-TIGHTENING (STOP MODE)",
+                "left": "LEFT WARP BEAM",
+                "right": "RIGHT WARP BEAM",
+                "rotangle": "ROTATION ANGLE",
+                "pickangle": "PICK ANGLE",
+                "beatupangle": "BEATUP ANGLE",
+                "calibration": "WARP TENSION CALIBRATION",
+                "diagnostics": "DIAGNOSTIC INFO",
+                "tensionsensor": "TENSION SENSOR",
+                "tensioncontrol": "LETOFF CONTROLLER",
+                "block": "ALARM BLOCK",
+                "projectilecontrol": "PROJECTILE CONTROL",
+                "cooling": "COOLING",
+                "alarmlog": "ALARM LOG"
+            },
+            "decimalSeparator": ".",
+            "footer": "© TEHMASHHOLDING Cheboksary, Russia"
+        }
+    },
+    "tr": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Stop angle",
+                    "eng": "°"
+                },
+                "speedGV": {
+                    "descr": "Speed",
+                    "eng": "rpm"
+                },
+                "clothGeneral": {
+                    "descr": "Overall",
+                    "eng": "m"
+                },
+                "clothShift": {
+                    "descr": "Shift",
+                    "eng": "m"
+                },
+                "weftDensity": {
+                    "descr": "Weft density",
+                    "eng": "thr/cm"
+                },
+                "warpTension": {
+                    "descr": "Current",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Setpoint",
+                    "eng": "%"
+                },
+                "warpForward": {
+                    "descr": "FORWARD"
+                },
+                "warpReverse": {
+                    "descr": "REVERSE"
+                },
+                "autoTension": {
+                    "descr": "Auto-tightening"
+                },
+                "autoOffset": {
+                    "descr": "Offset",
+                    "eng": "%"
+                },
+                "picksGeneral": {
+                    "descr": "Picks"
+                },
+                "pieceLength": {
+                    "descr": "Piece length",
+                    "eng": "m"
+                },
+                "pieceLengthSP": {
+                    "descr": "Piece setpoint",
+                    "eng": "m"
+                },
+                "pieceLengthStop": {
+                    "descr": "Stop by piece production"
+                },
+                "pickAngle": {
+                    "descr": "Pick angle",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Rated speed",
+                    "eng": "rpm"
+                },
+                "angleRaw": {
+                    "descr": "Current",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Offset",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Jog speed",
+                    "eng": "rpm"
+                },
+                "warpTensionCurADC": {
+                    "descr": "ADC value"
+                },
+                "warpTensionADC_LL": {
+                    "descr": "Point A"
+                },
+                "warpTensionADC_HL": {
+                    "descr": "Point B"
+                },
+                "warpTensionLL": {
+                    "eng": "%"
+                },
+                "warpTensionHL": {
+                    "eng": "%"
+                },
+                "warpCalcSpeed": {
+                    "descr": "Calc speed",
+                    "eng": "rpm"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Correction",
+                    "eng": "rpm"
+                },
+                "warpCalcDiam": {
+                    "descr": "Calc diameter",
+                    "eng": "cm"
+                },
+                "prepPeriod": {
+                    "descr": "Tracking period",
+                    "eng": "ms"
+                },
+                "warpIn": {
+                    "descr": "Reduction ratio"
+                },
+                "warpMaxDiam": {
+                    "descr": "Diameter max",
+                    "eng": "cm"
+                },
+                "warpBeamH": {
+                    "descr": "Beam length",
+                    "eng": "cm"
+                },
+                "warpBeamMo": {
+                    "descr": "Warp yarns number"
+                },
+                "warpBeamTo": {
+                    "descr": "Linear density",
+                    "eng": "tex"
+                },
+                "warpBeamGamma": {
+                    "descr": "Specific density",
+                    "eng": "g/cm³"
+                },
+                "warpBeamY": {
+                    "descr": "Warp crimp",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Size regain",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "Filter gain"
+                },
+                "warpTensionLimit": {
+                    "descr": "Filter threshold"
+                },
+                "warpRegKp": {
+                    "descr": "Proportional factor"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Max tension deviation",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "RESET ALARMS"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Block tension sensor fault"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Block letoff drive alarm"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Block tension deviation alarm"
+                },
+                "timeGV": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "sensorAngle": {
+                    "descr": "Angle",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Counter"
+                },
+                "anglesBrake": {
+                    "descr": "Braking",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Speed",
+                    "eng": "m/s"
+                },
+                "anglesFlight": {
+                    "descr": "Time",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Start",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "End",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Run block"
+                },
+                "oilTemperature": {
+                    "descr": "Oil temperature",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Low limit",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "High limit",
+                    "eng": "°C"
+                },
+                "alarm": {
+                    "0": {
+                        "name": "No alarms",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Projectile non-arrival",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Projectile late arrival",
+                        "place": "$t(menu.projectile)"
+                    }
+                },
+                "config": {
+                    "none": "COUNTER",
+                    "low": "1 WARP BEAM (LOW)",
+                    "high": "1 WARP BEAM (HIGH)",
+                    "both": "2 WARP BEAMS"
+                },
+                "mode": {
+                    "descr": "Mode",
+                    "init": "INIT",
+                    "stop": "STOP",
+                    "ready": "READY",
+                    "run": "RUN",
+                    "alarm": "ALARM",
+                    "unknown": "UNKNOWN"
+                }
+            },
+            "menu": {
+                "overview": "OVERVIEW",
+                "control": "CONTROL",
+                "settings": "SETTINGS",
+                "production": "PRODUCTION",
+                "projectile": "PROJECTILE",
+                "alarms": "ALARMS",
+                "system": "NETWORK",
+                "close": "CLOSE"
+            },
+            "confirm": {
+                "title": "Confirm action",
+                "descr": "Do you really want to make changes?",
+                "warn": "Reset only when changing warp beams",
+                "ok": "YES",
+                "cancel": "NO"
+            },
+            "user": {
+                "admin": "Engineer",
+                "engineer": "Fixer",
+                "anon": "Operator",
+                "user": "Username",
+                "curuser": "Current user",
+                "password": "Password",
+                "oldpassword": "Old password",
+                "newpassword": "New password",
+                "fill": "Please fill out this field",
+                "login": "LOG IN",
+                "logout": "LOG OUT",
+                "signin": "Sign In",
+                "change": "Change password",
+                "remember": "Remember me",
+                "submit": "SUBMIT"
+            },
+            "notifications": {
+                "userok": "Successful login",
+                "usererror": "Incorrect password",
+                "passok": "Password changed successfully",
+                "passerror": "Password not changed",
+                "timeok": "Date/time changed successfully",
+                "timeerror": "Date/time not changed",
+                "rightserror": "Insufficient user rights",
+                "rebootok": "Reboot pending",
+                "rebooterror": "Reboot failed",
+                "idle": "Logout due to Inactivity"
+            },
+            "alarmlog": {
+                "details": "Alarm details",
+                "place": "Node",
+                "clear": "Clear"
+            },
+            "time": {
+                "title": "Date/time settings",
+                "date": "Date",
+                "time": "Time",
+                "since": "since",
+                "submit": "CHANGE DATE AND TIME"
+            },
+            "projectile": {
+                "turn": "Turn",
+                "sensor0": "S0 approach sensor",
+                "sensor1": "S1 arrival sensor",
+                "sensor2": "S2 rollback sensor",
+                "flight": "Projectile flight"
+            },
+            "system": {
+                "reboot": "REBOOT DEVICE",
+                "opIP": "IP address - HMI",
+                "plcIP": "IP address - PLC"
+            },
+            "panel": {
+                "network": "NETWORK SETTINGS",
+                "actions": "ACTIONS",
+                "main": "MACHINE POSITION",
+                "general": "GENERAL",
+                "prod": "CLOTH",
+                "tension": "WARP TENSION",
+                "config": "CONFIGURATION",
+                "letoffdrive": "LETOFF DRIVE",
+                "prodcounters": "PRODUCTION",
+                "clothpiece": "PIECE PRODUCTION",
+                "densityset": "DENSITY SETTING",
+                "mantension": "MANUAL TENSION",
+                "autotension": "AUTO-TIGHTENING (STOP MODE)",
+                "left": "LEFT WARP BEAM",
+                "right": "RIGHT WARP BEAM",
+                "rotangle": "ROTATION ANGLE",
+                "pickangle": "PICK ANGLE",
+                "beatupangle": "BEATUP ANGLE",
+                "calibration": "WARP TENSION CALIBRATION",
+                "diagnostics": "DIAGNOSTIC INFO",
+                "tensionsensor": "TENSION SENSOR",
+                "tensioncontrol": "LETOFF CONTROLLER",
+                "block": "ALARM BLOCK",
+                "projectilecontrol": "PROJECTILE CONTROL",
+                "cooling": "COOLING",
+                "alarmlog": "ALARM LOG"
+            },
+            "decimalSeparator": ",",
+            "footer": "© TEHMASHHOLDING Cheboksary, Russia"
+        }
+    },
+    "es": {
+        "translation": {
+            "tags": {
+                "angleGV": {
+                    "descr": "Stop angle",
+                    "eng": "°"
+                },
+                "speedGV": {
+                    "descr": "Speed",
+                    "eng": "rpm"
+                },
+                "clothGeneral": {
+                    "descr": "Overall",
+                    "eng": "m"
+                },
+                "clothShift": {
+                    "descr": "Shift",
+                    "eng": "m"
+                },
+                "weftDensity": {
+                    "descr": "Weft density",
+                    "eng": "thr/cm"
+                },
+                "warpTension": {
+                    "descr": "Current",
+                    "eng": "%"
+                },
+                "warpTensionSP": {
+                    "descr": "Setpoint",
+                    "eng": "%"
+                },
+                "warpForward": {
+                    "descr": "FORWARD"
+                },
+                "warpReverse": {
+                    "descr": "REVERSE"
+                },
+                "autoTension": {
+                    "descr": "Auto-tightening"
+                },
+                "autoOffset": {
+                    "descr": "Offset",
+                    "eng": "%"
+                },
+                "picksGeneral": {
+                    "descr": "Picks"
+                },
+                "pieceLength": {
+                    "descr": "Piece length",
+                    "eng": "m"
+                },
+                "pieceLengthSP": {
+                    "descr": "Piece setpoint",
+                    "eng": "m"
+                },
+                "pieceLengthStop": {
+                    "descr": "Stop by piece production"
+                },
+                "pickAngle": {
+                    "descr": "Pick angle",
+                    "eng": "°"
+                },
+                "warpBeamMaxSpeed": {
+                    "descr": "Rated speed",
+                    "eng": "rpm"
+                },
+                "angleRaw": {
+                    "descr": "Current",
+                    "eng": "°"
+                },
+                "angleOffset": {
+                    "descr": "Offset",
+                    "eng": "°"
+                },
+                "warpBeamJogSpeed": {
+                    "descr": "Jog speed",
+                    "eng": "rpm"
+                },
+                "warpTensionCurADC": {
+                    "descr": "ADC value"
+                },
+                "warpTensionADC_LL": {
+                    "descr": "Point A"
+                },
+                "warpTensionADC_HL": {
+                    "descr": "Point B"
+                },
+                "warpTensionLL": {
+                    "eng": "%"
+                },
+                "warpTensionHL": {
+                    "eng": "%"
+                },
+                "warpCalcSpeed": {
+                    "descr": "Calc speed",
+                    "eng": "rpm"
+                },
+                "warpOffsetSpeed": {
+                    "descr": "Correction",
+                    "eng": "rpm"
+                },
+                "warpCalcDiam": {
+                    "descr": "Calc diameter",
+                    "eng": "cm"
+                },
+                "prepPeriod": {
+                    "descr": "Tracking period",
+                    "eng": "ms"
+                },
+                "warpIn": {
+                    "descr": "Reduction ratio"
+                },
+                "warpMaxDiam": {
+                    "descr": "Diameter max",
+                    "eng": "cm"
+                },
+                "warpBeamH": {
+                    "descr": "Beam length",
+                    "eng": "cm"
+                },
+                "warpBeamMo": {
+                    "descr": "Warp yarns number"
+                },
+                "warpBeamTo": {
+                    "descr": "Linear density",
+                    "eng": "tex"
+                },
+                "warpBeamGamma": {
+                    "descr": "Specific density",
+                    "eng": "g/cm³"
+                },
+                "warpBeamY": {
+                    "descr": "Warp crimp",
+                    "eng": "%"
+                },
+                "warpBeamPi": {
+                    "descr": "Size regain",
+                    "eng": "%"
+                },
+                "warpTensionFilter": {
+                    "descr": "Filter gain"
+                },
+                "warpTensionLimit": {
+                    "descr": "Filter threshold"
+                },
+                "warpRegKp": {
+                    "descr": "Proportional factor"
+                },
+                "warpTensionAlarmSP": {
+                    "descr": "Max tension deviation",
+                    "eng": "%"
+                },
+                "resetAlarms": {
+                    "descr": "RESET ALARMS"
+                },
+                "blockTensionSensorFault": {
+                    "descr": "Block tension sensor fault"
+                },
+                "blockWarpDriveFault": {
+                    "descr": "Block letoff drive alarm"
+                },
+                "blockTensionAlarm": {
+                    "descr": "Block tension deviation alarm"
+                },
+                "timeGV": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "sensorAngle": {
+                    "descr": "Angle",
+                    "eng": "°"
+                },
+                "sensorCount": {
+                    "descr": "Counter"
+                },
+                "anglesBrake": {
+                    "descr": "Braking",
+                    "eng": "°"
+                },
+                "speedFlight": {
+                    "descr": "Speed",
+                    "eng": "m/s"
+                },
+                "anglesFlight": {
+                    "descr": "Time",
+                    "eng": "°"
+                },
+                "timeFlight": {
+                    "descr": "Time",
+                    "eng": "ms"
+                },
+                "beatUpAngleStart": {
+                    "descr": "Start",
+                    "eng": "°"
+                },
+                "beatUpAngleEnd": {
+                    "descr": "End",
+                    "eng": "°"
+                },
+                "blockRun": {
+                    "descr": "Run block"
+                },
+                "oilTemperature": {
+                    "descr": "Oil temperature",
+                    "eng": "°C"
+                },
+                "oilTemperatureLL": {
+                    "descr": "Low limit",
+                    "eng": "°C"
+                },
+                "oilTemperatureHL": {
+                    "descr": "High limit",
+                    "eng": "°C"
+                },
+                "alarm": {
+                    "0": {
+                        "name": "No alarms",
+                        "place": ""
+                    },
+                    "1": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "2": {
+                        "name": "Letoff drive alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "3": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.left)"
+                    },
+                    "4": {
+                        "name": "Tension sensor fault",
+                        "place": "$t(panel.right)"
+                    },
+                    "5": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.left)"
+                    },
+                    "6": {
+                        "name": "Tension deviation alarm",
+                        "place": "$t(panel.right)"
+                    },
+                    "7": {
+                        "name": "Projectile non-arrival",
+                        "place": "$t(menu.projectile)"
+                    },
+                    "8": {
+                        "name": "Projectile late arrival",
+                        "place": "$t(menu.projectile)"
+                    }
+                },
+                "config": {
+                    "none": "COUNTER",
+                    "low": "1 WARP BEAM (LOW)",
+                    "high": "1 WARP BEAM (HIGH)",
+                    "both": "2 WARP BEAMS"
+                },
+                "mode": {
+                    "descr": "Mode",
+                    "init": "INIT",
+                    "stop": "STOP",
+                    "ready": "READY",
+                    "run": "RUN",
+                    "alarm": "ALARM",
+                    "unknown": "UNKNOWN"
+                }
+            },
+            "menu": {
+                "overview": "OVERVIEW",
+                "control": "CONTROL",
+                "settings": "SETTINGS",
+                "production": "PRODUCTION",
+                "projectile": "PROJECTILE",
+                "alarms": "ALARMS",
+                "system": "NETWORK",
+                "close": "CLOSE"
+            },
+            "confirm": {
+                "title": "Confirm action",
+                "descr": "Do you really want to make changes?",
+                "warn": "Reset only when changing warp beams",
+                "ok": "YES",
+                "cancel": "NO"
+            },
+            "user": {
+                "admin": "Engineer",
+                "engineer": "Fixer",
+                "anon": "Operator",
+                "user": "Username",
+                "curuser": "Current user",
+                "password": "Password",
+                "oldpassword": "Old password",
+                "newpassword": "New password",
+                "fill": "Please fill out this field",
+                "login": "LOG IN",
+                "logout": "LOG OUT",
+                "signin": "Sign In",
+                "change": "Change password",
+                "remember": "Remember me",
+                "submit": "SUBMIT"
+            },
+            "notifications": {
+                "userok": "Successful login",
+                "usererror": "Incorrect password",
+                "passok": "Password changed successfully",
+                "passerror": "Password not changed",
+                "timeok": "Date/time changed successfully",
+                "timeerror": "Date/time not changed",
+                "rightserror": "Insufficient user rights",
+                "rebootok": "Reboot pending",
+                "rebooterror": "Reboot failed",
+                "idle": "Logout due to Inactivity"
+            },
+            "alarmlog": {
+                "details": "Alarm details",
+                "place": "Node",
+                "clear": "Clear"
+            },
+            "time": {
+                "title": "Date/time settings",
+                "date": "Date",
+                "time": "Time",
+                "since": "since",
+                "submit": "CHANGE DATE AND TIME"
+            },
+            "projectile": {
+                "turn": "Turn",
+                "sensor0": "S0 approach sensor",
+                "sensor1": "S1 arrival sensor",
+                "sensor2": "S2 rollback sensor",
+                "flight": "Projectile flight"
+            },
+            "system": {
+                "reboot": "REBOOT DEVICE",
+                "opIP": "IP address - HMI",
+                "plcIP": "IP address - PLC"
+            },
+            "panel": {
+                "network": "NETWORK SETTINGS",
+                "actions": "ACTIONS",
+                "main": "MACHINE POSITION",
+                "general": "GENERAL",
+                "prod": "CLOTH",
+                "tension": "WARP TENSION",
+                "config": "CONFIGURATION",
+                "letoffdrive": "LETOFF DRIVE",
+                "prodcounters": "PRODUCTION",
+                "clothpiece": "PIECE PRODUCTION",
+                "densityset": "DENSITY SETTING",
+                "mantension": "MANUAL TENSION",
+                "autotension": "AUTO-TIGHTENING (STOP MODE)",
+                "left": "LEFT WARP BEAM",
+                "right": "RIGHT WARP BEAM",
+                "rotangle": "ROTATION ANGLE",
+                "pickangle": "PICK ANGLE",
+                "beatupangle": "BEATUP ANGLE",
+                "calibration": "WARP TENSION CALIBRATION",
+                "diagnostics": "DIAGNOSTIC INFO",
+                "tensionsensor": "TENSION SENSOR",
+                "tensioncontrol": "LETOFF CONTROLLER",
+                "block": "ALARM BLOCK",
+                "projectilecontrol": "PROJECTILE CONTROL",
+                "cooling": "COOLING",
+                "alarmlog": "ALARM LOG"
+            },
+            "decimalSeparator": ",",
+            "footer": "© TEHMASHHOLDING Cheboksary, Russia"
+        }
+    }
+}

@@ -2,6 +2,21 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const url = require('url');
 const fs = require('fs');
+const path = require('path');
+
+let rootDir = app.getAppPath()
+let last = path.basename(rootDir)
+if (last === 'app.asar') {
+    rootDir = path.dirname(app.getPath('exe'))
+}
+const dataPath = app.isPackaged ? path.join(rootDir, 'data') : path.join(app.getAppPath(), 'data');
+const confPath = path.join(dataPath,'conf.json');  
+const alarmLogPath = path.join(dataPath,'alarmLog.json');
+const ipPath = path.join(dataPath,'ip.json');
+const langPath = path.join(dataPath,'lang.json');
+const resetsPath = path.join(dataPath,'resets.json');
+const secretPath = path.join(dataPath,'secret.json');
+
 var moment = require('moment');
 
 var sudo = require('sudo-prompt');
@@ -185,7 +200,7 @@ function setLanguage(lang) {
         lng: i18next.language,
     }
     const jsonString = JSON.stringify(conf)
-    fs.writeFile('./src/conf.json', jsonString, () => { });
+    fs.writeFile(confPath, jsonString, () => { });
     win.webContents.send('langChanged', lang);
 }
 
@@ -208,13 +223,13 @@ function createWindow() {
         center: true,
     })
 
-    fs.readFile('./src/secret.json', 'utf8', (err, jsonString) => {
+    fs.readFile(secretPath, 'utf8', (err, jsonString) => {
         pass = JSON.parse(jsonString);
     });
-    fs.readFile('./src/alarmLog.json', 'utf8', (err, jsonString) => {
+    fs.readFile(alarmLogPath, 'utf8', (err, jsonString) => {
         alarmLog = JSON.parse(jsonString);
     });
-    fs.readFile('./src/resets.json', 'utf8', (err, jsonString) => {
+    fs.readFile(resetsPath, 'utf8', (err, jsonString) => {
         resets = JSON.parse(jsonString);
     });
     ipcMain.on("changeSecret", (event, user, oldPassword, newPassword) => {
@@ -222,7 +237,7 @@ function createWindow() {
         if (pass[user] === oldPassword) {
             pass[user] = newPassword;
             const jsonString = JSON.stringify(pass)
-            fs.writeFile('./src/secret.json', jsonString, () => { });
+            fs.writeFile(secretPath, jsonString, () => { });
         }
     });
     ipcMain.on("checkSecret", (event, user, password, remember) => {
@@ -233,17 +248,19 @@ function createWindow() {
         win.webContents.send('userChanged', 'anon', true);
     });
     ipcMain.on("appLoaded", (event) => {
+        console.log(langPath)
+        win.webContents.send('langFile', require(langPath));
         win.webContents.send('langChanged', i18next.language);
         updateIP()
         win.webContents.send('ipChanged', ip);
         syncTime();
     });
 
-    fs.readFile('./src/conf.json', 'utf8', (err, jsonString) => {
+    fs.readFile(confPath, 'utf8', (err, jsonString) => {
         const lngconf = JSON.parse(jsonString);
         i18next.init({
             lng: lngconf.lng,
-            resources: require(`./src/lang.json`)
+            resources: require(langPath)
         });
         setLanguage(lngconf.lng);
     });
@@ -254,7 +271,7 @@ function createWindow() {
     ipcMain.on("clearLog", (event) => {
         alarmLog = [];
         const jsonString = JSON.stringify(alarmLog)
-        fs.writeFile('./src/alarmLog.json', jsonString, () => { win.webContents.send('alarmLogUpdated', alarmLog); });
+        fs.writeFile(alarmLogPath, jsonString, () => { win.webContents.send('alarmLogUpdated', alarmLog); });
     });
 
     ipcMain.on("readLog", (event) => {
@@ -299,7 +316,7 @@ function createWindow() {
         }
     });
 
-    fs.readFile('./src/ip.json', 'utf8', (err, jsonString) => {
+    fs.readFile(ipPath, 'utf8', (err, jsonString) => {
         ip = JSON.parse(jsonString);
         updateIP();
         client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
@@ -315,7 +332,7 @@ function createWindow() {
                             if (!error) {
                                 ip.opIP = value;
                                 const jsonString0 = JSON.stringify(ip)
-                                fs.writeFile('./src/ip.json', jsonString0, () => { });
+                                fs.writeFile(ipPath, jsonString0, () => { });
                                 win.webContents.send('ipChanged', ip);
                             }
                         });
@@ -323,14 +340,14 @@ function createWindow() {
                     case 'plcIP1':
                         ip.plcIP1 = value;
                         const jsonString1 = JSON.stringify(ip)
-                        fs.writeFile('./src/ip.json', jsonString1, () => { });
+                        fs.writeFile(ipPath, jsonString1, () => { });
                         client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
                     case 'plcIP2':
                         ip.plcIP2 = value;
                         const jsonString2 = JSON.stringify(ip)
-                        fs.writeFile('./src/ip.json', jsonString2, () => { });
+                        fs.writeFile(ipPath, jsonString2, () => { });
                         client.plc2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
@@ -343,7 +360,7 @@ function createWindow() {
                             if (!error) {
                                 ip.opIP = value;
                                 const jsonString0 = JSON.stringify(ip)
-                                fs.writeFile('./src/ip.json', jsonString0, () => { });
+                                fs.writeFile(ipPath, jsonString0, () => { });
                                 win.webContents.send('ipChanged', ip);
                             }
                             if (error) console.log(error.message)
@@ -352,14 +369,14 @@ function createWindow() {
                     case 'plcIP1':
                         ip.plcIP1 = value;
                         const jsonString1 = JSON.stringify(ip)
-                        fs.writeFile('./src/ip.json', jsonString1, () => { });
+                        fs.writeFile(ipPath, jsonString1, () => { });
                         client.plc1 = fins.FinsClient(9600, ip.plcIP1, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
                     case 'plcIP2':
                         ip.plcIP2 = value;
                         const jsonString2 = JSON.stringify(ip)
-                        fs.writeFile('./src/ip.json', jsonString2, () => { });
+                        fs.writeFile(ipPath, jsonString2, () => { });
                         client.plc2 = fins.FinsClient(9600, ip.plcIP2, { SA1: 4, DA1: 0, timeout: 2000 });
                         win.webContents.send('ipChanged', ip);
                         break;
@@ -501,7 +518,7 @@ function createWindow() {
         if (name === 'clothGeneralReset' || name === 'clothShiftReset' || name === 'picksGeneralReset') {
             resets[name] = moment().valueOf();
             const jsonString = JSON.stringify(resets)
-            fs.writeFile('./src/resets.json', jsonString, () => {
+            fs.writeFile(resetsPath, jsonString, () => {
                 win.webContents.send('resetsUpdated', resets);
             });
         }
@@ -606,7 +623,7 @@ var al = function (err, msg) {
             win.webContents.send('alarmUp', msg.response.values[0]);
             alarmLog.unshift(record);
             const jsonString = JSON.stringify(alarmLog)
-            fs.writeFile('./src/alarmLog.json', jsonString, () => {
+            fs.writeFile(alarmLogPath, jsonString, () => {
                 win.webContents.send('alarmLogUpdated', alarmLog);
             });
         }
