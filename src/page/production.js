@@ -8,6 +8,7 @@ import { FabricFullIcon, FabricPieceIcon, FabricPieceLengthIcon, FabricIcon, Den
 import ButtOn from "../components/ButtOn";
 import "./App.css";
 import i18next from 'i18next';
+import moment from "moment";
 
 const { confirm } = Modal;
 
@@ -22,6 +23,7 @@ export default class Production extends React.Component {
             pieceLength: null,
             pieceLengthSP: null,
             pieceLengthStop: null,
+            resets: null,
         };
         this.readTags = ["weftDensity", "pieceLengthSP", "pieceLengthStop"];
         this.updateTags = ["clothGeneral", "clothShift", "picksGeneral", "pieceLength"];
@@ -31,6 +33,7 @@ export default class Production extends React.Component {
         this.colStyle = { display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'stretch', alignContent: 'stretch', justifyContent: 'center', padding: "0px 8px" }
         if (this.isElectron()) {
             window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
+            window.ipcRenderer.on('resetsUpdated', this.resetsUpdatedListener);
         }
     }
 
@@ -46,6 +49,10 @@ export default class Production extends React.Component {
                 });
             }
         })
+    };
+
+    resetsUpdatedListener = (event, resets) => {
+        this.setState({ resets: resets });
     };
 
     writeValue = (value, tag) => {
@@ -114,11 +121,13 @@ export default class Production extends React.Component {
         if (this.isElectron()) {
             window.ipcRenderer.send("plcReadMultiple", this.readTags);
             window.ipcRenderer.send("tagsUpdSelect", this.updateTags);
+            window.ipcRenderer.send("readResets");
         }
     }
 
     componentWillUnmount() {
         window.ipcRenderer.removeListener('plcReplyMultiple', this.plcReplyMultipleListener);
+        window.ipcRenderer.removeListener('resetsUpdated', this.resetsUpdatedListener);
     }
 
     render() {
@@ -129,9 +138,9 @@ export default class Production extends React.Component {
                         <Card title={i18next.t('panel.prodcounters')} bordered={false} size='small' style={this.cardStyle} headStyle={this.cardHeadStyle} bodyStyle={this.cardBodyStyle}>
                             <Row style={{ flex: 1, width: '100%' }}>
                                 <Col span={20} style={this.colStyle}>
-                                    <Display icon={<FabricFullIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.clothGeneral} />
-                                    <Display icon={<FabricPieceIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.clothShift} />
-                                    <Display noEng icon={<FabricIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.picksGeneral} />
+                                    <Display icon={<FabricFullIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.clothGeneral} dtReset={this.state.resets && this.state.resets.clothGeneralReset ? i18next.t('time.since') + ' ' + moment(this.state.resets.clothGeneralReset).format("L LTS") : null} />
+                                    <Display icon={<FabricPieceIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.clothShift} dtReset={this.state.resets && this.state.resets.clothShiftReset ? i18next.t('time.since') + ' ' + moment(this.state.resets.clothShiftReset).format("L LTS") : null} />
+                                    <Display noEng icon={<FabricIcon style={{ fontSize: '150%', color: "#1890ff" }} />} tag={this.state.picksGeneral} dtReset={this.state.resets && this.state.resets.picksGeneralReset ? i18next.t('time.since') + ' ' + moment(this.state.resets.picksGeneralReset).format("L LTS") : null} />
                                 </Col>
                                 <Col span={4} style={this.colStyle}>
                                     <ButtOn disabled={this.props.user !== "anon" ? false : true} onDisabled={() => { this.openNotificationWithIcon('error', i18next.t('notifications.rightserror'), 2); }} onClick={() => { this.props.config ? this.props.config.val ? this.showConfirmButtonWarn(true, 'clothGeneralReset') : this.showConfirmButton(true, 'clothGeneralReset') : this.showConfirmButton(true, 'clothGeneralReset') }} icon={<RedoOutlined style={{ fontSize: '200%' }} />}></ButtOn>

@@ -12,6 +12,7 @@ var options = {
 var fins = require('omron-fins');
 var i18next = require('i18next');
 var pass = null;
+var resets = null;
 var alarmLog = [];
 var ip = null;
 var client = {};
@@ -213,6 +214,9 @@ function createWindow() {
     fs.readFile('./src/alarmLog.json', 'utf8', (err, jsonString) => {
         alarmLog = JSON.parse(jsonString);
     });
+    fs.readFile('./src/resets.json', 'utf8', (err, jsonString) => {
+        resets = JSON.parse(jsonString);
+    });
     ipcMain.on("changeSecret", (event, user, oldPassword, newPassword) => {
         win.webContents.send('passChanged', user, pass[user] === oldPassword);
         if (pass[user] === oldPassword) {
@@ -255,6 +259,10 @@ function createWindow() {
 
     ipcMain.on("readLog", (event) => {
         win.webContents.send('alarmLogUpdated', alarmLog);
+    });
+
+    ipcMain.on("readResets", (event) => {
+        win.webContents.send('resetsUpdated', resets);
     });
 
     ipcMain.on("datetimeSet", (event, dtTicks, dtISO, dtOmron) => {
@@ -490,6 +498,13 @@ function createWindow() {
                 });
                 break;
         }
+        if (name === 'clothGeneralReset' || name === 'clothShiftReset' || name === 'picksGeneralReset') {
+            resets[name] = moment().valueOf();
+            const jsonString = JSON.stringify(resets)
+            fs.writeFile('./src/resets.json', jsonString, () => {
+                win.webContents.send('resetsUpdated', resets);
+            });
+        }
     })
 
     const startUrl = process.env.ELECTRON_START_URL || url.format({
@@ -499,7 +514,7 @@ function createWindow() {
     });
 
     win.loadURL(startUrl);
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     win.on('closed', () => {
         console.log("win.closed")

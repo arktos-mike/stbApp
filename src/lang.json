@@ -322,6 +322,7 @@
                 "title": "Настройка даты и времени",
                 "date": "Дата",
                 "time": "Время",
+                "since": "начиная с",
                 "submit": "ИЗМЕНИТЬ ДАТУ И ВРЕМЯ"
             },
             "projectile": {
@@ -691,6 +692,7 @@
                 "title": "Date/time settings",
                 "date": "Date",
                 "time": "Time",
+                "since": "since",
                 "submit": "CHANGE DATE AND TIME"
             },
             "projectile": {
@@ -1060,6 +1062,7 @@
                 "title": "Date/time settings",
                 "date": "Date",
                 "time": "Time",
+                "since": "since",
                 "submit": "CHANGE DATE AND TIME"
             },
             "projectile": {
@@ -1429,6 +1432,7 @@
                 "title": "Date/time settings",
                 "date": "Date",
                 "time": "Time",
+                "since": "since",
                 "submit": "CHANGE DATE AND TIME"
             },
             "projectile": {
