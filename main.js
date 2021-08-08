@@ -10,13 +10,13 @@ if (last === 'app.asar') {
     rootDir = path.dirname(app.getPath('exe'))
 }
 const dataPath = app.isPackaged ? path.join(rootDir, 'data') : path.join(app.getAppPath(), 'data');
-const confPath = path.join(dataPath,'conf.json');  
-const alarmLogPath = path.join(dataPath,'alarmLog.json');
-const ipPath = path.join(dataPath,'ip.json');
-const langPath = path.join(dataPath,'lang.json');
-const resetsPath = path.join(dataPath,'resets.json');
-const secretPath = path.join(dataPath,'secret.json');
-const tagsPath = path.join(dataPath,'tags.json');
+const confPath = path.join(dataPath, 'conf.json');
+const alarmLogPath = path.join(dataPath, 'alarmLog.json');
+const ipPath = path.join(dataPath, 'ip.json');
+const langPath = path.join(dataPath, 'lang.json');
+const resetsPath = path.join(dataPath, 'resets.json');
+const secretPath = path.join(dataPath, 'secret.json');
+const tagsPath = path.join(dataPath, 'tags.json');
 
 var moment = require('moment');
 
@@ -79,7 +79,9 @@ function syncTime() {
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
             switch (process.platform) {
                 case 'linux':
-                    sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
+                    //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
+                    sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
+                        console.log(error.message)
                     });
                     break;
                 case 'win32':
@@ -146,7 +148,7 @@ function createWindow() {
     });
     ipcMain.on("appLoaded", (event) => {
         win.webContents.send('langFile', require(langPath));
-        win.webContents.send('langChanged', i18next.language); 
+        win.webContents.send('langChanged', i18next.language);
         updateIP()
         win.webContents.send('ipChanged', ip);
         syncTime();
@@ -184,7 +186,8 @@ function createWindow() {
         });
         switch (process.platform) {
             case 'linux':
-                sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
+                //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
+                sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
                     console.log(error.message)
                     win.webContents.send('datetimeChanged', !error);
                 });
@@ -226,7 +229,7 @@ function createWindow() {
             case 'linux':
                 switch (type) {
                     case 'opIP':
-                        sudo.exec("ifconfig eth0" + value, options, (error, data, getter) => {
+                        sudo.exec("ifconfig eth0 " + value, options, (error, data, getter) => {
                             if (!error) {
                                 ip.opIP = value;
                                 const jsonString0 = JSON.stringify(ip)
