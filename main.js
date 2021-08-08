@@ -71,21 +71,16 @@ function updateIP() {
 function syncTime() {
     let dtTicks;
     let dtISO;
-    console.log("syncTime")
     client.plc1.clockRead(function (err, msg) {
-        if (err) { console.log("syncTime " + err) }
+        if (err) { }
         else {
             let dtOmron = msg.response.result;
             dtTicks = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).unix();
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
-            console.log("from PLC: ", dtTicks, dtISO)
             switch (process.platform) {
                 case 'linux':
-                    //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
                     //sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
                     sudo.exec("timedatectl set-ntp false && date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
-                        console.log(error.message)
-                        console.log("sync date -s @" + dtTicks)
                     });
                     break;
                 case 'win32':
@@ -96,7 +91,6 @@ function syncTime() {
         }
     }
     );
-    console.log("syncTime END")
 }
 
 function setLanguage(lang) {
@@ -187,18 +181,13 @@ function createWindow() {
     });
 
     ipcMain.on("datetimeSet", (event, dtTicks, dtISO, dtOmron) => {
-        console.log(dtTicks, dtISO, dtOmron)
         client.plc1.clockWrite(dtOmron, function (err, msg) {
-            console.log(msg);
-            if (err) { console.log(err); }
+            if (err) { }
         });
         switch (process.platform) {
             case 'linux':
-                //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
                 //sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
                 sudo.exec("timedatectl set-ntp false && date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
-                    console.log(error.message)
-                    console.log("date -s @" + dtTicks)
                     win.webContents.send('datetimeChanged', !error);
                 });
                 break;
@@ -215,7 +204,6 @@ function createWindow() {
         switch (process.platform) {
             case 'linux':
                 sudo.exec("reboot", options, (error, data, getter) => {
-                    console.log(error.message)
                     win.webContents.send('rebootResponse', !error);
                 });
                 break;
@@ -246,7 +234,6 @@ function createWindow() {
                                 fs.writeFile(ipPath, jsonString0, () => { });
                                 win.webContents.send('ipChanged', ip);
                             }
-                            console.log(error.message)
                         });
                         break;
                     case 'plcIP1':
@@ -275,7 +262,7 @@ function createWindow() {
                                 fs.writeFile(ipPath, jsonString0, () => { });
                                 win.webContents.send('ipChanged', ip);
                             }
-                            if (error) console.log(error.message)
+                            if (error) { }
                         });
                         break;
                     case 'plcIP1':
@@ -446,7 +433,6 @@ function createWindow() {
     //win.webContents.openDevTools();
 
     win.on('closed', () => {
-        console.log("win.closed")
         clearInterval(intervalTimer)
         clearInterval(syncTimer)
         client = {}
@@ -456,7 +442,6 @@ function createWindow() {
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
-    console.log("app.window-all-closed")
     if (process.platform !== 'darwin') {
         app.quit()
     }
@@ -525,7 +510,7 @@ let intervalTimer = setInterval(() => {
 
 var al = function (err, msg) {
     if (err) {
-        console.error(err);
+        //console.error(err);
     }
     else {
         if (msg.response.values[0] > 0) {
@@ -544,7 +529,7 @@ var al = function (err, msg) {
 
 var cb = function (err, msg) {
     if (err) {
-        console.error(err);
+        //console.error(err);
     }
     else
         switch (msg.tag.type) {
