@@ -171,7 +171,7 @@
   align-items: center !important;
   justify-content: center !important;
 }
-.ant-btn-sm {
+.ant-table-filter-dropdown-btns .ant-btn-sm {
   min-height: 52px !important;
   min-width: 52px !important;
   display: inline-flex ;

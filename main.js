@@ -16,6 +16,7 @@ const ipPath = path.join(dataPath,'ip.json');
 const langPath = path.join(dataPath,'lang.json');
 const resetsPath = path.join(dataPath,'resets.json');
 const secretPath = path.join(dataPath,'secret.json');
+const tagsPath = path.join(dataPath,'tags.json');
 
 var moment = require('moment');
 
@@ -32,118 +33,11 @@ var alarmLog = [];
 var ip = null;
 var client = {};
 let win
+var tags;
+fs.readFile(tagsPath, 'utf8', (err, jsonString) => {
+    tags = JSON.parse(jsonString);
+});
 
-var tags = [
-    { name: "config", addr: "W52", type: "int", min: 0, max: 3, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "mode", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '1', val: null },
-    { name: "angleGV", addr: "D0", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "speedGV", addr: "W22", type: "int", min: 0, max: 600, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "clothGeneral", addr: "D6", type: "real", min: 0, max: 9999999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "clothShift", addr: "D10", type: "real", min: 0, max: 9999999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "weftDensity", addr: "D4", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpTension1", addr: "W56", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTension2", addr: "W57", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionSP1", addr: "D50", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionSP2", addr: "D51", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpForward1", addr: "W100.10", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpReverse1", addr: "W100.11", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpForward2", addr: "W100.12", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpReverse2", addr: "W100.13", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTension01", addr: "W20", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTension02", addr: "W21", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpSetTension1", addr: "W100.14", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpSetTension2", addr: "W100.15", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "autoTension", addr: "D406.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "autoOffset1", addr: "D408", type: "real", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "autoOffset2", addr: "D410", type: "real", min: -999, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "picksGeneral", addr: "D12", type: "lreal", min: 0, max: 99999999999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "pieceLength", addr: "D353", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "pieceLengthSP", addr: "D351", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "pieceLengthStop", addr: "D403.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "clothGeneralReset", addr: "W100.01", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "clothShiftReset", addr: "W100.02", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "picksGeneralReset", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "pickAngle", addr: "D53", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamMaxSpeed", addr: "D48", type: "int", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "angleRaw", addr: "W6", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "angleOffset", addr: "D2", type: "int", min: -359, max: 359, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamJogSpeed", addr: "D46", type: "int", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionCurADC1", addr: "W18", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionCurADC2", addr: "W21", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionADC_LL1", addr: "D17", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionADC_HL1", addr: "D19", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionLL1", addr: "D16", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionHL1", addr: "D18", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionADC_LL2", addr: "D21", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionADC_HL2", addr: "D23", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionLL2", addr: "D20", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionHL2", addr: "D22", type: "bcd", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpSetTensionLL1", addr: "W100.04", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpSetTensionHL1", addr: "W100.05", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpSetTensionLL2", addr: "W100.06", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpSetTensionHL2", addr: "W100.07", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpCalcSpeed1", addr: "W500", type: "real", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpCalcSpeed2", addr: "W506", type: "real", min: 0, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpOffsetSpeed1", addr: "W502", type: "real", min: -3000, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpOffsetSpeed2", addr: "W504", type: "real", min: -3000, max: 3000, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpCalcDiam1", addr: "W252", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpCalcDiam2", addr: "W254", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "prepPeriod", addr: "D330", type: "rint", min: 1.0, max: 99.9, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpIn1", addr: "D302", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpIn2", addr: "D502", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpMaxDiam1", addr: "D300", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpMaxDiam2", addr: "D500", type: "real", min: 15, max: 100, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpBeamH1", addr: "D300", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpBeamH2", addr: "D506", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpBeamMo1", addr: "D312", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamMo2", addr: "D512", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamTo1", addr: "D310", type: "int", min: 0, max: 99, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamTo2", addr: "D510", type: "int", min: 0, max: 99, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamGamma1", addr: "D308", type: "real", min: 0, max: 99, dec: 2, cupd: false, plc: '1', val: null },
-    { name: "warpBeamGamma2", addr: "D508", type: "real", min: 0, max: 99, dec: 2, cupd: false, plc: '1', val: null },
-    { name: "warpBeamY1", addr: "D304", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamY2", addr: "D504", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamPi1", addr: "D314", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpBeamPi2", addr: "D514", type: "int", min: 0, max: 100, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionFilter1", addr: "D518", type: "real", min: 0, max: 1, dec: 3, cupd: false, plc: '1', val: null },
-    { name: "warpTensionFilter2", addr: "D520", type: "real", min: 0, max: 1, dec: 3, cupd: false, plc: '1', val: null },
-    { name: "warpTensionLimit1", addr: "D332", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpTensionLimit2", addr: "D334", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "warpRegKp1", addr: "D316", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpRegKp2", addr: "D516", type: "real", min: 0, max: 999, dec: 1, cupd: false, plc: '1', val: null },
-    { name: "warpTensionAlarmSP", addr: "D402", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "resetAlarms", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "blockTensionSensorFault1", addr: "D42.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "blockTensionSensorFault2", addr: "D43.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "blockWarpDriveFault1", addr: "D44.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "blockWarpDriveFault2", addr: "D45.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "blockTensionAlarm1", addr: "D400.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "blockTensionAlarm2", addr: "D401.00", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "alarm", addr: "A400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '1', val: null },
-    { name: "resetAlarms2", addr: "W100.09", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "alarm2", addr: "A400", type: "int", min: 0, max: 10, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "picksGeneralReset2", addr: "W100.03", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "picksGeneral2", addr: "D2003", type: "int", min: 0, max: 99999, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "speedGV2", addr: "D2012", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "timeGV2", addr: "D2013", type: "int", min: 0, max: 9999, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "sensor0Angle2", addr: "D2005", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "sensor0Count2", addr: "D2004", type: "int", min: 0, max: 9, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "sensor1Angle2", addr: "D2007", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "sensor1Count2", addr: "D2006", type: "int", min: 0, max: 9, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "sensor2Angle2", addr: "D2015", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "sensor2Count2", addr: "D2014", type: "int", min: 0, max: 9, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "anglesBrake2", addr: "D2008", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "speedFlight2", addr: "D2011", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "anglesFlight2", addr: "D2009", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "timeFlight2", addr: "D2010", type: "int", min: 0, max: 999, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "beatUpAngleStart2", addr: "D322", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "beatUpAngleEnd2", addr: "D320", type: "int", min: 0, max: 359, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "blockRun2", addr: "CIO100.05", type: "bool", min: 0, max: 1, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "oilTemperature2", addr: "W210", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "oilTemperatureLL2", addr: "D324", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "oilTemperatureHL2", addr: "D326", type: "real", min: -50, max: 200, dec: 0, cupd: false, plc: '2', val: null },
-    { name: "mode2", addr: "W12", type: "mode", min: 0, max: 10, dec: 0, cupd: true, plc: '2', val: null },
-];
 let dl;
 let trig1, trig2 = true;
 
@@ -164,13 +58,16 @@ function updateIP() {
     }
     switch (process.platform) {
         case 'linux':
-            ip.opIP = netResults['eth0'][0]
+            if (netResults['eth0'] && netResults['eth0'][0]) ip.opIP = netResults['eth0'][0]
+            else if (netResults['wlan0'] && netResults['wlan0'][0]) ip.opIP = netResults['wlan0'][0]
             break;
         case 'win32':
-            ip.opIP = netResults['Ethernet'][0]
+            if (netResults['Ethernet'] && netResults['Ethernet'][0]) ip.opIP = netResults['Ethernet'][0]
+            else if (netResults[0] && netResults[0][0]) ip.opIP = netResults[0][0]
             break;
     }
 }
+
 function syncTime() {
     let dtTicks;
     let dtISO;
@@ -182,7 +79,7 @@ function syncTime() {
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
             switch (process.platform) {
                 case 'linux':
-                    sudo.exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", options, (error, data, getter) => {
+                    sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
                     });
                     break;
                 case 'win32':
@@ -248,9 +145,8 @@ function createWindow() {
         win.webContents.send('userChanged', 'anon', true);
     });
     ipcMain.on("appLoaded", (event) => {
-        console.log(langPath)
         win.webContents.send('langFile', require(langPath));
-        win.webContents.send('langChanged', i18next.language);
+        win.webContents.send('langChanged', i18next.language); 
         updateIP()
         win.webContents.send('ipChanged', ip);
         syncTime();
@@ -288,7 +184,8 @@ function createWindow() {
         });
         switch (process.platform) {
             case 'linux':
-                sudo.exec("sudo date -s @" + dtTicks + " && sudo hwclock -w", options, (error, data, getter) => {
+                sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
+                    console.log(error.message)
                     win.webContents.send('datetimeChanged', !error);
                 });
                 break;
@@ -304,7 +201,8 @@ function createWindow() {
 
         switch (process.platform) {
             case 'linux':
-                sudo.exec("sudo reboot", options, (error, data, getter) => {
+                sudo.exec("reboot", options, (error, data, getter) => {
+                    console.log(error.message)
                     win.webContents.send('rebootResponse', !error);
                 });
                 break;
@@ -328,13 +226,14 @@ function createWindow() {
             case 'linux':
                 switch (type) {
                     case 'opIP':
-                        sudo.exec("sudo ifconfig eth0" + value, options, (error, data, getter) => {
+                        sudo.exec("ifconfig eth0" + value, options, (error, data, getter) => {
                             if (!error) {
                                 ip.opIP = value;
                                 const jsonString0 = JSON.stringify(ip)
                                 fs.writeFile(ipPath, jsonString0, () => { });
                                 win.webContents.send('ipChanged', ip);
                             }
+                            console.log(error.message)
                         });
                         break;
                     case 'plcIP1':
@@ -531,7 +430,7 @@ function createWindow() {
     });
 
     win.loadURL(startUrl);
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     win.on('closed', () => {
         console.log("win.closed")
