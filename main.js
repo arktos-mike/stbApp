@@ -72,16 +72,19 @@ function syncTime() {
     let dtTicks;
     let dtISO;
     client.plc1.clockRead(function (err, msg) {
-        if (err) { }
+        if (err) { console.log("syncTime " + err) }
         else {
             let dtOmron = msg.response.result;
             dtTicks = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).unix();
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
+            console.log(dtTicks,dtISO)
             switch (process.platform) {
                 case 'linux':
                     //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
-                    sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
+                    //sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
+                    sudo.exec("date -s @" + dtTicks, options, (error, data, getter) => {
                         console.log(error.message)
+                        console.log("sync date -s @" + dtTicks + " && fake-hwclock save force")
                     });
                     break;
                 case 'win32':
@@ -181,14 +184,18 @@ function createWindow() {
     });
 
     ipcMain.on("datetimeSet", (event, dtTicks, dtISO, dtOmron) => {
+        console.log(dtTicks, dtISO, dtOmron)
         client.plc1.clockWrite(dtOmron, function (err, msg) {
+            console.log(msg);
             if (err) { console.log(err); }
         });
         switch (process.platform) {
             case 'linux':
                 //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
-                sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
+                //sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
+                sudo.exec("date -s @" + dtTicks, options, (error, data, getter) => {
                     console.log(error.message)
+                    console.log("date -s @" + dtTicks + " && fake-hwclock save force")
                     win.webContents.send('datetimeChanged', !error);
                 });
                 break;
