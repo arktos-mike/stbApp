@@ -631,7 +631,7 @@ class DateTimeModal extends React.Component {
         omronTime.hour = obj.hours;
         omronTime.minute = obj.minutes;
         omronTime.second = obj.seconds;
-        omronTime.day_of_week = moment(dt).isoWeekday();
+        omronTime.day_of_week = moment(dt).isoWeekday() === 7 ? 0 : moment(dt).isoWeekday();
 
         window.ipcRenderer.send("datetimeSet", moment(dt).unix(), moment(dt).toISOString(), omronTime);
         this.formRef.current.resetFields();
