@@ -430,7 +430,7 @@ function createWindow() {
     });
 
     win.loadURL(startUrl);
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 
     win.on('closed', () => {
         clearInterval(intervalTimer)
