@@ -78,14 +78,14 @@ function syncTime() {
             let dtOmron = msg.response.result;
             dtTicks = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).unix();
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
-            console.log("from PLC: ", dtTicks,dtISO)
+            console.log("from PLC: ", dtTicks, dtISO)
             switch (process.platform) {
                 case 'linux':
                     //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
                     //sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
-                    sudo.exec("date -s @" + dtTicks, options, (error, data, getter) => {
+                    sudo.exec("timedatectl set-ntp false && date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
                         console.log(error.message)
-                        console.log("sync date -s @" + dtTicks + " && fake-hwclock save force")
+                        console.log("sync date -s @" + dtTicks)
                     });
                     break;
                 case 'win32':
@@ -96,7 +96,7 @@ function syncTime() {
         }
     }
     );
-    console.log("syncTime END" )
+    console.log("syncTime END")
 }
 
 function setLanguage(lang) {
@@ -196,9 +196,9 @@ function createWindow() {
             case 'linux':
                 //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
                 //sudo.exec("date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
-                sudo.exec("date -s @" + dtTicks, options, (error, data, getter) => {
+                sudo.exec("timedatectl set-ntp false && date -s @" + dtTicks + " && fake-hwclock save force", options, (error, data, getter) => {
                     console.log(error.message)
-                    console.log("date -s @" + dtTicks + " && fake-hwclock save force")
+                    console.log("date -s @" + dtTicks)
                     win.webContents.send('datetimeChanged', !error);
                 });
                 break;
