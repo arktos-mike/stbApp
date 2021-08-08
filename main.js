@@ -227,7 +227,7 @@ function createWindow() {
             case 'linux':
                 switch (type) {
                     case 'opIP':
-                        sudo.exec("ifconfig eth0 " + value, options, (error, data, getter) => {
+                        sudo.exec("ip addr flush dev eth0 && ifconfig eth0 " + value, options, (error, data, getter) => {
                             if (!error) {
                                 ip.opIP = value;
                                 const jsonString0 = JSON.stringify(ip)
