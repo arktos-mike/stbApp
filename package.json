@@ -33,8 +33,8 @@
     "estart": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "epack": "electron-packager ./ --platform=win32 --arch=x64",
     "ebuild": "mkdir build/electron && robocopy electron build/electron /S",
-    "dist-rpi4": "electron-builder --linux --config.target=AppImage --armv7l",
-    "dist-rpi4-ubnt": "electron-builder --linux --config.target=snap --armv7l",
+    "dist-rpi4": "electron-builder --linux --AppImage --armv7l",
+    "dist-rpi4-ubnt": "electron-builder --linux --snap --armv7l",
     "dist": "electron-builder --config.target=portable --win portable --x64",
     "dist-win": "electron-builder --config.target=nsis --win --x64"
   },

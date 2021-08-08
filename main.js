@@ -71,13 +71,14 @@ function updateIP() {
 function syncTime() {
     let dtTicks;
     let dtISO;
+    console.log("syncTime")
     client.plc1.clockRead(function (err, msg) {
         if (err) { console.log("syncTime " + err) }
         else {
             let dtOmron = msg.response.result;
             dtTicks = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).unix();
             dtISO = moment({ years: 2000 + dtOmron.year, months: dtOmron.month - 1, date: dtOmron.day, hours: dtOmron.hour, minutes: dtOmron.minute, seconds: dtOmron.second, milliseconds: 0 }).toISOString();
-            console.log(dtTicks,dtISO)
+            console.log("from PLC: ", dtTicks,dtISO)
             switch (process.platform) {
                 case 'linux':
                     //sudo.exec("date -s @" + dtTicks + " && hwclock -w", options, (error, data, getter) => {
@@ -93,7 +94,9 @@ function syncTime() {
                     break;
             }
         }
-    });
+    }
+    );
+    console.log("syncTime END" )
 }
 
 function setLanguage(lang) {
