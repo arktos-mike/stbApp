@@ -52,9 +52,6 @@ export class MainRouter extends React.Component {
 
         if (this.isElectron()) {
             window.ipcRenderer.send("appLoaded");
-            //i18next.init({
-            //    resources: require(langPath)
-            //});
             window.ipcRenderer.on('plcReplyMultiple', this.plcReplyMultipleListener);
             window.ipcRenderer.on('langChanged', (event, lang) => {
                 i18next.changeLanguage(lang, () => { });
