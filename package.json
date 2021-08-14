@@ -61,9 +61,11 @@
   "build": {
     "extraFiles": [
       {
-          "from": "data",
-          "to": "data",
-          "filter": ["**/*"]
+        "from": "data",
+        "to": "data",
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "extends": null,
