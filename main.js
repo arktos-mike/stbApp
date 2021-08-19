@@ -17,7 +17,7 @@ const langPath = path.join(dataPath, 'lang.json');
 const resetsPath = path.join(dataPath, 'resets.json');
 const secretPath = path.join(dataPath, 'secret.json');
 const tagsPath = path.join(dataPath, 'tags.json');
-
+const scriptPath = path.join(dataPath, 'static.sh');
 var moment = require('moment');
 
 var sudo = require('sudo-prompt');
@@ -234,6 +234,8 @@ function createWindow() {
                                 fs.writeFile(ipPath, jsonString0, () => { });
                                 win.webContents.send('ipChanged', ip);
                             }
+                        });
+                        sudo.exec(scriptPath + ' ' + ip.opIP + ' ' + ip.plcIP1 + ' ' + ip.plcIP2, options, (error, data, getter) => {
                         });
                         break;
                     case 'plcIP1':
@@ -513,7 +515,7 @@ var al = function (err, msg) {
         //console.error(err);
     }
     else {
-        if (msg.response.values[0] > 0) {
+        if (msg.response.values[0] > 0 && msg.response.values[0] < 11) {
             let record = {}
             record.dt = moment().valueOf();
             record.alarmCode = msg.response.values[0];
